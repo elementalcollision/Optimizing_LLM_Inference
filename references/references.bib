@@ -1,0 +1,2385 @@
+@misc{agrawal-2023-sarathi,
+  author = {Amey Agrawal and Ashish Panwar and Jayashree Mohan and Nipun Kwatra and Bhargav S. Gulavani and Ramachandran Ramjee},
+  title = {{Sarathi: Efficient LLM Inference by Piggybacking Decodes with Chunked Prefills}},
+  howpublished = {arXiv:2308.16369},
+  year = {2023},
+  url = {https://arxiv.org/abs/2308.16369},
+  note = {Introduces chunked-prefills (splitting a prefill request into equal-sized chunks) and decode-maximal batching ('piggybacking' decodes onto a prefill chunk). DistServe [@distserve] cites this paper (together with Sarathi-Serve) as the origin of 'chunked-prefill with piggyback'; reported gains (e.g. up to 10x decode throughput for LLaMA-13B on an A6000 GPU) are model- and hardware-specific.}
+}
+
+@inproceedings{agrawal-2024-sarathiserve,
+  author = {Amey Agrawal and Nitin Kedia and Ashish Panwar and Jayashree Mohan and Nipun Kwatra and Bhargav S. Gulavani and Alexey Tumanov and Ramachandran Ramjee},
+  title = {{Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve}},
+  booktitle = {18th USENIX Symposium on Operating Systems Design and Implementation (OSDI 2024)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2403.02310},
+  note = {Confirmed via the USENIX OSDI'24 proceedings (usenix.org/system/files/osdi24-agrawal.pdf): published at OSDI 2024, not MLSys 2024 (a related but distinct Agrawal et al. paper, 'Vidur: A Large-Scale Simulation Framework for LLM Inference', was the one accepted at MLSys 2024). Extends Sarathi's chunked-prefill with 'stall-free scheduling', admitting new requests into a running batch via prefill chunks without pausing ongoing decodes; reported gains (2.6x-5.6x serving capacity vs. vLLM) are model- and hardware-specific.}
+}
+
+@inproceedings{ainslie-2023-gqa,
+  author = {Joshua Ainslie and James Lee-Thorp and Michiel de Jong and Yury Zemlyanskiy and Federico Lebrón and Sumit Sanghai},
+  title = {{GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints}},
+  booktitle = {Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
+  year = {2023},
+  url = {https://arxiv.org/abs/2305.13245},
+  note = {Introduces grouped-query attention (GQA) as an interpolation between MHA and MQA, and shows uptraining an MHA checkpoint into GQA via mean-pooling of heads.}
+}
+
+@misc{alibaba-2024-qwen25-7b-cfg,
+  author = {Qwen Team, Alibaba Group},
+  title = {{Qwen2.5-7B config.json}},
+  howpublished = {Hugging Face Hub},
+  year = {2024},
+  url = {https://huggingface.co/Qwen/Qwen2.5-7B/raw/main/config.json},
+  note = {Accessed 2026-09-27. Public, ungated repo, fetched directly. num_hidden_layers=28, num_key_value_heads=4, hidden_size=3584, num_attention_heads=28 (head_dim=128); use_sliding_window=false (sliding_window=131072 field present but inactive, so every layer is full attention). max_position_embeddings=131072, so 128K-token (131,072) sizing in this tool's tables is within this model's documented context.}
+}
+
+@misc{alibaba-2025-qwen3-8b-cfg,
+  author = {Qwen Team, Alibaba Group},
+  title = {{Qwen3-8B config.json}},
+  howpublished = {Hugging Face Hub},
+  year = {2025},
+  url = {https://huggingface.co/Qwen/Qwen3-8B/raw/main/config.json},
+  note = {Accessed 2026-09-27. Public, ungated repo, fetched directly. num_hidden_layers=36, num_key_value_heads=8, head_dim=128 (explicit field), num_attention_heads=32; sliding_window=null. max_position_embeddings=40960 with rope_scaling=null -- no YaRN or other extension is configured, so 128K-token (131,072) sizing in this tool's tables is an extrapolation past this model's documented context length.}
+}
+
+@misc{alibaba-2025-qwen3next,
+  author = {Qwen Team},
+  title = {{Qwen3-Next: Towards Ultimate Training & Inference Efficiency}},
+  howpublished = {Alibaba Cloud Community},
+  year = {2025},
+  url = {https://www.alibabacloud.com/blog/602580},
+  note = {States Gated DeltaNet and full (Gated) Attention are mixed at a 3:1 ratio (75% Gated DeltaNet layers, 25% full-attention layers).}
+}
+
+@misc{alvarez-2025-nvfp4kv,
+  author = {Eduardo Alvarez and Wei-Ming Chen and Huizi Mao},
+  title = {{Optimizing Inference for Long Context and Large Batch Sizes with NVFP4 KV Cache}},
+  howpublished = {NVIDIA Technical Blog},
+  year = {2025},
+  url = {https://developer.nvidia.com/blog/optimizing-inference-for-long-context-and-large-batch-sizes-with-nvfp4-kv-cache/},
+  note = {Reports ~50% KV memory reduction vs FP8 and <1% accuracy loss on LiveCodeBench/MMLU-Pro/MBPP/Ruler-64K on Blackwell GPUs; KV values dequantized to FP8 before attention.}
+}
+
+@misc{amd-2025-mi355x,
+  author = {AMD},
+  title = {{AMD Instinct MI355X GPUs}},
+  howpublished = {AMD product page},
+  url = {https://www.amd.com/en/products/accelerators/instinct/mi350/mi355x.html},
+  note = {Accessed 2026-09-27. Lists 288 GB HBM3E dedicated memory and 8 TB/s peak memory bandwidth per MI355X GPU (2.3 TB total across an 8-GPU universal baseboard).}
+}
+
+@misc{amd-2025-rocmsglang,
+  author = {AMD},
+  title = {{Unleashing AMD Instinct MI300X GPUs for LLM Serving: Disaggregating Prefill & Decode with SGLang}},
+  howpublished = {ROCm Blogs},
+  year = {2025},
+  url = {https://rocm.blogs.amd.com/software-tools-optimization/disaggregation/README.html}
+}
+
+@misc{anthropic-2024-promptcaching,
+  author = {Anthropic},
+  title = {{Prompt caching with Claude}},
+  howpublished = {Anthropic News},
+  year = {2024},
+  url = {https://www.anthropic.com/news/prompt-caching},
+  note = {Original announcement confirmed as 2024-08-14 by Anthropic's own contemporaneous LinkedIn post (linkedin.com/posts/anthropicresearch_prompt-caching-with-claude-activity-7229517042654097408-HGk_) and consistent with the article's own in-body 'Update: ... (December 17, 2024)' notice, which necessarily post-dates the original post. As re-checked in September 2026, the live page's byline displays 'Date: August 14, 2025' -- a discrepant year that appears to be a site-migration/template artifact (the page was also re-published under claude.com/blog/prompt-caching), not a real re-dating of the announcement.}
+}
+
+@misc{anthropic-2026-claudecode,
+  author = {Anthropic},
+  title = {{Lessons from building Claude Code: Prompt caching is everything}},
+  howpublished = {Claude Blog},
+  year = {2026},
+  url = {https://claude.com/blog/lessons-from-building-claude-code-prompt-caching-is-everything}
+}
+
+@misc{anthropic-2026-contextwindows,
+  author = {Anthropic},
+  title = {{Context windows}},
+  howpublished = {Claude Developer Platform documentation},
+  url = {https://platform.claude.com/docs/en/build-with-claude/context-windows},
+  note = {States that Claude Opus 5, Sonnet 5 and related current-generation models have a 1M-token context window, while Claude Sonnet 4.5 and other older models have a 200K-token window; also describes 'context rot', the degradation of accuracy and recall as token count grows.}
+}
+
+@misc{anthropic-2026-costreduction,
+  author = {Lance Martin},
+  title = {{Reducing cost and improving performance with Claude Platform}},
+  howpublished = {Claude blog},
+  year = {2026},
+  url = {https://claude.com/blog/reducing-cost-and-improving-performance-with-claude-platform},
+  note = {Frames prompt caching explicitly as reusing the saved prefill KV-cache state; discusses cache TTL practices and the /claude-api cost-optimize tool.}
+}
+
+@misc{anthropic-2026-promptcaching,
+  author = {Anthropic},
+  title = {{Prompt caching}},
+  howpublished = {Claude Platform Docs},
+  url = {https://platform.claude.com/docs/en/build-with-claude/prompt-caching},
+  note = {Accessed 2026-09-27. Pricing multipliers, per-model minimum cacheable prompt lengths, and TTL behavior shown are current as of that date and are subject to change.}
+}
+
+@misc{asteralabs-2026-tokenomics,
+  author = {Amit Golander},
+  title = {{Inference Tokenomics: How CXL Memory Expansion Improves AI Economics}},
+  howpublished = {Astera Labs Blog},
+  year = {2026},
+  url = {https://www.asteralabs.com/resources/blog/inference-tokenomics-how-cxl-memory-expansion-improves-ai-economics/},
+  note = {Accessed 2026-09-27. States Leo-based CXL memory controllers deployed with Penguin Solutions demonstrate 75% higher GPU utilization and 2x inference throughput; describes intra-GPU-server (CPU-CXL) and inter-GPU-server (shared, RDMA-accessed KV-cache appliance, demonstrated at Penguin Solutions' GTC booth) deployment modes; integrates with vLLM, TensorRT-LLM and SGLang.}
+}
+
+@misc{aws-2026-cacheawarerouting,
+  author = {AWS Samples},
+  title = {{Cache-Aware LLM Routing on Amazon EKS with Gateway API Inference Extension and llm-d}},
+  howpublished = {AWS Samples GitHub repository},
+  year = {2026},
+  url = {https://github.com/aws-samples/sample-eks-cache-aware-llm-routing},
+  note = {README, accessed September 2026 (repo created 2026-07-06). Benchmark: 150 concurrent users, 25 QPS Poisson arrival, 8x Mistral-7B pods on EC2 G5, 3-minute sustained multi-turn load; p90 TTFT improvement 44-69% across time buckets, round-robin degrading to 4.4s vs. 1.4s for cache-aware routing.}
+}
+
+@inproceedings{bai-2024-longbench,
+  author = {Yushi Bai and Xin Lv and Jiajie Zhang and Hongchang Lyu and Jiankai Tang and Zhidian Huang and Zhengxiao Du and Xiao Liu and Aohan Zeng and Lei Hou and Yuxiao Dong and Jie Tang and Juanzi Li},
+  title = {{LongBench: A Bilingual, Multitask Benchmark for Long Context Understanding}},
+  booktitle = {Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (ACL 2024)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2308.14508}
+}
+
+@techreport{benchleader-2026-fictionlivebench,
+  author = {BenchLeader},
+  title = {{Fiction.LiveBench 120k leaderboard}},
+  institution = {BenchLeader},
+  year = {2026},
+  url = {https://www.benchleader.com/benchmarks/fiction_livebench},
+  note = {Aggregates Fiction.LiveBench long-context comprehension scores (methodology and raw per-model scores originate from fiction.live) via the Epoch AI Benchmarking Hub. Accessed September 2026: Llama 4 Scout scores 27.3% at 120K tokens, rank 32 of 35 tested model configurations, versus e.g. 90.6% for Gemini 2.5 Pro.}
+}
+
+@misc{bhatia-2025-helix,
+  author = {Nidhi Bhatia and Ankit More and Ritika Borkar and Tiyasa Mitra and Ramon Matas and Ritchie Zhao and Maximilian Golub and Dheevatsa Mudigere and Brian Pharris and Bita Darvish Rouhani},
+  title = {{Helix Parallelism: Rethinking Sharding Strategies for Interactive Multi-Million-Token LLM Decoding}},
+  howpublished = {arXiv:2507.07120},
+  year = {2025},
+  url = {https://arxiv.org/abs/2507.07120},
+  note = {NVIDIA paper. States that when tensor-parallel width exceeds the number of KV heads (as with GQA/MLA), the KV cache is duplicated rather than sharded, capping batch size; introduces Helix Parallelism (KV-parallel attention sharding plus re-provisioned tensor/expert parallelism for the FFN) reporting up to 32x more concurrent users for DeepSeek-R1 and 4x throughput/1.13x interactivity for Llama-405B, simulated on GB200 NVL72 at FP4.}
+}
+
+@inproceedings{brandon-2024-cla,
+  author = {William Brandon and Mayank Mishra and Aniruddha Nrusimha and Rameswar Panda and Jonathan Ragan-Kelley},
+  title = {{Reducing Transformer Key-Value Cache Size with Cross-Layer Attention}},
+  booktitle = {Advances in Neural Information Processing Systems 37 (NeurIPS 2024)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2405.12981},
+  note = {CLA2 combined with MQA gives a further 2x KV cache reduction with under 1% perplexity change, in 1B- and 3B-parameter experiments.}
+}
+
+@inproceedings{cai-2024-medusa,
+  author = {Tianle Cai and Yuhong Li and Zhengyang Geng and Hongwu Peng and Jason D. Lee and Deming Chen and Tri Dao},
+  title = {{Medusa: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads}},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning (ICML)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2401.10774}
+}
+
+@misc{cai-2024-pyramidkv,
+  author = {Zefan Cai and Yichi Zhang and Bofei Gao and Yuliang Liu and Yucheng Li and Tianyu Liu and Keming Lu and Wayne Xiong and Yue Dong and Junjie Hu and Wen Xiao},
+  title = {{PyramidKV: Dynamic KV Cache Compression based on Pyramidal Information Funneling}},
+  howpublished = {arXiv:2406.02069},
+  year = {2024},
+  url = {https://arxiv.org/abs/2406.02069},
+  note = {Code: https://github.com/Zefan-Cai/PyramidKV}
+}
+
+@inproceedings{cai-2025-rkv,
+  author = {Zefan Cai and Wen Xiao and Hanshi Sun and Cheng Luo and Yikai Zhang and Ke Wan and Yucheng Li and Yeyang Zhou and Li-Wen Chang and Jiuxiang Gu and Zhen Dong and Anima Anandkumar and Abedelkadir Asi and Junjie Hu},
+  title = {{R-KV: Redundancy-Aware KV Cache Compression for Reasoning Models}},
+  booktitle = {Advances in Neural Information Processing Systems 38 (NeurIPS 2025)},
+  year = {2025},
+  url = {https://arxiv.org/abs/2505.24133},
+  note = {Code: https://github.com/Zefan-Cai/R-KV}
+}
+
+@misc{chen-2026-invwatt,
+  author = {Huamin Chen},
+  title = {{The 1/W Law: An Analytical Study of Context-Length Routing Topology and GPU Generation Gains for LLM Inference Energy Efficiency}},
+  howpublished = {arXiv:2603.17280},
+  year = {2026},
+  url = {https://arxiv.org/abs/2603.17280},
+  note = {Verified by direct fetch 2026-09-27. Purely analytical (no new hardware experiments); calibrated to published H100 power measurements, with B200/H200 figures stated as projections at +-20% uncertainty. Abstract confirms: 'tokens per watt halves every time the context window doubles'; H100 16 sequences/64K context (1.5 tok/W) vs. 256 sequences/4K context (17.6 tok/W); two-pool context-length routing (FleetOpt) ~2.5x over a homogeneous fleet; H100->B200 ~1.7x; combined ~4.25x.}
+}
+
+@misc{chen-spec,
+  author = {Charlie Chen and Sebastian Borgeaud and Geoffrey Irving and Jean-Baptiste Lespiau and Laurent Sifre and John Jumper},
+  title = {{Accelerating Large Language Model Decoding with Speculative Sampling}},
+  howpublished = {arXiv:2302.01318},
+  year = {2023},
+  url = {https://arxiv.org/abs/2302.01318}
+}
+
+@misc{chu-2025-safekv,
+  author = {Kexin Chu and Zecheng Lin and Dawei Xiang and Zixu Shen and Jianchang Su and Cheng Chu and Yiwei Yang and Wenhui Zhang and Wenfei Wu and Wei Zhang},
+  title = {{Selective KV-Cache Sharing to Mitigate Timing Side-Channels in LLM Inference}},
+  howpublished = {arXiv:2508.08438},
+  year = {2025},
+  url = {https://arxiv.org/abs/2508.08438},
+  note = {Research prototype (SafeKV); not a shipped production feature as of Sept. 2026.}
+}
+
+@misc{claude100k,
+  author = {Anthropic},
+  title = {{Introducing 100K Context Windows}},
+  howpublished = {Anthropic News},
+  year = {2023},
+  url = {https://www.anthropic.com/news/100k-context-windows}
+}
+
+@misc{coreweave-2026-pricing,
+  author = {CoreWeave},
+  title = {{Cloud Pricing}},
+  howpublished = {CoreWeave},
+  url = {https://coreweave.com/pricing},
+  note = {Accessed 2026-09-27 (region: North America). NVIDIA HGX H100 (8x80GB) node: on-demand $49.24/hour ($6.16/GPU-hour), spot $19.71/hour ($2.46/GPU-hour).}
+}
+
+@inproceedings{dao-2022-flashattention,
+  author = {Tri Dao and Daniel Y. Fu and Stefano Ermon and Atri Rudra and Christopher Ré},
+  title = {{FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness}},
+  booktitle = {Advances in Neural Information Processing Systems 35 (NeurIPS 2022)},
+  year = {2022},
+  url = {https://arxiv.org/abs/2205.14135},
+  note = {IO-aware exact attention: reduces HBM accesses from Θ(Nd+N^2) to Θ(N^2 d^2 M^-1) and memory footprint from quadratic to linear in N. Theorem 1 gives the forward pass's FLOP count explicitly as O(N^2 d), the same asymptotic class as standard attention. Separately, the paper's own Figure 2 benchmark (forward+backward combined) reports FlashAttention's total FLOP count as slightly higher than standard attention's (66.6 vs. 75.2 GFLOPs in their GPT-2 test), explicitly attributed to recomputation in the backward pass — a training-specific effect, not applicable to the forward-pass-only prefill/decode path used at inference.}
+}
+
+@inproceedings{dao-2023-flashattention2,
+  author = {Tri Dao},
+  title = {{FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning}},
+  booktitle = {The Twelfth International Conference on Learning Representations (ICLR 2024)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2307.08691},
+  note = {Accepted as an ICLR 2024 poster (confirmed via OpenReview's listing and the ICLR 2024 proceedings site; first posted to arXiv in July 2023). Improves GPU occupancy and warp-level work partitioning over FlashAttention; reaches up to 73% of theoretical peak FLOPs/s on A100. Does not change the asymptotic FLOP count of exact attention.}
+}
+
+@misc{dao-2023-flashdecoding,
+  author = {Tri Dao and Daniel Haziza and Francisco Massa and Grigory Sizov},
+  title = {{Flash-Decoding for Long-Context Inference}},
+  howpublished = {PyTorch Blog},
+  year = {2023},
+  url = {https://pytorch.org/blog/flash-decoding/},
+  note = {Reports up to 8x faster decoding at long context lengths, benchmarked on CodeLLaMa-34B.}
+}
+
+@misc{databricks,
+  author = {Megha Agarwal and Asfandyar Qureshi and Nikhil Sardana and Linden Li and Julian Quevedo and Daya Khudia},
+  title = {{LLM Inference Performance Engineering: Best Practices}},
+  howpublished = {Databricks Engineering Blog},
+  year = {2023},
+  url = {https://www.databricks.com/blog/llm-inference-performance-engineering-best-practices}
+}
+
+@misc{ddn-2025-kvcache,
+  author = {DDN},
+  title = {{DDN Eliminates GPU Waste Spiral with Industry-Leading KV Cache Performance for AI Reasoning}},
+  howpublished = {DDN press release},
+  year = {2025},
+  url = {https://www.ddn.com/press-releases/ddn-eliminates-gpu-waste-spiral-with-industry-leading-kv-cache-performance-for-ai-reasoning/},
+  note = {Vendor-reported: DDN Infinia loads a 112,000-token context's KV cache in 2.1s vs. 57s to recompute it (27x); sub-millisecond access latency vs. a stated 300-500ms for 'traditional cloud storage'; 100K+ AI calls/sec concurrency claimed. Setup details (model, hardware) not disclosed in the release.}
+}
+
+@misc{ddn-2026-isc,
+  author = {DDN},
+  title = {{DDN Unveils Next-Generation AI, HPC Data Intelligence Innovations at ISC 2026}},
+  howpublished = {DDN press release},
+  year = {2026},
+  url = {https://www.ddn.com/press-releases/ddn-unveils-next-generation-ai-hpc-data-intelligence-innovations-at-isc-2026/},
+  note = {Announces the official launch of DDN's distributed KV cache acceleration integrated with NVIDIA Dynamo; vendor-reported 'up to 55x faster KV cache loading performance for large-scale inference workloads.' Setup not disclosed.}
+}
+
+@misc{ddn-2026-nixl,
+  author = {James Coomer},
+  title = {{DDN Becomes the First Storage Vendor Natively Integrated into NVIDIA KV Cache Management}},
+  howpublished = {DDN blog},
+  year = {2026},
+  url = {https://www.ddn.com/blog/ddn-becomes-the-first-storage-vendor-natively-integrated-into-nvidia-kv-cache-management/},
+  note = {States the DDN Infinia NIXL plugin ships in the official NIXL 1.3 package and the prebuilt NVIDIA Dynamo inference container, with KV cache moved GPU-to-Infinia by DMA and CPU-to-Infinia by jRPC/RDMA; also usable standalone with vLLM/SGLang/LMCache without Dynamo.}
+}
+
+@misc{ddn-2026-raise,
+  author = {DDN},
+  title = {{DDN Unveils Infinia 2.4 at RAISE, Establishing the Foundation Layer for Production AI, Inference Economics and Sovereign AI Factories}},
+  howpublished = {DDN press release},
+  year = {2026},
+  url = {https://www.ddn.com/press-releases/ddn-unveils-infinia-2-4-at-raise-establishing-the-foundation-layer-for-production-ai-inference-economics-and-sovereign-ai-factories/},
+  note = {Vendor-reported: 'high-performance distributed KV cache acceleration that enables 18x faster inference,' alongside claims of 25x faster time-to-value and 75% lower cost per token. Setup not disclosed.}
+}
+
+@misc{deepseek-2024-mla,
+  author = {DeepSeek-AI},
+  title = {{DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model}},
+  howpublished = {arXiv:2405.04434},
+  year = {2024},
+  url = {https://arxiv.org/abs/2405.04434},
+  note = {Introduces Multi-head Latent Attention (MLA), which low-rank-compresses K/V into a shared latent vector. Vendor-reported, relative to DeepSeek's own dense 67B predecessor: 93.3% smaller KV cache and 5.76x higher maximum generation throughput.}
+}
+
+@misc{deepseek-2024-v2-cfg,
+  author = {DeepSeek-AI},
+  title = {{DeepSeek-V2 config.json}},
+  howpublished = {Hugging Face Hub},
+  year = {2024},
+  url = {https://huggingface.co/deepseek-ai/DeepSeek-V2/raw/main/config.json},
+  note = {Accessed 2026-09-27. Public, ungated repo, fetched directly. num_hidden_layers=60, kv_lora_rank=512, qk_rope_head_dim=64, qk_nope_head_dim=128, v_head_dim=128, num_attention_heads=128. max_position_embeddings=163840 via a YaRN rope_scaling (factor=40, original_max_position_embeddings=4096) baked into this config, so 128K-token sizing in this tool's tables is within this model's documented context. No quantization_config field is present (contrast deepseek-2024-v3-cfg).}
+}
+
+@techreport{deepseek-2024-v3,
+  author = {DeepSeek-AI},
+  title = {{DeepSeek-V3 Technical Report}},
+  institution = {arXiv:2412.19437},
+  year = {2024},
+  url = {https://arxiv.org/abs/2412.19437}
+}
+
+@misc{deepseek-2024-v3-cfg,
+  author = {DeepSeek-AI},
+  title = {{DeepSeek-V3 config.json}},
+  howpublished = {Hugging Face Hub},
+  year = {2024},
+  url = {https://huggingface.co/deepseek-ai/DeepSeek-V3/raw/main/config.json},
+  note = {Accessed 2026-09-27. Public, ungated repo, fetched directly. num_hidden_layers=61, kv_lora_rank=512, qk_rope_head_dim=64, qk_nope_head_dim=128, v_head_dim=128, num_attention_heads=128. max_position_embeddings=163840 (same YaRN scaling pattern as DeepSeek-V2). Also carries quantization_config: {quant_method: 'fp8', fmt: 'e4m3', weight_block_size: [128,128]} for its released *weights*; this tool nonetheless assumes bf16 for the KV cache/activation dtype (native_dtype), since the config does not state that attention/KV specifically runs in fp8 -- see openai-2025-gptoss-20b-cfg for a config that does make such an exclusion explicit.}
+}
+
+@misc{deepseek-2025-flashmla,
+  author = {Jiashi Li and Shengyu Liu},
+  title = {{FlashMLA: Efficient Multi-head Latent Attention Kernels}},
+  howpublished = {GitHub (deepseek-ai/FlashMLA)},
+  year = {2025},
+  url = {https://github.com/deepseek-ai/FlashMLA},
+  note = {DeepSeek's own library of purpose-built MLA attention kernels (dense and sparse, prefill and decode), distinct from standard MHA/GQA attention kernels; powers DeepSeek-V3 and DeepSeek-V3.2-Exp inference. Illustrates that serving MLA efficiently requires dedicated low-rank kernel engineering rather than reuse of off-the-shelf attention kernels.}
+}
+
+@techreport{deepseek-2025-inference,
+  author = {DeepSeek-AI},
+  title = {{Day 6: One More Thing, DeepSeek-V3/R1 Inference System Overview}},
+  institution = {DeepSeek open-infra-index (GitHub, 2025 Open Source Week)},
+  year = {2025},
+  url = {https://github.com/deepseek-ai/open-infra-index/blob/main/202502OpenSourceWeek/day_6_one_more_thing_deepseekV3R1_inference_system_overview.md}
+}
+
+@misc{deepseek-2025-r1,
+  author = {DeepSeek-AI},
+  title = {{DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning}},
+  howpublished = {arXiv:2501.12948},
+  year = {2025},
+  url = {https://arxiv.org/abs/2501.12948}
+}
+
+@misc{deepseek-2025-v32,
+  author = {DeepSeek-AI},
+  title = {{DeepSeek-V3.2: Pushing the Frontier of Open Large Language Models}},
+  howpublished = {arXiv:2512.02556},
+  year = {2025},
+  url = {https://arxiv.org/abs/2512.02556},
+  note = {States (Sec. 2.1) that DSA is the only architectural change from V3.1-Terminus ('DeepSeek-V3.2 uses exactly the same architecture as DeepSeek-V3.2-Exp'). Section 5 ('Conclusion, Limitation, and Future Work') lists specific limitations relative to Gemini-3.0-Pro (narrower world knowledge from fewer training FLOPs, lower token efficiency, weaker performance on the hardest tasks) and does not describe V3.2 as an 'intermediate step' toward a future architecture -- that framing appears only in the earlier V3.2-Exp README (see deepseek-2025-v32exp), not in this report.}
+}
+
+@techreport{deepseek-2025-v32exp,
+  author = {DeepSeek-AI},
+  title = {{DeepSeek-V3.2-Exp: Boosting Long-Context Efficiency with DeepSeek Sparse Attention}},
+  institution = {DeepSeek-AI technical report},
+  year = {2025},
+  url = {https://github.com/deepseek-ai/DeepSeek-V3.2-Exp/blob/main/DeepSeek_V3_2.pdf},
+  note = {Release announced at https://api-docs.deepseek.com/news/news250929/. The model's README (github.com/deepseek-ai/DeepSeek-V3.2-Exp, also mirrored on Hugging Face) states: 'As an intermediate step toward our next-generation architecture, V3.2-Exp builds upon V3.1-Terminus by introducing DeepSeek Sparse Attention.' This framing is specific to V3.2-Exp and is not repeated in the later DeepSeek-V3.2 report (see deepseek-2025-v32).}
+}
+
+@misc{deepseek-2026-v4,
+  author = {DeepSeek-AI},
+  title = {{DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence}},
+  howpublished = {arXiv:2606.19348},
+  year = {2026},
+  url = {https://arxiv.org/abs/2606.19348},
+  note = {Released 24-26 April 2026 as open weights (DeepSeek-V4-Pro, 1.6T total / 49B active; DeepSeek-V4-Flash, 284B / 13B active), 1M-token context. Sec. 2.3 describes hybrid Compressed Sparse Attention (CSA, compresses every m tokens into one entry then applies DSA top-k selection) and Heavily Compressed Attention (HCA, compresses every m'>>m tokens into one entry, dense attention), each retaining a sliding-window branch for recent uncompressed tokens. Reports that at 1M-token context V4-Pro needs 10% of V3.2's KV cache (27% of its single-token FLOPs) and V4-Flash needs 7% (10% of FLOPs); separately reports ~2% of a BF16 GQA-8, head-dim-128 baseline. Figure 1's caption describes these as 'estimated' FLOPs/KV-cache figures.}
+}
+
+@misc{deepspeed-2022-zeroinference,
+  author = {DeepSpeed Team},
+  title = {{ZeRO-Inference: Democratizing Massive Model Inference}},
+  howpublished = {DeepSpeed Blog (Microsoft)},
+  year = {2022},
+  url = {https://www.deepspeed.ai/2022/09/09/zero-inference.html}
+}
+
+@misc{deepspeed-2023-zeroinferkv,
+  author = {DeepSpeed Team},
+  title = {{ZeRO-Inference: 20X Faster Inference through Weight Quantization and KV Cache Offloading}},
+  howpublished = {DeepSpeedExamples GitHub repository},
+  year = {2023},
+  url = {https://github.com/microsoft/DeepSpeedExamples/blob/master/inference/huggingface/zero_inference/README.md},
+  note = {The '20X' figure is the document's own headline (title and body text: 'deliver up to 20X speedup in inference throughput'), a release-over-release comparison shown in an image figure rather than broken out per model size in the text. The document's separate FlexGen-comparison table covers exactly five models: OPT-30B, OPT-66B, OPT-175B, BLOOM-176B, and LLaMA2-70B (not OPT-6.7B/13B, and not an 'OPT-176B' model, which does not exist -- 176B is BLOOM's size). FlexGen is marked 'Unsupported' for BLOOM-176B and LLaMA2-70B in that table, so only OPT-30B/66B/175B have a direct head-to-head figure; on those three, ZeRO-Inference's best configuration exceeds FlexGen's best configuration (22.74 vs 21.97 on OPT-30B; 8.08 vs 6.24 on OPT-66B; 2.26 vs 1.84 on OPT-175B).}
+}
+
+@misc{deepspeed-2024-deepnvme,
+  author = {DeepSpeed Team},
+  title = {{Using DeepNVMe for ZeRO-Inference}},
+  howpublished = {DeepSpeedExamples GitHub repository},
+  url = {https://github.com/deepspeedai/DeepSpeedExamples/blob/master/deepnvme/zero_inference/README.md},
+  note = {Reports ~6.5 GB/s single-NVMe read bandwidth and ~13 GB/s effective bandwidth with two NVMes in RAID-0, on a single H100 GPU using NVIDIA GPUDirect Storage.}
+}
+
+@misc{deepspeed-2025-deepnvme,
+  author = {DeepSpeed Team},
+  title = {{DeepNVMe Update: Expanded Application Coverage, I/O Performance Scaling from PCIe Gen4 to Gen5, and Broader Usability}},
+  howpublished = {DeepSpeed Blog (GitHub)},
+  year = {2025},
+  url = {https://github.com/deepspeedai/DeepSpeed/blob/master/blogs/deepnvme/06-2025/README.md},
+  note = {Reports LLaMA-3-70B ZeRO-Inference NVMe-offload generation throughput (batch size 96, prompt 512, generation 32) scaling from 7 tokens/s (four Gen4 NVMes) to 17 tokens/s (four Gen5 NVMes) to 26 tokens/s (eight Gen5 NVMes). Per the blog's own text, the 7 tok/s Gen4 baseline was measured earlier on an Azure NC_A100_v4 (A100-class) VM, while the 17 and 26 tok/s Gen5 figures were measured on an Azure ND-H200-v5 (H200-class) VM ('We previously evaluated LLAMA-3-70B generation performance ... in an Azure NC_A100_v4 VM ... we repeat the experiments on Azure ND-H200-v5 offering Gen5 NVMes'); the GPU generation therefore changes alongside the NVMe generation between the Gen4 baseline and the Gen5 points, so the full 7->17->26 progression is not a single-variable NVMe-bandwidth comparison, though the 17->26 step alone holds the GPU/VM fixed. A separate SGLang-integration experiment in the same blog uses batch size 128 on a single H200; that figure is not part of this NVMe-scaling result.}
+}
+
+@inproceedings{dejavu,
+  author = {Foteini Strati and Sara McAllister and Amar Phanishayee and Jakub Tarnawski and Ana Klimovic},
+  title = {{DéjàVu: KV-cache Streaming for Fast, Fault-tolerant Generative LLM Serving}},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning (ICML)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2403.01876}
+}
+
+@misc{dell-2025-kvcache,
+  author = {David Noy},
+  title = {{Accelerating AI inferencing with PowerScale and ObjectScale}},
+  howpublished = {Dell Technologies blog},
+  year = {2025},
+  url = {https://www.dell.com/en-us/blog/dell-storage-engines-accelerating-ai-inferencing-with-powerscale-and-objectscale/},
+  note = {Vendor-reported, 4x NVIDIA H100 GPUs, 100% KV-cache hit rate: 1-second TTFT at a 131K-token context window on PowerScale/ObjectScale (19x vs. standard vLLM's over-17-second baseline), and a head-to-head Qwen3-32B comparison showing PowerScale 0.82s and ObjectScale 0.86s TTFT vs. a competing (VAST) solution's 1.5s.}
+}
+
+@misc{dell-2026-multiturn,
+  author = {Dell Technologies},
+  title = {{Scaling Multi-Turn LLM Inference with KV Cache Storage Offload and Dell RDMA-Accelerated Architecture}},
+  howpublished = {Dell Technologies Info Hub},
+  year = {2026},
+  url = {https://infohub.delltechnologies.com/en-us/p/scaling-multi-turn-llm-inference-with-kv-cache-storage-offload-and-dell-rdma-accelerated-architecture/},
+  note = {Vendor-reported, 4x H100 GPUs, Llama-3.3-70B-Instruct at tensor parallelism 4, vLLM+LMCache+NIXL: PowerScale reaches ~33.4K tok/s and ObjectScale ~29.2K tok/s vs. a ~14K tok/s HBM-only baseline (up to 5.3x higher throughput), using PowerScale (file, GDS), ObjectScale (object, RDMA-S3) and Project Lightning (parallel file system) as the three offload targets.}
+}
+
+@misc{dell-2026-rdmaobjectscale,
+  author = {Jason Goldschmidt},
+  title = {{KV Cache Offload to Object Storage: GPU-Direct and Upstream}},
+  howpublished = {Dell Technologies blog},
+  year = {2026},
+  url = {https://www.dell.com/en-us/blog/kv-cache-offload-to-object-storage-gpu-direct-and-upstream/},
+  note = {Describes an accelerated NIXL OBJ plugin engine, contributed by Dell with NVIDIA and merged upstream into LMCache v0.4.5 and NIXL v1.1.0, giving vLLM/LMCache an RDMA (not HTTP) data path to S3-compatible object storage (Dell ObjectScale) that lands directly in GPU memory via NVIDIA's cuObject.}
+}
+
+@misc{ding-2025-longreasonarena,
+  author = {Jiayu Ding and Shuming Ma and Lei Cui and Nanning Zheng and Furu Wei},
+  title = {{LongReasonArena: A Long Reasoning Benchmark for Large Language Models}},
+  howpublished = {arXiv:2508.19363},
+  year = {2025},
+  url = {https://arxiv.org/abs/2508.19363}
+}
+
+@inproceedings{distserve,
+  author = {Yinmin Zhong and Shengyu Liu and Junda Chen and Jianbo Hu and Yibo Zhu and Xuanzhe Liu and Xin Jin and Hao Zhang},
+  title = {{DistServe: Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving}},
+  booktitle = {18th USENIX Symposium on Operating Systems Design and Implementation (OSDI)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2401.09670}
+}
+
+@misc{doubao15,
+  author = {ByteDance Doubao (Seed) Team},
+  title = {{Doubao-1.5-pro}},
+  howpublished = {ByteDance Seed technical blog},
+  year = {2025},
+  url = {https://seed.bytedance.com/en/special/doubao_1_5_pro}
+}
+
+@misc{elementalcollision-2026-nalarepl,
+  author = {elementalcollision},
+  title = {{NaLa: independent replication fork}},
+  howpublished = {GitHub repository elementalcollision/nala (private as of September 2026)},
+  year = {2026},
+  url = {https://github.com/elementalcollision/nala},
+  note = {Fork of leochlon/nala. Evidence in replication/README.md, replication/SEARCH_HISTORY.json, docs/SCALING.md, docs/FAMILIES.md and docs/protocols/multi-site.md.}
+}
+
+@misc{elmeleegy-2025-dynamo,
+  author = {Amr Elmeleegy},
+  title = {{NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models}},
+  howpublished = {NVIDIA Technical Blog},
+  year = {2025},
+  url = {https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models/},
+  note = {Announces NVIDIA Dynamo, describing its four core components (Planner, Smart Router, Distributed KV Cache Manager, NIXL) that combine disaggregated prefill/decode, KV-cache-aware routing, and cross-tier KV offload into one coordinated serving system.}
+}
+
+@misc{everpure-2026-exa,
+  author = {Robert Alvarez and Amrita Das},
+  title = {{Everpure KVA Meets FlashBlade//EXA: Enterprise KV Caching at Neocloud Scale}},
+  howpublished = {Everpure blog},
+  year = {2026},
+  url = {https://blog.everpuredata.com/purely-technical/everpure-kva-meets-flashblade-exa-enterprise-kv-caching-at-neocloud-scale/},
+  note = {Vendor-reported: FlashBlade//EXA delivers over 10 TB/s read performance in a single namespace for KV Cache Accelerator (KVA), with write throughput up to 50% of read throughput.}
+}
+
+@misc{everpure-2026-kva1,
+  author = {Jean-Baptiste Thomas and Robert Alvarez and Trishnendu Ghorai and Palak Goenka},
+  title = {{Pure KVA 1.0 Is GA: Inside the Architecture of a Fully Managed Enterprise KV Cache Solution}},
+  howpublished = {Everpure blog},
+  year = {2026},
+  url = {https://blog.everpuredata.com/perspectives/pure-kva-1-solution/},
+  note = {Describes Pure/Everpure Key Value Accelerator's disaggregated plugin/server architecture, GPU-memory-handle-based transfer paired with GPUDirect Storage on the backend, an in-memory LRU cache-index lookup, and hourly time-bin TTL (default 24h) with a distributed clock-sync mechanism for coordinated multi-host expiry.}
+}
+
+@misc{everpure-2026-rebrand,
+  author = {Everpure},
+  title = {{Pure Storage Becomes Everpure; Announces Intent to Acquire 1touch}},
+  howpublished = {Everpure press release},
+  year = {2026},
+  url = {https://www.everpuredata.com/company/newsroom/press-releases/pure-storage-becomes-everpure.html},
+  note = {Pure Storage (NYSE: PSTG) renamed itself Everpure effective 2026-02-23, trading under the new name from 2026-03-05 under the same ticker symbol; product lines (FlashBlade, Key Value Accelerator) were Pure Storage-branded before this date.}
+}
+
+@inproceedings{feng-2024-adakv,
+  author = {Yuan Feng and Junlin Lv and Yukun Cao and Xike Xie and S. Kevin Zhou},
+  title = {{Ada-KV: Optimizing KV Cache Eviction by Adaptive Budget Allocation for Efficient LLM Inference}},
+  booktitle = {Advances in Neural Information Processing Systems 38 (NeurIPS 2025)},
+  year = {2025},
+  url = {https://arxiv.org/abs/2407.11550},
+  note = {Code: https://github.com/FFY0/AdaKV}
+}
+
+@inproceedings{flexgen,
+  author = {Ying Sheng and Lianmin Zheng and Binhang Yuan and Zhuohan Li and Max Ryabinin and Daniel Y. Fu and Zhiqiang Xie and Beidi Chen and Clark Barrett and Joseph E. Gonzalez and Percy Liang and Christopher Ré and Ion Stoica and Ce Zhang},
+  title = {{FlexGen: High-Throughput Generative Inference of Large Language Models with a Single GPU}},
+  booktitle = {Proceedings of the 40th International Conference on Machine Learning (ICML)},
+  year = {2023},
+  url = {https://arxiv.org/abs/2303.06865}
+}
+
+@misc{ganesh-2025-narrative,
+  author = {Mukkesh Ganesh and Kaushik Iyer and Arun Baalaaji Sankar Ananthan},
+  title = {{Whose Narrative is it Anyway? A KV Cache Manipulation Attack}},
+  howpublished = {arXiv:2511.12752},
+  year = {2025},
+  url = {https://arxiv.org/abs/2511.12752}
+}
+
+@inproceedings{gao-2024-attentionstore,
+  author = {Bin Gao and Zhuomin He and Puru Sharma and Qingxuan Kang and Djordje Jevdjic and Junbo Deng and Xingkun Yang and Zhou Yu and Pengfei Zuo},
+  title = {{Cost-Efficient Large Language Model Serving for Multi-turn Conversations with CachedAttention}},
+  booktitle = {2024 USENIX Annual Technical Conference (USENIX ATC 24)},
+  year = {2024},
+  url = {https://www.usenix.org/conference/atc24/presentation/gao-bin-cost},
+  note = {Also referred to by its KV-caching-system name, AttentionStore, in the paper itself.}
+}
+
+@techreport{google-2024-gemma2,
+  author = {Gemma Team and Google DeepMind},
+  title = {{Gemma 2: Improving Open Language Models at a Practical Size}},
+  institution = {arXiv:2408.00118},
+  year = {2024},
+  url = {https://arxiv.org/abs/2408.00118},
+  note = {Table of architecture parameters gives, for the 9B model, 42 layers, 16 attention heads, 8 KV heads, head size 256, sliding window 4096, 1:1 local:global interleave.}
+}
+
+@misc{google-2024-gemma2-9b-cfg,
+  author = {Gemma Team, Google DeepMind},
+  title = {{gemma-2-9b config.json}},
+  howpublished = {Hugging Face Hub},
+  year = {2024},
+  url = {https://huggingface.co/google/gemma-2-9b/raw/main/config.json},
+  note = {Accessed 2026-09-27. The original google repo is gated (license click-through); read via the public mirror at https://huggingface.co/unsloth/gemma-2-9b-it/raw/main/config.json, which is the URL actually fetched. The architecture-relevant fields this tool uses (num_hidden_layers=42, num_key_value_heads=8, head_dim=256, num_attention_heads=16, sliding_window=4096) match what is documented for the gated original, but this mirror file is NOT byte-for-byte identical to it: it carries extra fields a stock release would not (_name_or_path='unsloth/gemma-2-9b-it', unsloth_version='2024.9', cache_implementation='hybrid', a duplicated sliding_window_size=4096 alongside sliding_window). max_position_embeddings=8192, so 128K-token (131,072) sizing in this tool's tables is an extrapolation past this model's documented context. The config itself does not encode the 1:1 local:global layer ratio; that figure comes from google-2025-gemma3 (arXiv:2503.19786, Sec. 2), which states it explicitly.}
+}
+
+@techreport{google-2025-gemma3,
+  author = {Gemma Team and Google DeepMind},
+  title = {{Gemma 3 Technical Report}},
+  institution = {arXiv:2503.19786},
+  year = {2025},
+  url = {https://arxiv.org/abs/2503.19786},
+  note = {States (Sec. 2, main text) that the 5:1 local:global layer ratio with sliding window 1024 is Gemma 3's shipped configuration. Figure 5's ablation, however, is run on a 2B-parameter, text-only model and reports the 60%->15% KV-cache memory overhead reduction at 32k context for a 1:3 local:global ratio with sw=1024, not the shipped 5:1 ratio ('the "global only" configuration results in a memory overhead of 60%, while this is reduced to less than 15% with 1:3 and sliding windows of 1024'). Figure 6 separately plots KV memory vs. context length for the actual 5:1/sw=1024 architecture against a global-only 2B baseline, but does not restate the specific percentage figures for that configuration. Figure 3 shows minimal perplexity impact when varying the local:global ratio from 1:1 up to 7:1, in a separate ablation.}
+}
+
+@misc{google-2025-gemma3-27b-cfg,
+  author = {Gemma Team, Google DeepMind},
+  title = {{gemma-3-27b-it config.json}},
+  howpublished = {Hugging Face Hub},
+  year = {2025},
+  url = {https://huggingface.co/google/gemma-3-27b-it/raw/main/config.json},
+  note = {Accessed 2026-09-27. Gated original; read via the public mirror at https://huggingface.co/unsloth/gemma-3-27b-it/raw/main/config.json, which is the URL actually fetched. This mirror file is explicitly flagged "unsloth_fixed": true at its top level -- unsloth's own marker that the config was patched relative to Google's release -- so it is demonstrably NOT byte-for-byte identical to it, though the architecture-relevant fields used here (all under text_config: num_hidden_layers=62, num_key_value_heads=16, head_dim=128, num_attention_heads=32, sliding_window=1024, sliding_window_pattern=6) are internally consistent and match Google's own published description of the 5:1 local:global ratio. text_config.max_position_embeddings=131072 (rope_scaling factor=8, linear), so 128K-token sizing in this tool's tables is within this model's documented context.}
+}
+
+@misc{google-2025-gemma3-config,
+  author = {Google DeepMind},
+  title = {{gemma-3-27b-it config.json}},
+  howpublished = {Hugging Face model repository},
+  year = {2025},
+  url = {https://huggingface.co/google/gemma-3-27b-it},
+  note = {text_config gives num_hidden_layers=62, num_attention_heads=32, num_key_value_heads=16, head_dim=128, sliding_window=1024, sliding_window_pattern=6; these per-layer head counts are not given as a table in the technical report's main text.}
+}
+
+@misc{google-2026-contextcache,
+  author = {Google},
+  title = {{Context caching}},
+  howpublished = {Gemini API documentation},
+  url = {https://ai.google.dev/gemini-api/docs/generate-content/caching},
+  note = {Accessed 2026-09-27. Implicit vs. explicit caching, per-model minimum token counts, and TTL behavior shown are current as of that date and are subject to change.}
+}
+
+@misc{google-2026-gemini31pro,
+  author = {Google},
+  title = {{Gemini 3.1 Pro preview}},
+  howpublished = {Google AI for Developers — Gemini API documentation},
+  url = {https://ai.google.dev/gemini-api/docs/models/gemini-3.1-pro-preview},
+  note = {Model card lists an input token limit of 1,048,576 and an output token limit of 65,536; page lists 'Latest update: February 2026'.}
+}
+
+@misc{google-2026-geminioptimization,
+  author = {Google},
+  title = {{Gemini API optimization and inference}},
+  howpublished = {Google AI for Developers},
+  url = {https://ai.google.dev/gemini-api/docs/optimization},
+  note = {Summarizes context caching as a 90% pricing discount plus prorated token storage, alongside Flex, Priority, and Batch processing tiers.}
+}
+
+@misc{google-2026-geminipricing,
+  author = {Google},
+  title = {{Gemini API pricing}},
+  howpublished = {Gemini API documentation},
+  url = {https://ai.google.dev/gemini-api/docs/pricing},
+  note = {Accessed 2026-09-27. As of this date, no Gemini 2.0 model appears in this pricing table or in the context-caching minimum-token table on the caching docs page; the catalog runs from legacy Flash tiers through Gemini 3.x.}
+}
+
+@misc{google-2026-gkeinferencegw,
+  author = {Bob Tian and Susan Wu},
+  title = {{GKE Inference Gateway prefix caching accelerates AI inference}},
+  howpublished = {Google Cloud Blog},
+  year = {2026},
+  url = {https://cloud.google.com/blog/products/containers-kubernetes/gke-inference-gateway-prefix-caching-accelerates-ai-inference},
+  note = {Cites an independent Principled Technologies benchmark report (commissioned by Google), https://www.principledtechnologies.com/google/GKE-Inference-Gateway-study-0526/, comparing GKE Inference Gateway to Amazon EKS's standard round-robin load balancer on 8x NVIDIA A100 40GB GPUs, Llama 3.1 8B Instruct, shared-prefix workload: 15.7% higher throughput, 92.8% lower mean TTFT, 62.6% lower mean ITL.}
+}
+
+@misc{google-2026-longcontext,
+  author = {Google},
+  title = {{Long context | Gemini API}},
+  howpublished = {Google AI for Developers},
+  url = {https://ai.google.dev/gemini-api/docs/long-context}
+}
+
+@misc{google-2026-vertexcaching,
+  author = {Google},
+  title = {{Context caching overview}},
+  howpublished = {Gemini Enterprise Agent Platform documentation (Google Cloud)},
+  url = {https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/context-cache/context-cache-overview},
+  note = {Accessed 2026-09-27. States explicit caching gives a 90% discount on Gemini 2.5+ models and 75% on Gemini 2.0 models. This is Google Cloud's enterprise/Vertex AI product surface, distinct from the Gemini Developer API (ai.google.dev) cited elsewhere in this section, which as of this date no longer lists Gemini 2.0 models at all.}
+}
+
+@techreport{gpt4,
+  author = {OpenAI},
+  title = {{GPT-4 Technical Report}},
+  institution = {arXiv:2303.08774},
+  year = {2023},
+  url = {https://arxiv.org/abs/2303.08774},
+  note = {The 32K-context variant (gpt-4-32k) was announced alongside the model in March 2023.}
+}
+
+@misc{gpustack-2026-lmcacheeval,
+  author = {GPUStack.ai},
+  title = {{Evaluating LMCache Prefill Acceleration in vLLM}},
+  howpublished = {GPUStack Performance Lab documentation},
+  url = {https://docs.gpustack.ai/latest/performance-lab/references/evaluating-lmcache-prefill-acceleration-in-vllm/},
+  note = {Setup: Qwen3-8B, single NVIDIA RTX 4090 24GB, vLLM v0.10.1.1, multi-turn conversation benchmark (24 conversations, 12-18 turns, shared-prefix lengths up to 20K tokens).}
+}
+
+@inproceedings{gu-2025-auditing,
+  author = {Chenchen Gu and Xiang Lisa Li and Rohith Kuditipudi and Percy Liang and Tatsunori Hashimoto},
+  title = {{Auditing Prompt Caching in Language Model APIs}},
+  booktitle = {Proceedings of the 42nd International Conference on Machine Learning (ICML)},
+  year = {2025},
+  url = {https://arxiv.org/abs/2502.07776},
+  note = {Audits conducted September-October 2024 across 17 API providers.}
+}
+
+@techreport{hammerspace-2025-tier0,
+  author = {Hammerspace},
+  title = {{Hammerspace Tier 0: Unlocking Greater Efficiency in GPU-Driven Computing}},
+  institution = {Hammerspace whitepaper},
+  year = {2025},
+  url = {https://go.hammerspace.com/hubfs/Website%20Documents/Other/Hammerspace_Tier_0_Unlocking_Greater_Efficiency_in_GPU_Driven_Computin.pdf},
+  note = {Vendor-reported: writing to local NVMe activated as Hammerspace Tier 0 is claimed approximately 2.5x faster than over a 400Gb/s InfiniBand network and nearly 10x faster than over a 100Gb/s network, and 31-124x faster than writing to separate cloud storage instances depending on storage class; exposed via standard NFS/pNFS, SMB and S3 protocols within one global namespace.}
+}
+
+@misc{headinfer,
+  author = {Cheng Luo and Zefan Cai and Hanshi Sun and Jinqi Xiao and Bo Yuan and Wen Xiao and Junjie Hu and Jiawei Zhao and Beidi Chen and Anima Anandkumar},
+  title = {{HeadInfer: Memory-Efficient LLM Inference by Head-wise Offloading}},
+  howpublished = {arXiv:2502.12574},
+  year = {2025},
+  url = {https://arxiv.org/abs/2502.12574}
+}
+
+@misc{hf-2026-deepseekv4-docs,
+  author = {Hugging Face},
+  title = {{DeepSeek-V4 model documentation (Transformers)}},
+  howpublished = {huggingface/transformers documentation},
+  year = {2026},
+  url = {https://github.com/huggingface/transformers/blob/main/docs/source/en/model_doc/deepseek_v4.md},
+  note = {States default compression rates compress_rate_csa (m) = 4 and compress_rate_hca (m') = 128, and describes per-layer cache state (DeepseekV4CSACache / DeepseekV4HCACache) that must be tracked alongside the sliding-window K/V.}
+}
+
+@inproceedings{hooper-2024-kvquant,
+  author = {Coleman Hooper and Sehoon Kim and Hiva Mohammadzadeh and Michael W. Mahoney and Yakun Sophia Shao and Kurt Keutzer and Amir Gholami},
+  title = {{KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization}},
+  booktitle = {Advances in Neural Information Processing Systems 37 (NeurIPS 2024)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2401.18079},
+  note = {Code: https://github.com/SqueezeAILab/KVQuant}
+}
+
+@misc{hsieh-2024-ruler,
+  author = {Cheng-Ping Hsieh and Simeng Sun and Samuel Kriman and Shantanu Acharya and Dima Rekesh and Fei Jia and Yang Zhang and Boris Ginsburg},
+  title = {{RULER: What's the Real Context Size of Your Long-Context Language Models?}},
+  howpublished = {arXiv:2404.06654},
+  year = {2024},
+  url = {https://arxiv.org/abs/2404.06654},
+  note = {Code: https://github.com/NVIDIA/RULER}
+}
+
+@inproceedings{hu-2025-epic,
+  author = {Junhao Hu and Wenrui Huang and Weidong Wang and Haoyi Wang and Tiancheng Hu and Qin Zhang and Hao Feng and Xusheng Chen and Yizhou Shan and Tao Xie},
+  title = {{EPIC: Efficient Position-Independent Caching for Serving Large Language Models}},
+  booktitle = {Proceedings of the 42nd International Conference on Machine Learning (ICML)},
+  year = {2025},
+  url = {https://arxiv.org/abs/2410.15332}
+}
+
+@misc{huang-2026-nala,
+  author = {Julie Huang and Maggie Chlon and Gregory Gutin},
+  title = {{NaLa}},
+  howpublished = {GitHub repository, leochlon/nala},
+  year = {2026},
+  url = {https://github.com/leochlon/nala},
+  note = {MIT license; credited 'With Julie Huang, Maggie Chlon and Gregory Gutin at Hassana Labs'; repository created 2026-09-17; accessed 2026-09-27, at which point it showed 2 stars, 1 fork, 2 watchers and 0 open issues. Files consulted: README.md, docs/USAGE.md, VERIFICATION.md, evals/README.md, PAPER_SUMMARIES.md.}
+}
+
+@misc{huang-2026-rope,
+  author = {Julie Huang and Maggie Chlon and Gregory Gutin and Leon Chlon},
+  title = {{Exact Finite Attention Responses From RoPE Derivatives}},
+  howpublished = {arXiv:2609.14127 [stat.ML]},
+  year = {2026},
+  url = {https://arxiv.org/abs/2609.14127},
+  note = {Submitted 12 Sep 2026. Gutin affiliated with the Department of Computer Science, Royal Holloway, University of London; Huang and M. Chlon at Hassana Labs; L. Chlon at Hassana Labs and the University of Oxford.}
+}
+
+@misc{huang-2026-secant,
+  author = {Julie Huang and Maggie Chlon and Leon Chlon},
+  title = {{RoPE attention is an exact forward-pass gradient step with softmax intact}},
+  howpublished = {GitHub repository, leochlon/secant},
+  year = {2026},
+  url = {https://github.com/leochlon/secant},
+  note = {Hassana Labs, with Leon Chlon also at the Department of Information Engineering, University of Oxford. Hosts the short (4-page) construction note rope_softmax_exact_construction.tex/.pdf and a verification notebook. Repository created 2026-09-06; accessed 2026-09-27.}
+}
+
+@misc{huggingface-2024-accelerate,
+  author = {Hugging Face},
+  title = {{Loading Big Models into Memory}},
+  howpublished = {Hugging Face Accelerate documentation},
+  url = {https://huggingface.co/docs/accelerate/concept_guides/big_model_inference},
+  note = {Documents Accelerate's own CPU- and disk-offload mechanisms for model weights: device_map="auto" (falls back from GPU to CPU RAM to disk as needed), cpu_offload(), and disk_offload(). Continuously-updated documentation page; content verified as of September 2026. Cited here in place of the FlexGen paper, which uses Accelerate only as an external throughput baseline and is not itself a source for Accelerate's own offload feature set.}
+}
+
+@misc{ibm-2025-hybridvllm,
+  author = {vLLM Team at IBM},
+  title = {{Hybrid Models as First-Class Citizens in vLLM}},
+  howpublished = {PyTorch Blog},
+  year = {2025},
+  url = {https://pytorch.org/blog/hybrid-models-as-first-class-citizens-in-vllm/},
+  note = {States: 'prefix caching is also now supported for hybrid models that use Mamba-2, although it is currently in an experimental state.' Describes vLLM V1's unified KV-cache/Mamba-state allocator (page-size alignment between attention blocks and Mamba state) that enables this and other features (CUDA graphs, KV transfer, prefill/decode disaggregation) for hybrid models.}
+}
+
+@inproceedings{infinigen,
+  author = {Wonbeom Lee and Jungi Lee and Junghwan Seo and Jaewoong Sim},
+  title = {{InfiniGen: Efficient Generative Inference of Large Language Models with Dynamic KV Cache Management}},
+  booktitle = {18th USENIX Symposium on Operating Systems Design and Implementation (OSDI)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2406.19707}
+}
+
+@misc{instinfer,
+  author = {Xiurui Pan and Endian Li and Qiao Li and Shengwen Liang and Yizhou Shan and Ke Zhou and Yingwei Luo and Xiaolin Wang and Jie Zhang},
+  title = {{InstInfer: In-Storage Attention Offloading for Cost-Effective Long-Context LLM Inference}},
+  howpublished = {arXiv:2409.04992},
+  year = {2024},
+  url = {https://arxiv.org/abs/2409.04992}
+}
+
+@misc{jiang-2023-mistral7b,
+  author = {Albert Q. Jiang and Devendra Singh Chaplot and Diego de las Casas and Florian Bressand and Gianna Lengyel and Alexandre Sablayrolles and Guillaume Lample and Lucile Saulnier and Lélio Renard Lavaud and Marie-Anne Lachaux and Arthur Mensch and Pierre Stock and Teven Le Scao and Thibaut Lavril and Thomas Wang and Timothée Lacroix and Chris Bamford and William El Sayed},
+  title = {{Mistral 7B}},
+  howpublished = {arXiv:2310.06825},
+  year = {2023},
+  url = {https://arxiv.org/abs/2310.06825},
+  note = {Table 1 gives dim=4096, n_layers=32, head_dim=128, n_heads=32, n_kv_heads=8, window_size=4096, context_len=8192. Section 2 ('Rolling Buffer Cache') states only one cache-memory figure: 'On a sequence length of 32k tokens, this reduces the cache memory usage by 8x, without impacting the model quality.' There is no stated halving/2x memory figure at sequence length 8192 anywhere in the paper; the paper's only other nearby quantitative figure is an unrelated 2x *speed* improvement from FlashAttention/xFormers changes at a 16K sequence length, not a memory figure and not at 8192 tokens.}
+}
+
+@inproceedings{jin-2025-cake,
+  author = {Shuowei Jin and Xueshen Liu and Qingzhao Zhang and Zhuoqing Mao},
+  title = {{Compute or Load KV Cache? Why Not Both?}},
+  booktitle = {Proceedings of the 42nd International Conference on Machine Learning (ICML)},
+  year = {2025},
+  url = {https://proceedings.mlr.press/v267/jin25d.html}
+}
+
+@misc{kamradt-2023-niah,
+  author = {Greg Kamradt},
+  title = {{Needle In A Haystack – Pressure Testing LLMs}},
+  howpublished = {GitHub},
+  year = {2023},
+  url = {https://github.com/gkamradt/LLMTest_NeedleInAHaystack},
+  note = {Cites the original 2023 single-fact-probe version described in this whitepaper; the repository has since been substantially rewritten (a v2, YAML-driven CLI with a different README) and now supports multi-fact and UUID-chain tasks beyond the single-needle probe.}
+}
+
+@misc{kashyap,
+  author = {Tejaswi Kashyap},
+  title = {{Memory Optimization in LLMs: Leveraging KV Cache Quantization for Efficient Inference}},
+  howpublished = {Medium},
+  year = {2024},
+  url = {https://medium.com/@tejaswi_kashyap/memory-optimization-in-llms-leveraging-kv-cache-quantization-for-efficient-inference-94bc3df5faef}
+}
+
+@misc{kimiteam-2025-linear,
+  author = {Kimi Team},
+  title = {{Kimi Linear: An Expressive, Efficient Attention Architecture}},
+  howpublished = {arXiv:2510.26692},
+  year = {2025},
+  url = {https://arxiv.org/abs/2510.26692},
+  note = {Hybridizes Kimi Delta Attention (KDA) with full MLA layers at a uniform 3:1 ratio; reports up to 75% less KV cache usage and up to 6x decoding throughput at 1M-token context versus a matched full-MLA baseline.}
+}
+
+@misc{kipply-2022-inference,
+  author = {Kipply},
+  title = {{Transformer Inference Arithmetic}},
+  howpublished = {kipp.ly},
+  year = {2022},
+  url = {https://kipp.ly/transformer-inference-arithmetic/},
+  note = {Widely cited derivation of the per-token KV cache byte formula and the FLOPs-vs-memory-boundedness argument for transformer inference.}
+}
+
+@inproceedings{kivi,
+  author = {Zirui Liu and Jiayi Yuan and Hongye Jin and Shaochen Zhong and Zhaozhuo Xu and Vladimir Braverman and Beidi Chen and Xia Hu},
+  title = {{KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache}},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning (ICML)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2402.02750},
+  note = {Code: https://github.com/jy-yuan/KIVI}
+}
+
+@misc{kramar-2024-atp,
+  author = {János Kramár and Tom Lieberum and Rohin Shah and Neel Nanda},
+  title = {{AtP∗: An efficient and scalable method for localizing LLM behaviour to components}},
+  howpublished = {arXiv:2403.00745},
+  year = {2024},
+  url = {https://arxiv.org/abs/2403.00745},
+  note = {Google DeepMind.}
+}
+
+@misc{kunwar-2026-benchmarking,
+  author = {Kunwar Srivastav},
+  title = {{Chapter 55: Benchmarking inference: methodology, tools, gotchas}},
+  howpublished = {The Holy Grail: A Field-First Mastery Book on Modern ML Systems},
+  year = {2026},
+  url = {https://www.kunwar.page/chapter/055-benchmarking-inference-methodology-tools-gotchas}
+}
+
+@misc{lambda-2026-pricing,
+  author = {Lambda},
+  title = {{GPU Cloud}},
+  howpublished = {Lambda},
+  url = {https://lambda.ai/service/gpu-cloud},
+  note = {Accessed 2026-09-27. On-demand 8x NVIDIA H100 SXM (80GB) node: $2.99/GPU/hour.}
+}
+
+@misc{lambert-2025-llama4,
+  author = {Nathan Lambert},
+  title = {{Llama 4: Did Meta just push the panic button?}},
+  howpublished = {Interconnects (Substack)},
+  year = {2025},
+  url = {https://www.interconnects.ai/p/llama-4},
+  note = {Independent, first-party engineering/research commentary published the same week as the Llama 4 launch; notes that Meta released no long-context evaluation beyond needle-in-a-haystack and that early independent long-context results 'range from medium to bad and confusing.'}
+}
+
+@inproceedings{leviathan,
+  author = {Yaniv Leviathan and Matan Kalman and Yossi Matias},
+  title = {{Fast Inference from Transformers via Speculative Decoding}},
+  booktitle = {Proceedings of the 40th International Conference on Machine Learning (ICML)},
+  year = {2023},
+  url = {https://arxiv.org/abs/2211.17192}
+}
+
+@inproceedings{li-2023-pond,
+  author = {Huaicheng Li and Daniel S. Berger and Lisa Hsu and Daniel Ernst and Pantea Zardoshti and Stanko Novakovic and Monish Shah and Samir Rajadnya and Scott Lee and Ishwar Agarwal and Mark D. Hill and Marcus Fontoura and Ricardo Bianchini},
+  title = {{Pond: CXL-Based Memory Pooling Systems for Cloud Platforms}},
+  booktitle = {Proceedings of the 28th ACM International Conference on Architectural Support for Programming Languages and Operating Systems (ASPLOS)},
+  year = {2023},
+  url = {https://arxiv.org/html/2203.00241},
+  note = {Microsoft Azure production-trace study; estimates CXL adds 70-90ns over same-NUMA-node DRAM access for 8-16-socket pools, and more than 180ns for rack-scale pooling.}
+}
+
+@inproceedings{li-2024-scbench,
+  author = {Yucheng Li and Huiqiang Jiang and Qianhui Wu and Xufang Luo and Surin Ahn and Chengruidong Zhang and Amir H. Abdi and Dongsheng Li and Jianfeng Gao and Yuqing Yang and Lili Qiu},
+  title = {{SCBench: A KV Cache-Centric Analysis of Long-Context Methods}},
+  booktitle = {Proceedings of the 13th International Conference on Learning Representations (ICLR 2025)},
+  year = {2025},
+  url = {https://arxiv.org/abs/2412.10319},
+  note = {Also known as SharedContextBench; Microsoft Research}
+}
+
+@inproceedings{li-2024-snapkv,
+  author = {Yuhong Li and Yingbing Huang and Bowen Yang and Bharat Venkitesh and Acyr Locatelli and Hanchen Ye and Tianle Cai and Patrick Lewis and Deming Chen},
+  title = {{SnapKV: LLM Knows What You Are Looking for Before Generation}},
+  booktitle = {Advances in Neural Information Processing Systems 37 (NeurIPS 2024)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2404.14469},
+  note = {Code: https://github.com/FasterDecoding/SnapKV}
+}
+
+@inproceedings{li-2025-eagle3,
+  author = {Yuhui Li and Fangyun Wei and Chao Zhang and Hongyang Zhang},
+  title = {{EAGLE-3: Scaling up Inference Acceleration of Large Language Models via Training-Time Test}},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS) 38},
+  year = {2025},
+  url = {https://arxiv.org/abs/2503.01840}
+}
+
+@misc{lieber-2024-jamba,
+  author = {Opher Lieber and Barak Lenz and Hofit Bata and Gal Cohen and Jhonathan Osin and Itay Dalmedigos and Erez Safahi and Shaked Meirom and Yonatan Belinkov and Shai Shalev-Shwartz and Omri Abend and Raz Alon and Tomer Asida and Amir Bergman and Roman Glozman and Michael Gokhman and Avashalom Manevich and Nir Ratner and Noam Rozen and Erez Shwartz and Mor Zusman and Yoav Shoham},
+  title = {{Jamba: A Hybrid Transformer-Mamba Language Model}},
+  howpublished = {arXiv:2403.19887},
+  year = {2024},
+  url = {https://arxiv.org/abs/2403.19887},
+  note = {Released 32-layer configuration places attention at every 8th layer (attn_layer_period=8, attn_layer_offset=4), i.e. 4 of 32 layers; paper states this gives an 8x smaller KV cache than a vanilla Transformer.}
+}
+
+@inproceedings{lin-2024-qserve,
+  author = {Yujun Lin and Haotian Tang and Shang Yang and Zhekai Zhang and Guangxuan Xiao and Chuang Gan and Song Han},
+  title = {{QServe: W4A8KV4 Quantization and System Co-design for Efficient LLM Serving}},
+  booktitle = {Proceedings of Machine Learning and Systems 7 (MLSys 2025)},
+  year = {2025},
+  url = {https://arxiv.org/abs/2405.04532},
+  note = {Code: https://github.com/mit-han-lab/omniserve}
+}
+
+@inproceedings{liu-2024-cachegen,
+  author = {Yuhan Liu and Hanchen Li and Yihua Cheng and Siddhant Ray and Yuyang Huang and Qizheng Zhang and Kuntai Du and Jiayi Yao and Shan Lu and Ganesh Ananthanarayanan and Michael Maire and Henry Hoffmann and Ari Holtzman and Junchen Jiang},
+  title = {{CacheGen: KV Cache Compression and Streaming for Fast Large Language Model Serving}},
+  booktitle = {Proceedings of the ACM SIGCOMM 2024 Conference},
+  year = {2024},
+  url = {https://arxiv.org/abs/2310.07240}
+}
+
+@misc{liu-2025-shotkv,
+  author = {Xiang Liu and Zhenheng Tang and Hong Chen and Peijie Dong and Zeyu Li and Xiuze Zhou and Bo Li and Xuming Hu and Xiaowen Chu},
+  title = {{Semantic Integrity Matters: Benchmarking and Preserving High-Density Reasoning in KV Cache Compression}},
+  howpublished = {arXiv:2502.01941},
+  year = {2025},
+  url = {https://arxiv.org/abs/2502.01941}
+}
+
+@inproceedings{liu-2026-cat,
+  author = {Shukai Liu and Bo Jiang and Jian Yang and Yizhi Li and Jinyang Guo and Xianglong Liu and Bryan Dai},
+  title = {{Context as a Tool: Context Management for Long-Horizon SWE-Agents}},
+  booktitle = {Findings of the Association for Computational Linguistics: ACL 2026},
+  year = {2026},
+  url = {https://aclanthology.org/2026.findings-acl.1032/}
+}
+
+@misc{llmd-2026-benchmarkreadme,
+  author = {llm-d Project},
+  title = {{Precise Prefix Cache Aware Routing (benchmark guide)}},
+  howpublished = {llm-d GitHub repository},
+  url = {https://github.com/llm-d/llm-d/blob/main/guides/precise-prefix-cache-aware/README.md},
+  note = {README, accessed September 2026. Benchmark table (16xH100, 8 replicas, TP=2, Qwen3-32B): k8s Service round-robin 5,722 output tok/s / 58.10s mean TTFT vs. llm-d precise scorer 12,598 tok/s / 0.247s mean TTFT.}
+}
+
+@misc{llmd-2026-disaggdocs,
+  author = {llm-d Project},
+  title = {{Disaggregated Serving}},
+  howpublished = {llm-d documentation},
+  url = {https://llm-d.ai/docs/dev/architecture/advanced/disaggregation},
+  note = {Documentation is continuously updated; accessed September 2026.}
+}
+
+@misc{llmd-2026-prefixrouting,
+  author = {llm-d Project},
+  title = {{Prefix-Cache Aware Routing}},
+  howpublished = {llm-d documentation},
+  url = {https://llm-d.ai/docs/dev/architecture/advanced/kv-management/prefix-cache-aware-routing},
+  note = {Documentation is continuously updated; accessed September 2026. The specific tier-weighting default values (gpu = 1.0, cpu = 0.8) are documented on the companion KV-Cache Indexer page, https://llm-d.ai/docs/architecture/advanced/kv-management/kv-indexer.}
+}
+
+@misc{llmd-2026-repo,
+  author = {llm-d Project},
+  title = {{llm-d}},
+  howpublished = {GitHub — llm-d/llm-d},
+  year = {2026},
+  url = {https://github.com/llm-d/llm-d},
+  note = {README, accessed September 2026. Benchmark bullet points cite partner blogs (AWS, Oracle, Google, Tesla/Red Hat) linked from the repo; figures are vendor-reported and not independently reproduced here.}
+}
+
+@misc{lmcache-2024-turbo,
+  author = {LMCache Team},
+  title = {{LMCache: Turboboosting vLLM with 7x Faster Access to 100x More KV Caches}},
+  howpublished = {LMCache Blog},
+  year = {2024},
+  url = {https://blog.lmcache.ai/en/2024/09/17/lmcache-turboboosting-vllm-with-7x-faster-access-to-100x-more-kv-caches/}
+}
+
+@misc{lmcache-2025-nixl,
+  author = {LMCache Team},
+  title = {{Shaping NIXL-based PD Disaggregation in vLLM V1}},
+  howpublished = {LMCache Blog},
+  year = {2025},
+  url = {https://blog.lmcache.ai/en/2025/04/11/shaping-nixl-based-pd-disaggregation-in-vllm-v1/}
+}
+
+@misc{lmcache-2026-backends,
+  author = {LMCache Project},
+  title = {{Using Different Storage Backends}},
+  howpublished = {LMCache documentation},
+  url = {https://docs.lmcache.ai/kv_cache/storage_backends/index.html},
+  note = {Accessed 2026-09-27. Lists shipped L2 storage backends: local disk, Redis, RESP/Valkey, Google Cloud Bigtable, Mooncake Store, InfiniStore, NIXL-based stores, S3, Azure Blob, GDS, and others.}
+}
+
+@misc{lmcache-2026-docs,
+  author = {LMCache Team},
+  title = {{Welcome to LMCache!}},
+  howpublished = {LMCache documentation},
+  url = {https://docs.lmcache.ai/},
+  note = {States that LMCache supports storage backends including CPU RAM, local disk, Redis/Valkey, Mooncake, InfiniStore, S3-compatible object storage, NIXL and GDS. Documentation is continuously updated; accessed September 2026.}
+}
+
+@misc{lmcache-2026-l2storage,
+  author = {LMCache Project},
+  title = {{Secondary KV Storage}},
+  howpublished = {LMCache documentation},
+  url = {https://docs.lmcache.ai/mp/l2_storage/index.html},
+  note = {Accessed 2026-09-27. Describes the L1 (CPU memory or GDS-backed NVMe)/L2 (durable backend) architecture, per-adapter eviction policies, and the shared:true flag letting several LMCache instances treat one backend as a common, deduplicated pool.}
+}
+
+@misc{lmcache-2026-s3,
+  author = {LMCache Project},
+  title = {{S3 Backend}},
+  howpublished = {LMCache documentation},
+  url = {https://docs.lmcache.ai/kv_cache/storage_backends/s3.html},
+  note = {Accessed 2026-09-27. Documents the S3/S3-compatible backend, chunk-hash-based object keys, save_chunk_meta option, and watermark-triggered LRU eviction via max_capacity_gb.}
+}
+
+@misc{logquant,
+  author = {Han Chen and Zicong Jiang and Zining Zhang and Bingsheng He and Pingyi Luo and Mian Lu and Yuqiang Chen},
+  title = {{LogQuant: Log-Distributed 2-Bit Quantization of KV Cache with Superior Accuracy Preservation}},
+  howpublished = {arXiv:2503.19950},
+  year = {2025},
+  url = {https://arxiv.org/abs/2503.19950}
+}
+
+@inproceedings{luo-2026-shadowcache,
+  author = {Zhifan Luo and Shuo Shao and Su Zhang and Lijing Zhou and Yuke Hu and Chenxu Zhao and Zhihao Liu and Zhan Qin},
+  title = {{Shadow in the Cache: Unveiling and Mitigating Privacy Risks of KV-cache in LLM Inference}},
+  booktitle = {Network and Distributed System Security Symposium (NDSS)},
+  year = {2026},
+  url = {https://arxiv.org/abs/2508.09442},
+  note = {Also posted as arXiv:2508.09442 (Aug. 2025); introduces the KV-Cloak defense.}
+}
+
+@misc{mao-2026-hotcarbon,
+  author = {Gilbert L. Mao and Ruiyang Zhou},
+  title = {{Energy Characterization of KV Cache Offloading Under Agentic Workloads}},
+  howpublished = {HotCarbon 2026 (Workshop on Sustainable Computer Systems) / ACM SIGENERGY Energy Informatics Review},
+  year = {2026},
+  url = {https://hotcarbon.org/assets/2026/paper-20.pdf},
+  note = {Verified by direct fetch 2026-09-27 (Georgia Tech authors, per-endpoint production agentic trace replay from Applied Compute on NVIDIA H200s, Llama-3.1-8B, vLLM 0.11.0+). Table 1 and surrounding text confirm: below-90%-p95-KV-utilization conditions show energy deltas within noise of idle-power variance (+-2-3W, 2.0-3.9%); above-90% conditions show 14.4-31.9% GPU energy savings; host CPU/DRAM energy difference is statistically indistinguishable from zero (-0.015+-0.009 J/token, n=15); the data-movement asymmetry is ~0.2 nJ/byte (PCIe move) vs ~100 nJ/byte (GPU recompute), a >=400x gap, ~10^5 FLOPs/byte; throughput-collapse failure mode drops GPU power to 177-182W with output limited to ~27,000 tokens vs 117-158k normally.}
+}
+
+@misc{marvell-2026-structera,
+  author = {Jianping Jiang},
+  title = {{Structera S: Scaling the AI Memory Wall with CXL Switching}},
+  howpublished = {Marvell Blogs},
+  year = {2026},
+  url = {https://www.marvell.com/blogs/structera-s-scaling-the-ai-memory-wall-with-cxl-switching.html},
+  note = {Accessed 2026-09-27. Announces Structera S 30260 (PCIe 6.0/CXL 3.x): up to 48 TB shared memory and 4 TB/s cumulative bandwidth per switch, sub-460ns round-trip latency through the switch, sampling to customers in Q3 2026. Reports a 16 TB memory pool shared by eight GPUs and a two-CPU server improving inference throughput 4.8x and reducing time-to-first-token 82.7% (vendor data).}
+}
+
+@misc{meta-2024-llama3,
+  author = {Meta AI (Llama Team)},
+  title = {{The Llama 3 Herd of Models}},
+  howpublished = {arXiv:2407.21783},
+  year = {2024},
+  url = {https://arxiv.org/abs/2407.21783},
+  note = {Table 3: Llama 3 8B uses 32 layers, d_model=4096, 32 query heads, and 8 grouped-query key/value heads (head dim 128); GQA adopted 'to improve inference speed and to reduce the size of key-value caches during decoding.'}
+}
+
+@misc{meta-2024-llama3-8b-cfg,
+  author = {Meta AI (Llama Team)},
+  title = {{Meta-Llama-3-8B config.json}},
+  howpublished = {Hugging Face Hub},
+  year = {2024},
+  url = {https://huggingface.co/meta-llama/Meta-Llama-3-8B/raw/main/config.json},
+  note = {Accessed 2026-09-27. The original meta-llama repo is gated (license click-through); read instead via the public, ungated mirror at https://huggingface.co/NousResearch/Meta-Llama-3-8B/raw/main/config.json, which is the URL actually fetched. The architecture-relevant fields this tool uses (num_hidden_layers=32, num_key_value_heads=8, hidden_size=4096, num_attention_heads=32 -> head_dim=128) match what is publicly documented for the gated original; the mirror file itself was not independently checked to be byte-for-byte identical to Meta's own copy. max_position_embeddings=8192, rope_scaling=null -- no context extension is configured, so this is the model's documented context length; 128K-token (131,072) sizing in this tool's tables is an extrapolation past it.}
+}
+
+@misc{meta-2024-llama31-70b-cfg,
+  author = {Meta AI (Llama Team)},
+  title = {{Llama-3.1-70B config.json}},
+  howpublished = {Hugging Face Hub},
+  year = {2024},
+  url = {https://huggingface.co/meta-llama/Llama-3.1-70B/raw/main/config.json},
+  note = {Accessed 2026-09-27. Gated original; read via the public mirror at https://huggingface.co/NousResearch/Meta-Llama-3.1-70B/raw/main/config.json, which is the URL actually fetched (architecture-relevant fields match public documentation for the gated original; not independently checked to be byte-for-byte identical). num_hidden_layers=80, num_key_value_heads=8, hidden_size=8192, num_attention_heads=64 (head_dim=128). max_position_embeddings=131072 via a llama3-type rope_scaling (factor=8, original_max_position_embeddings=8192), so 128K-token sizing in this tool's tables is within this model's documented context.}
+}
+
+@misc{meta-2025-llama4,
+  author = {Meta AI},
+  title = {{The Llama 4 herd: The beginning of a new era of natively multimodal AI innovation}},
+  howpublished = {Meta AI Blog},
+  year = {2025},
+  url = {https://ai.meta.com/blog/llama-4-multimodal-intelligence/}
+}
+
+@techreport{micron,
+  author = {Felippe Vieira Zacarias and Kiran Palli and Sudharshan Vazhkudai and Evelyn Grevelink},
+  title = {{Analyzing LLM Performance: The Impact of High-Bandwidth Memory on Model Inference}},
+  institution = {Micron Technology engineering report},
+  url = {https://www.micron.com/content/dam/micron/global/public/documents/products/product-flyer/llm-inference-engineering-report.pdf}
+}
+
+@techreport{micron-2024-9400ssd,
+  author = {Micron Technology, Inc.},
+  title = {{Micron 9400 SSD Series Technical Product Specification}},
+  institution = {Micron Technology product datasheet},
+  url = {https://assets.micron.com/adobe/assets/urn:aaid:aem:83accf2c-00af-4223-ab00-c40fb224ce6c/renditions/original/as/9400-nvme-ssd-tech-prod-spec.pdf},
+  note = {Reports 69 microsecond typical (TYP) 4KB QD1 read latency and 10 microsecond typical write latency, and up to 7000 MB/s sequential 128KB read/write. Used as a single, directly verified representative current enterprise NVMe datasheet; a previous version of this entry additionally asserted a 55-100 microsecond range 'cross-checked against several other Micron NVMe product lines,' but those other datasheets were not independently opened and verified in this pass, so that broader range has been removed and the claim narrowed to what this single cited datasheet actually states.}
+}
+
+@misc{micron-2026-hbm4,
+  author = {Micron Technology},
+  title = {{HBM4}},
+  howpublished = {Micron product documentation},
+  url = {https://www.micron.com/products/memory/hbm/hbm4},
+  note = {States HBM4 delivers greater than 2.8 TB/s of bandwidth per stack, more than double the prior HBM3E generation, marketed against AI workloads with 'ultra-long context windows spanning millions of tokens'. Does not mention NVIDIA, Vera Rubin, or any production timing; its own roadmap graphic lists only an undated '2026: HBM4 volume ramp' bullet.}
+}
+
+@misc{micron-2026-verarubin,
+  author = {Micron Technology, Inc.},
+  title = {{Micron in High-Volume Production of HBM4 Designed for NVIDIA Vera Rubin, PCIe Gen6 SSD and SOCAMM2}},
+  howpublished = {Micron Technology press release (GlobeNewswire, distributed at NVIDIA GTC 2026)},
+  year = {2026},
+  url = {https://investors.micron.com/news/press-release/2026/Micron-in-High-Volume-Production-of-HBM4-Designed-for-NVIDIA-Vera-Rubin-PCIe-Gen6-SSD-and-SOCAMM2-03-16-2026/default.aspx},
+  note = {States Micron 'has begun volume shipment of its HBM4 36GB 12H in the first quarter of calendar year 2026 and is designed for NVIDIA Vera Rubin,' delivering >2.8 TB/s bandwidth (2.3x HBM3E) and >20% better power efficiency.}
+}
+
+@misc{minimax-2025-01,
+  author = {MiniMax and Aonian Li and Bangwei Gong and Bo Yang and Boji Shan and Chang Liu and Cheng Zhu and Chunhao Zhang and Congchao Guo and Da Chen and Dong Li and Enwei Jiao and Gengxin Li and Guojun Zhang and Haohai Sun and Houze Dong and Jiadai Zhu and Jiaqi Zhuang and Jiayuan Song and Jin Zhu and Jingtao Han and Jingyang Li and Junbin Xie and Junhao Xu and Junjie Yan and Kaishun Zhang and Kecheng Xiao and Kexi Kang and Le Han and Leyang Wang and Lianfei Yu and Liheng Feng and Lin Zheng and Linbo Chai and Long Xing and Meizhi Ju and Mingyuan Chi and Mozhi Zhang and Peikai Huang and Pengcheng Niu and Pengfei Li and Pengyu Zhao and Qi Yang and Qidi Xu and Qiexiang Wang and Qin Wang and Qiuhui Li and Ruitao Leng and Shengmin Shi and Shuqi Yu and Sichen Li and Songquan Zhu and Tao Huang and Tianrun Liang and Weigao Sun and Weixuan Sun and Weiyu Cheng and Wenkai Li and Xiangjun Song and Xiao Su and Xiaodong Han and Xinjie Zhang and Xinzhu Hou and Xu Min and Xun Zou and Xuyang Shen and Yan Gong and Yingjie Zhu and Yipeng Zhou and Yiran Zhong and Yongyi Hu and Yuanxiang Fan and Yue Yu and Yufeng Yang and Yuhao Li and Yunan Huang and Yunji Li and Yunpeng Huang and Yunzhi Xu and Yuxin Mao and Zehan Li and Zekang Li and Zewei Tao and Zewen Ying and Zhaoyang Cong and Zhen Qin and Zhenhua Fan and Zhihang Yu and Zhuo Jiang and Zijia Wu},
+  title = {{MiniMax-01: Scaling Foundation Models with Lightning Attention}},
+  howpublished = {arXiv:2501.08313},
+  year = {2025},
+  url = {https://arxiv.org/abs/2501.08313},
+  note = {Places one softmax/GQA layer after every 7 lightning-attention (linear) layers, motivated by lightning attention alone showing 'limited retrieval capabilities' in the authors' own ablations.}
+}
+
+@misc{mistral-2024-mixtral,
+  author = {Albert Q. Jiang and Alexandre Sablayrolles and Antoine Roux and Arthur Mensch and Blanche Savary and Chris Bamford and Devendra Singh Chaplot and Diego de las Casas and Emma Bou Hanna and Florian Bressand and Gianna Lengyel and Guillaume Bour and Guillaume Lample and Lélio Renard Lavaud and Lucile Saulnier and Marie-Anne Lachaux and Pierre Stock and Sandeep Subramanian and Sophia Yang and Szymon Antoniak and Teven Le Scao and Théophile Gervet and Thibaut Lavril and Thomas Wang and Timothée Lacroix and William El Sayed},
+  title = {{Mixtral of Experts}},
+  howpublished = {arXiv:2401.04088},
+  year = {2024},
+  url = {https://arxiv.org/abs/2401.04088}
+}
+
+@misc{mistralai-2023-7b-cfg,
+  author = {Mistral AI},
+  title = {{Mistral-7B-v0.1 config.json}},
+  howpublished = {Hugging Face Hub},
+  year = {2023},
+  url = {https://huggingface.co/mistralai/Mistral-7B-v0.1/raw/main/config.json},
+  note = {Accessed 2026-09-27. Public, ungated repo, fetched directly. num_hidden_layers=32, num_key_value_heads=8, hidden_size=4096, num_attention_heads=32 (head_dim=128), sliding_window=4096. max_position_embeddings=32768; this tool does NOT use this figure as the model's max_context, since it is a looser positional-embedding ceiling with no accompanying rope_scaling/training evidence -- the model's own paper (jiang-2023-mistral7b, Table 1) states a distinct, smaller context_len=8192, which this tool uses instead.}
+}
+
+@techreport{mlcommons-2025-dsr1,
+  author = {MLCommons},
+  title = {{DeepSeek Reasoning for MLPerf Inference v5.1}},
+  institution = {MLCommons},
+  year = {2025},
+  url = {https://mlcommons.org/2025/09/deepseek-inference-5-1/}
+}
+
+@misc{mlcommons-2025-llama31bench,
+  author = {MLCommons},
+  title = {{MLPerf Inference 5.1: Benchmarking Small LLMs with Llama 3.1-8B}},
+  howpublished = {MLCommons Blog},
+  year = {2025},
+  url = {https://mlcommons.org/2025/09/small-llm-inference-5-1/}
+}
+
+@misc{mlcommons-2025-llmv5,
+  author = {MLCommons},
+  title = {{MLPerf Inference v5.0 Advances Language Model Capabilities for GenAI}},
+  howpublished = {MLCommons},
+  year = {2025},
+  url = {https://mlcommons.org/2025/04/llm-inference-v5/},
+  note = {Covers only the Llama 3.1 405B and Llama 2 70B (Interactive category) additions; does not cover GPT-OSS-120B, which was introduced in v6.0 (see mlcommons-2026-gptoss).}
+}
+
+@misc{mlcommons-2026-agenticinference,
+  author = {MLCommons},
+  title = {{Agentic Inference for MLPerf Inference}},
+  howpublished = {MLCommons},
+  year = {2026},
+  url = {https://mlcommons.org/2026/07/agentic-inference-for-mlperf-inference/},
+  note = {Verified by direct fetch 2026-09-27. Previews a new MLPerf Endpoints multi-turn benchmark: 613 trajectories (113 agentic-coding from DataCurve's DeepSWE dataset, 500 agentic-workflow from Workato), evaluated on Kimi K2.6 and Qwen3.6-35B-A3B. Client design section states a 'stable X-Session-ID header ... so routers can preserve KV-cache locality' and 'Cache salting: deterministic salt markers around the system prompt allow valid within-trajectory reuse while blocking invalid cross-trajectory reuse.'}
+}
+
+@misc{mlcommons-2026-gptoss,
+  author = {MLCommons},
+  title = {{A new GPT-OSS benchmark and DeepSeek R1 updates for latency-optimized reasoning}},
+  howpublished = {MLCommons},
+  year = {2026},
+  url = {https://mlcommons.org/2026/03/mlperf-inference-gpt-oss/},
+  note = {Introduces the GPT-OSS-120B benchmark in MLPerf Inference v6.0. States GPT-OSS-120B constraints at introduction as Interactive: TTFT<=2.0s/TPOT<=15ms, Server: TTFT<=3.0s/TPOT<=80ms; the current inference_rules.adoc lists the Interactive TPOT bound as <=20ms, i.e. relaxed since introduction.}
+}
+
+@misc{mlcommons-2026-inferencerules,
+  author = {MLCommons},
+  title = {{MLPerf Inference Rules}},
+  howpublished = {mlcommons/inference_policies (GitHub repository, master branch)},
+  url = {https://github.com/mlcommons/inference_policies/blob/master/inference_rules.adoc},
+  note = {Accessed 2026-09-27; living rules document updated by commit. Defines TTFT and TPOT ('average interval between all the tokens generated') and lists per-benchmark, per-scenario numeric TTFT/TPOT targets. For Llama3.1-8B specifically, the current text reads: 'Conversational category: TTFT/TPOT: 2000 ms/100 ms. Interactive category: TTFT/TPOT: 500 ms/30 ms.' — i.e. the document's own terms are 'Conversational'/'Interactive' categories, not 'server'/'interactive' scenarios as the MLCommons blog post informally calls them.}
+}
+
+@misc{mlcommons-2026-kvcachebench,
+  author = {MLCommons},
+  title = {{MLPerf Storage Benchmark Suite — KV Cache Workloads}},
+  howpublished = {MLCommons storage GitHub repository (kv_cache_benchmark/README.md, DESIGN.md)},
+  year = {2026},
+  url = {https://github.com/mlcommons/storage/blob/main/kv_cache_benchmark/README.md},
+  note = {Verified by direct fetch 2026-09-27. Confirms the three fixed closed-division workloads (llama3.1-8b at 200 users/0 CPU-mem-GB, llama3.1-8b at 100 users/4 CPU-mem-GB, llama3.1-70b-instruct at 70 users/0 CPU-mem-GB) and the reported metrics (tokens/sec, per-tier read/write GiB/s, p95 read latency). The repo's own hit-rate table lists 'ShareGPT + defaults' at 85-97% and the worst-case combination ('--disable-multi-turn --disable-prefix-caching' plus '--cpu-mem-gb 0') at 5-15%.}
+}
+
+@misc{mlcommons-2026-storagev3,
+  author = {MLCommons},
+  title = {{MLCommons Releases New MLPerf Storage v3.0 Benchmark Results}},
+  howpublished = {MLCommons},
+  year = {2026},
+  url = {https://mlcommons.org/2026/09/mlperf-storage-v3-0-results/},
+  note = {Verified by direct fetch 2026-09-27. Announces v3.0's new KV Cache test ('measures storage performance for LLM inference cache read/write operations') and new Vector Database test, plus a new S3 object-storage access layer; 19 submitting organizations, 11 first-time submitters.}
+}
+
+@techreport{mlcommons-2026-storagev3res,
+  author = {MLCommons},
+  title = {{Final MLPerf Storage v3.0 Supplemental Discussion}},
+  institution = {MLCommons},
+  year = {2026},
+  url = {https://mlcommons.org/wp-content/uploads/2026/08/Final-MLPerf-Storage-v3.0-Supplemental-UNDER-EMBARGO-UNTIL-9_1_26-8_00-AM-PT.pdf},
+  note = {Verified by direct fetch 2026-09-27 (embargo lifted 2026-09-01). Vendor self-reported KV Cache results confirmed verbatim: Samsung PM1763 '813 tok/s throughput with 13.54 GiB/s read and 2.87 GiB/s write bandwidth concurrently for LLaMA3.1-8B'; HPE Cray K3000 'Over 8,700 tokens per second and over 151 GiB/s across 16 clients in KV caching'; Inspur AS13000G7 'single-node throughput of 14,579.22 tok/s' on the KVCache 8B scenario.}
+}
+
+@misc{moon-dejavu,
+  author = {Don Moon},
+  title = {{LLM Inference Optimization — KV-cache Streaming for Fast, Fault-tolerant Generative LLM Serving, DéjàVu}},
+  howpublished = {Byte-Sized AI (Medium)},
+  year = {2024},
+  url = {https://medium.com/byte-sized-ai/llm-inference-kv-cache-streaming-for-fast-fault-tolerant-generative-llm-serving-dejavu-100a93be1679}
+}
+
+@misc{moon-infinigen,
+  author = {Don Moon},
+  title = {{LLM Inference: Accelerating Long Context Generation with KV Cache Offloading to CPU Memory, Using InfiniGen}},
+  howpublished = {Byte-Sized AI (Medium)},
+  year = {2024},
+  url = {https://medium.com/byte-sized-ai/llm-inference-optimization-accelerating-long-context-generation-with-kv-cache-offloading-to-cpu-12d3bea407d8}
+}
+
+@misc{mooncake-2026-configpy,
+  author = {Mooncake Team},
+  title = {{mooncake_config.py (MooncakeConfig dataclass)}},
+  howpublished = {GitHub, kvcache-ai/Mooncake},
+  url = {https://github.com/kvcache-ai/Mooncake/blob/main/mooncake-wheel/mooncake/mooncake_config.py},
+  note = {Defines the MooncakeConfig dataclass fields (local_hostname, metadata_server, global_segment_size, local_buffer_size, protocol, device_name, master_server_address); no authentication or encryption field is present. Accessed Sept. 2026.}
+}
+
+@misc{mooncake-2026-deployguide,
+  author = {Mooncake Team},
+  title = {{Mooncake Store Deployment & Tuning Guide}},
+  howpublished = {Mooncake documentation (kvcache-ai.github.io)},
+  url = {https://kvcache-ai.github.io/Mooncake/deployment/mooncake-store-deployment-guide.html},
+  note = {Documents MOONCAKE_* environment variables and setup()/CLI parameters for the Store client (protocol, RDMA device selection, master/metadata server addresses, global segment and local buffer sizes, SSD-offload and HA options); no authentication or encryption field is documented for the Master/Client RPC or Transfer Engine data path. Accessed Sept. 2026.}
+}
+
+@misc{mooncake-2026-transferengine,
+  author = {Mooncake Team},
+  title = {{Transfer Engine}},
+  howpublished = {Mooncake documentation (kvcache-ai.github.io)},
+  url = {https://kvcache-ai.github.io/Mooncake/design/transfer-engine/index.html},
+  note = {Describes the Segment/BatchTransfer data-transfer design (TCP, RDMA, NVMeoF, SHM). The corresponding source (mooncake-transfer-engine/src/transfer_metadata_plugin.cpp) documents MC_REDIS_PASSWORD / MC_REDIS_USERNAME, which authenticate only to the optional Redis metadata-service backend via AUTH, not the RDMA/TCP data-transfer path itself. Accessed Sept. 2026.}
+}
+
+@misc{mooncake-store-docs,
+  author = {Mooncake Team},
+  title = {{Mooncake Store}},
+  howpublished = {Mooncake documentation (kvcache-ai/Mooncake, GitHub)},
+  url = {https://github.com/kvcache-ai/Mooncake/blob/main/docs/source/design/mooncake-store.md},
+  note = {Design document for the distributed KV-cache storage engine: Master/Client architecture, tenant-quota admission control, protobuf message definitions, and a (now legacy, superseded by the SSD-offload subsystem) two-tier 'memory + Distributed File System (DFS)' persistence mode keyed by the caller-supplied object key, with no documented encryption or authentication field anywhere in the design. Does not contain a client configuration-parameter reference (see mooncake-2026-deployguide / mooncake-2026-configpy). Accessed Sept. 2026.}
+}
+
+@misc{moonshotai-2025-kimik2-cfg,
+  author = {Moonshot AI},
+  title = {{Kimi-K2-Instruct config.json}},
+  howpublished = {Hugging Face Hub},
+  year = {2025},
+  url = {https://huggingface.co/moonshotai/Kimi-K2-Instruct/raw/main/config.json},
+  note = {Accessed 2026-09-27. Public, ungated repo, fetched directly. architectures=["DeepseekV3ForCausalLM"]; num_hidden_layers=61, kv_lora_rank=512, qk_rope_head_dim=64, qk_nope_head_dim=128, v_head_dim=128, num_attention_heads=64 -- same MLA cache shape as DeepSeek-V3. max_position_embeddings=131072 via YaRN (factor=32, original_max_position_embeddings=4096). Also carries the same fp8 quantization_config shape as DeepSeek-V3 for its weights; this tool assumes bf16 for the KV-cache/activation dtype regardless (see deepseek-2024-v3-cfg's note).}
+}
+
+@misc{moonshotai-2025-kimilinear-config,
+  author = {Moonshot AI},
+  title = {{Kimi-Linear-48B-A3B-Instruct config.json}},
+  howpublished = {Hugging Face model repository},
+  year = {2025},
+  url = {https://huggingface.co/moonshotai/Kimi-Linear-48B-A3B-Instruct},
+  note = {num_hidden_layers=27; linear_attn_config.full_attn_layers=[4,8,12,16,20,24,27] (7 full-MLA layers, kv_lora_rank=512, qk_rope_head_dim=64) and kda_layers lists the remaining 20 KDA layers.}
+}
+
+@misc{nebius-2025-swetraj,
+  author = {Nebius},
+  title = {{nebius/SWE-agent-trajectories}},
+  howpublished = {Hugging Face Datasets},
+  url = {https://huggingface.co/datasets/nebius/SWE-agent-trajectories},
+  note = {80,036 SWE-agent trajectories over SWE-bench and SWE-bench-extra instances; context-length statistics use the Llama 3 tokenizer.}
+}
+
+@misc{nebius-2026-wekab300,
+  author = {Nebius},
+  title = {{Nebius and WEKA benchmark shared KV cache for agentic inference on NVIDIA HGX B300}},
+  howpublished = {Nebius blog},
+  year = {2026},
+  url = {https://nebius.com/blog/posts/nebius-weka-shared-kv-cache-benchmark-hgx-b300},
+  note = {Published 24 September 2026; verified by direct fetch. Vendor-reported; eight-hour replay of captured agentic coding sessions against nvidia/DeepSeek-V4-Pro-NVFP4 on one 8x B300 node (TP=8, vLLM v0.23), HBM-only vs. WEKA Augmented Memory Grid pooling local NVMe across eight nodes over GPUDirect RDMA. Reports 93% vs. 40% cache hit rate, 2.4x requests served, and 3.2x fewer prefilled tokens in total despite serving more requests.}
+}
+
+@misc{netapp-2026-pnfs,
+  author = {Mike Oglesby},
+  title = {{KV cache offloading with vLLM, LMCache, and ONTAP pNFS}},
+  howpublished = {NetApp Community / Tech ONTAP blog},
+  year = {2026},
+  url = {https://community.netapp.com/community/discussion/467414/kv-cache-offloading-with-vllm-lmcache-and-ontap-pnfs},
+  note = {Reports ONTAP pNFS-over-RDMA (via LMCache's Remote FS plugin) yielding up to 201% higher aggregate processing throughput and up to 99% lower average TTFT vs. GPU-memory-only KV cache, and up to 86% lower TTFT vs. a GPU-plus-CPU-memory-only configuration, tested across two load-balanced vLLM instances sharing one ONTAP S3 bucket / NAS volume.}
+}
+
+@misc{nim-metrics,
+  author = {NVIDIA},
+  title = {{Metrics — NVIDIA NIM LLMs Benchmarking}},
+  howpublished = {NVIDIA NIM documentation},
+  url = {https://docs.nvidia.com/nim/benchmarking/llm/latest/metrics.html}
+}
+
+@misc{nvidia-2021-a6000,
+  author = {NVIDIA Corporation},
+  title = {{NVIDIA RTX A6000 Datasheet}},
+  howpublished = {NVIDIA product datasheet},
+  year = {2021},
+  url = {https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/proviz-print-nvidia-rtx-a6000-datasheet-us-nvidia-1454980-r9-web%20(1).pdf},
+  note = {The datasheet prints only 'Tensor performance 309.7 TFLOPS' with footnote 8, 'Effective teraFLOPS (TFLOPS) using the new sparsity feature' -- it does not print a dense (non-sparse) figure anywhere on the page. The 154.8 TFLOPS dense figure used in this whitepaper is derived by halving 309.7, per NVIDIA's standard Ampere-generation 2:1 structural-sparsity convention (dense = sparse/2); this is disclosed as a derived figure in the body text, not presented as a number printed on the datasheet itself.}
+}
+
+@techreport{nvidia-2022-ada,
+  author = {NVIDIA},
+  title = {{NVIDIA Ada GPU Architecture}},
+  institution = {NVIDIA whitepaper},
+  year = {2022},
+  url = {https://images.nvidia.com/aem-dam/Solutions/geforce/ada/nvidia-ada-gpu-architecture.pdf},
+  note = {States GeForce RTX 4090 memory bandwidth as 1,008 GB/sec (~1 TB/s), versus 616 GB/sec for the prior-generation RTX 3080.}
+}
+
+@misc{nvidia-2022-gracehopper,
+  author = {Jonathon Evans and Michael Andersch and Vikram Sethi and Gonzalo Brito and Vishal Mehta},
+  title = {{NVIDIA Grace Hopper Superchip Architecture In-Depth}},
+  howpublished = {NVIDIA Developer Blog},
+  year = {2022},
+  url = {https://developer.nvidia.com/blog/nvidia-grace-hopper-superchip-architecture-in-depth/},
+  note = {States 'up to 512 GB of LPDDR5X CPU memory' delivering 'up to 546 GB/s of memory bandwidth' for Grace Hopper; this reflects an earlier/architecture-preview configuration, not the shipping GH200 product's 480 GB / 500 GB/s specification (see nvidia-2024-gracedatasheet), which this whitepaper uses for the specific capacity/bandwidth figures. Retained here for the 900 GB/s total / 450 GB/s per-direction NVLink-C2C bandwidth figures, which match the shipping-product datasheet exactly.}
+}
+
+@techreport{nvidia-2022-h100,
+  author = {NVIDIA},
+  title = {{NVIDIA H100 Tensor Core GPU Datasheet}},
+  institution = {NVIDIA},
+  year = {2022},
+  url = {https://resources.nvidia.com/en-us-data-center-overview/nvidia-tensor-core-gpu-datasheet},
+  note = {Product datasheet, periodically revised.}
+}
+
+@techreport{nvidia-2023-connectx7,
+  author = {NVIDIA},
+  title = {{NVIDIA ConnectX-7 Datasheet}},
+  institution = {NVIDIA},
+  year = {2023},
+  url = {https://www.nvidia.com/content/dam/en-zz/Solutions/networking/infiniband-adapters/infiniband-connectx7-data-sheet.pdf},
+  note = {InfiniBand-mode datasheet; documents NDR 400Gb/s InfiniBand only, not Ethernet/RoCE speeds.}
+}
+
+@techreport{nvidia-2023-connectx7eth,
+  author = {NVIDIA},
+  title = {{NVIDIA ConnectX-7 Ethernet Adapter Datasheet}},
+  institution = {NVIDIA},
+  year = {2023},
+  url = {https://www.nvidia.com/content/dam/en-zz/Solutions/networking/ethernet-adapters/connectx-7-datasheet-Final.pdf},
+  note = {Ethernet/RoCE-mode datasheet (distinct document from the InfiniBand-mode datasheet above): states up to 400GbE total bandwidth and RDMA over Converged Ethernet (RoCE) support. Product datasheet, periodically revised.}
+}
+
+@misc{nvidia-2023-h100,
+  author = {NVIDIA},
+  title = {{NVIDIA H100 Tensor Core GPU}},
+  howpublished = {NVIDIA data center product page / datasheet},
+  year = {2023},
+  url = {https://www.nvidia.com/en-us/data-center/h100/},
+  note = {H100 SXM: 1,979 TFLOPS BF16 Tensor Core with 2:4 structured sparsity (989.5 TFLOPS dense); 3.35 TB/s HBM3 memory bandwidth.}
+}
+
+@misc{nvidia-2024-800g,
+  author = {NVIDIA},
+  title = {{MMA4Z00-NS 800Gb/s Twin-port OSFP Transceiver — Overview}},
+  howpublished = {NVIDIA Networking Docs},
+  year = {2024},
+  url = {https://networking-docs.nvidia.com/800gmma4z00ns/overview}
+}
+
+@misc{nvidia-2024-gb200,
+  author = {Ivan Goldwasser and Harry Petty and Pradyumna Desale and Kirthi Devleker},
+  title = {{NVIDIA GB200 NVL72 Delivers Trillion-Parameter LLM Training and Real-Time Inference}},
+  howpublished = {NVIDIA Developer Blog},
+  year = {2024},
+  url = {https://developer.nvidia.com/blog/nvidia-gb200-nvl72-delivers-trillion-parameter-llm-training-and-real-time-inference/},
+  note = {Confirms Grace Blackwell (GB200) uses the same 900 GB/s bidirectional NVLink-C2C between Grace CPU and Blackwell GPU as Grace Hopper.}
+}
+
+@misc{nvidia-2024-gracedatasheet,
+  author = {NVIDIA Corporation},
+  title = {{NVIDIA Grace Hopper Superchip Data Sheet}},
+  howpublished = {NVIDIA product datasheet},
+  year = {2024},
+  url = {https://dam-cdn.nvd.orangelogic.com/AssetLink/tkno03fa645gb7f33w60rf200d330420.pdf},
+  note = {States 'Up to 480GB of LPDDR5X memory with error-correction code (ECC)' and, in the Grace CPU section, 'up to 500GB/s of bandwidth' for the shipping GH200 product; consistent with NVIDIA's Grace Performance Tuning Guide (docs.nvidia.com/dccpu/grace-perf-tuning-guide) and Clara Parabricks GH200 documentation, both of which list the identical 480GB/500GB/s figures. Used in place of the 2022 architecture-preview blog (nvidia-2022-gracehopper), which states different, earlier figures (512GB/546GB/s) for the CPU memory capacity and bandwidth specifically.}
+}
+
+@misc{nvidia-2025-b200,
+  author = {NVIDIA},
+  title = {{NVIDIA HGX Platform}},
+  howpublished = {NVIDIA data center product page / specifications},
+  year = {2025},
+  url = {https://www.nvidia.com/en-us/data-center/hgx/},
+  note = {Accessed 2026-09-27. NVIDIA's own HGX spec table lists the 8x-GPU HGX B200 baseboard's FP16/BF16 Tensor Core throughput as 36 PFLOPS (footnoted 'Specification in Sparse. Dense is 1/2 sparse spec shown'), i.e. 4.5 PFLOPS sparse / 2.25 PFLOPS dense per GPU. Per-GPU HBM3e bandwidth of 7.7 TB/s is derived from NVIDIA's own HGX B200 Product Carbon Footprint summary (images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf), which gives the 8-GPU baseboard's total memory bandwidth as 'up to 62 TB/s' (62/8≈7.7); the same per-GPU figures (180 GB HBM3e, 7.7 TB/s) are reproduced in OEM partner spec sheets, e.g. Lenovo Press lp2226.}
+}
+
+@misc{nvidia-2025-dynamo,
+  author = {Amr Elmeleegy},
+  title = {{Dynamo 0.4 Delivers 4x Faster Performance, SLO-Based Autoscaling, and Real-Time Observability}},
+  howpublished = {NVIDIA Technical Blog},
+  year = {2025},
+  url = {https://developer.nvidia.com/blog/dynamo-0-4-delivers-4x-faster-performance-slo-based-autoscaling-and-real-time-observability/},
+  note = {Dynamo's Planner autoscales prefill/decode worker counts against configured TTFT and Inter-Token Latency (ITL) SLO targets rather than raw queries-per-second.}
+}
+
+@misc{nvidia-2025-nemollama2,
+  author = {NVIDIA},
+  title = {{Llama2ModelProvider13B — NeMo Megatron Bridge Documentation}},
+  howpublished = {NVIDIA NeMo Megatron Bridge documentation},
+  url = {https://docs.nvidia.com/nemo/megatron-bridge/0.3.1/apidocs/bridge/bridge.models.llama.llama_provider.html},
+  note = {Confirms Llama-2-13B architecture: 40 layers, 5120 hidden size, 40 attention heads (no grouped-query attention), used as the basis for the worked KV-cache-size calculation.}
+}
+
+@techreport{nvidia-2025-nemotronh,
+  author = {NVIDIA},
+  title = {{Nemotron-H: A Family of Accurate and Efficient Hybrid Mamba-Transformer Models}},
+  institution = {arXiv:2504.03624},
+  year = {2025},
+  url = {https://arxiv.org/abs/2504.03624},
+  note = {States self-attention layers are kept to ~8% of total layers (4 of 52 in the 8B model, 10 of 118 in the 56B model), using GQA with 8 KV heads. States (Sec. 1): 'With larger sequences (65536 input sequence length, 1024 output tokens), we measure up to 3x higher inference throughput on NVIDIA H100 GPUs' versus similarly-sized Qwen2.5/Llama-3.1 models. Per the companion NVIDIA ADLR project page (research.nvidia.com/labs/adlr/nemotronh/), the 8B model's largest pairwise figure is 3x vs. Llama-3.1-8B (1.8x vs. Qwen2.5-7B), while the 56B model's is 2.4x vs. Qwen2.5-72B/Llama-3.1-70B (2.9x after MiniPuzzle distillation to the 47B variant) -- the abstract's 'up to 3x' is the largest single pairwise comparison across the family, not a uniform multiplier.}
+}
+
+@misc{nvidia-2025-nixl,
+  author = {NVIDIA},
+  title = {{NIXL: NVIDIA Inference Xfer Library}},
+  howpublished = {GitHub — ai-dynamo/nixl},
+  year = {2025},
+  url = {https://github.com/ai-dynamo/nixl}
+}
+
+@misc{nvidia-2025-nvfp4,
+  author = {Eduardo Alvarez},
+  title = {{Introducing NVFP4 for Efficient and Accurate Low-Precision Inference}},
+  howpublished = {NVIDIA Technical Blog},
+  year = {2025},
+  url = {https://developer.nvidia.com/blog/introducing-nvfp4-for-efficient-and-accurate-low-precision-inference/}
+}
+
+@misc{nvidia-2026-aiperf,
+  author = {NVIDIA},
+  title = {{AIPerf: Comprehensive LLM Benchmarking}},
+  howpublished = {NVIDIA AIPerf documentation},
+  year = {2026},
+  url = {https://docs.nvidia.com/aiperf/dev/getting-started/ai-perf-comprehensive-llm-benchmarking},
+  note = {Worked-example guide for AIPerf v0.5.0; presentation dated 2025-11-13, page updated 2026-02-02. Covers concurrency sweeps, Pareto (tok/s/GPU vs tok/s/user) analysis, and goodput/SLA measurement.}
+}
+
+@misc{nvidia-2026-bluefield4pr,
+  author = {NVIDIA Corporation},
+  title = {{NVIDIA BlueField-4 Powers New Class of AI-Native Storage Infrastructure for the Next Frontier of AI}},
+  howpublished = {NVIDIA Newsroom},
+  year = {2026},
+  url = {https://nvidianews.nvidia.com/news/nvidia-bluefield-4-powers-new-class-of-ai-native-storage-infrastructure-for-the-next-frontier-of-ai},
+  note = {Announces the BlueField-4-powered Inference Context Memory Storage Platform; vendor-reported claims of up to 5x tokens-per-second and 5x power efficiency versus 'traditional storage'; lists AIC, Cloudian, DDN, Dell, HPE, Hitachi Vantara, IBM, Nutanix, Pure Storage, Supermicro, VAST Data and WEKA as first storage partners, general availability second half of 2026.}
+}
+
+@misc{nvidia-2026-cmxblog,
+  author = {Moshe Anschel and Einav Zilberstein and Oren Duer and Kirill Shoikhet and Ronil Prasad},
+  title = {{Introducing NVIDIA BlueField-4-Powered CMX Context Memory Storage Platform for the Next Frontier of AI}},
+  howpublished = {NVIDIA Technical Blog},
+  year = {2026},
+  url = {https://developer.nvidia.com/blog/introducing-nvidia-bluefield-4-powered-inference-context-memory-storage-platform-for-the-next-frontier-of-ai/},
+  note = {Details the new 'G3.5' Ethernet-attached flash tier bridging GPU/host memory and shared storage; states KV cache is treated as 'transient, derived, and recomputable if lost' and therefore does not receive conventional durability/data-protection overhead.}
+}
+
+@misc{nvidia-2026-dynamo,
+  author = {NVIDIA},
+  title = {{Disaggregated Serving (Design Docs)}},
+  howpublished = {NVIDIA Dynamo Documentation},
+  url = {https://docs.nvidia.com/dynamo/dev/design-docs/disaggregated-serving},
+  note = {Documentation is continuously updated; accessed September 2026.}
+}
+
+@misc{nvidia-2026-dynamo-v102,
+  author = {NVIDIA},
+  title = {{Disaggregated Serving}},
+  howpublished = {NVIDIA Dynamo documentation, v1.0.2},
+  url = {https://docs.nvidia.com/dynamo/v1.0.2/user-guides/disaggregated-serving},
+  note = {Validated AIConfigurator-predicted vs. measured TTFT/TPOT/throughput table (Qwen3-32B-FP8, 8x H200); states disaggregated KV transfer without RDMA degrades TTFT roughly 40x (355ms to 10+ seconds) in this walkthrough's illustrative example. Verified present verbatim in this exact version/URL by direct fetch on 2026-09-27.}
+}
+
+@misc{nvidia-2026-dynamocomm,
+  author = {NVIDIA},
+  title = {{Disaggregated Inference Communication Guide}},
+  howpublished = {NVIDIA Dynamo documentation, v1.4.1},
+  year = {2026},
+  url = {https://docs.nvidia.com/dynamo/v1.4.1/knowledge-base/kubernetes/kubernetes-operator/disagg-communication},
+  note = {Accessed 2026-09-27. Breaks down TTFT overhead without RDMA by transport: InfiniBand/RoCE RDMA with GPUDirect +200-500ms (expected), AWS EFA+libfabric+GDRCopy +37ms (measured, AWS p5.48xlarge, Llama-3.1-8B ISL=8000/OSL=50), TCP fallback +90-100s (measured, ~98s TTFT) -- i.e. roughly 200-500x versus RDMA on that reference hardware.}
+}
+
+@misc{nvidia-2026-dynamoguide,
+  author = {NVIDIA},
+  title = {{Disaggregated Serving (Kubernetes Deployment Guide)}},
+  howpublished = {NVIDIA Dynamo Documentation},
+  url = {https://docs.nvidia.com/dynamo/v1.4.2/kubernetes/disaggregated-serving/overview},
+  note = {Documentation is continuously updated; accessed September 2026, describing Dynamo v1.4.2.}
+}
+
+@misc{nvidia-2026-hgx-blackwell,
+  author = {NVIDIA},
+  title = {{Components — NVIDIA HGX AI Factory}},
+  howpublished = {NVIDIA Enterprise Reference Architectures documentation},
+  year = {2026},
+  url = {https://docs.nvidia.com/enterprise-reference-architectures/hgx-ai-factory/latest/components.html},
+  note = {Per-GPU HBM3e comparison table: H200 141GB/4.80TB/s; B200 180GB/up to 8TB/s; B300 288GB/up to 8TB/s.}
+}
+
+@misc{nvidia-2026-kvbmconfig,
+  author = {NVIDIA},
+  title = {{KVBM Configuration Reference}},
+  howpublished = {NVIDIA Dynamo documentation},
+  url = {https://docs.nvidia.com/dynamo/v1.4.1/reference/components/kvbm-configuration},
+  note = {Accessed 2026-09-27. Documents G4 object-storage settings (S3 or NIXL client; bucket/region/endpoint/max_concurrent_requests) and G1->G2->G3 offload policies (pass_all, presence, presence_lfu); warns that an undersized backing tier causes churn.}
+}
+
+@misc{nvidia-2026-kvbmdesign,
+  author = {NVIDIA},
+  title = {{KVBM Design}},
+  howpublished = {NVIDIA Dynamo documentation},
+  url = {https://docs.nvidia.com/dynamo/v1.4.1/knowledge-base/modular-components/kvbm/kvbm-design},
+  note = {Accessed 2026-09-27. Defines the G1 (GPU)/G2 (CPU pinned memory)/G3 (local SSD)/G4 (remote/object storage, treated as an opaque blob store) tier hierarchy of the Dynamo KV Block Manager.}
+}
+
+@misc{nvidia-2026-stxpr,
+  author = {NVIDIA Corporation},
+  title = {{NVIDIA Launches BlueField-4 STX Storage Architecture With Broad Industry Adoption}},
+  howpublished = {NVIDIA Investor Relations},
+  year = {2026},
+  url = {https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Launches-BlueField-4-STX-Storage-Architecture-With-Broad-Industry-Adoption/default.aspx},
+  note = {Lists AIC, Cloudian, DDN, Dell Technologies, Everpure, Hitachi Vantara, HPE, IBM, MinIO, NetApp, Nutanix, Supermicro, Quanta Cloud Technology (QCT), VAST Data and WEKA as STX reference-architecture partners; does not list Scality.}
+}
+
+@misc{nvidia-2026-trtllmhelix,
+  author = {NVIDIA},
+  title = {{Helix Parallelism}},
+  howpublished = {TensorRT-LLM documentation},
+  url = {https://nvidia.github.io/TensorRT-LLM/features/helix.html},
+  note = {States 'Helix is a context parallelism (CP) technique for the decode/generation phase of LLM inference'; describes KV cache partitioning across CP ranks during generation and re-provisioning of CP ranks as tensor-parallel ranks for FFN/MoE layers. Currently supports MLA models (DeepSeek-V3/V3-Lite) on Blackwell GPUs in disaggregated (prefill/decode-split) serving.}
+}
+
+@techreport{nvidia-blackwell-ultra,
+  author = {NVIDIA},
+  title = {{NVIDIA Blackwell Ultra}},
+  institution = {NVIDIA product datasheet},
+  url = {https://resources.nvidia.com/en-us-blackwell-architecture/blackwell-ultra-datasheet/},
+  note = {States 279 GB of HBM3E memory per Blackwell Ultra (B300) GPU and 20 TB of HBM3E across a 72-GPU GB300 NVL72 rack (279 x 72 ~ 20.1 TB); other NVIDIA/OEM collateral lists up to 288 GB per GPU, which would total ~20.7 TB per rack and does not match the datasheet's own 20 TB rack figure. Does not mention the B200 GPU.}
+}
+
+@misc{nvidia-gds-design,
+  author = {NVIDIA},
+  title = {{GPUDirect Storage Design Guide}},
+  howpublished = {NVIDIA GPUDirect Storage documentation},
+  url = {https://docs.nvidia.com/gpudirect-storage/design-guide/index.html},
+  note = {Accessed 2026-09-27. Reports measured PCIe-tree bandwidths: 'Some HGX systems have Gen4 CPUs, which top out at 25 GB/s per tree' (below GPU/NIC capability), and separately notes 'NDR400 CX8s or BlueField 3s that match Gen 5 PCIe GPUs such as Hopper' (~50 GB/s class). Does not itself discuss dynamic routing or named network filesystems; that is documented in the separate GPUDirect Storage Overview Guide (nvidia-gds-overview).}
+}
+
+@misc{nvidia-gds-overview,
+  author = {NVIDIA},
+  title = {{GPUDirect Storage Overview Guide}},
+  howpublished = {NVIDIA GPUDirect Storage documentation},
+  url = {https://docs.nvidia.com/gpudirect-storage/overview-guide/},
+  note = {Accessed 2026-09-27. Describes GDS's direct DMA path between GPU memory and storage, avoiding the CPU bounce buffer. Section 1.2.6 ('Dynamic Routing') states that GDS Dynamic Routing chooses the optimal I/O path on network-based file systems 'such as DDN-EXAScaler, VAST-NFS, and WekaFS.'}
+}
+
+@techreport{nvidia-h200,
+  author = {NVIDIA},
+  title = {{NVIDIA H200 Tensor Core GPU}},
+  institution = {NVIDIA product datasheet},
+  url = {https://www.nvidia.com/en-us/data-center/h200/},
+  note = {141GB HBM3e at 4.8 TB/s per GPU, first GPU with HBM3e.}
+}
+
+@misc{nvidia-megatron-cp-docs,
+  author = {NVIDIA},
+  title = {{Context Parallel Overview}},
+  howpublished = {NVIDIA Megatron-LM GitHub repository documentation (docs/user-guide/features/context_parallel.md)},
+  url = {https://github.com/NVIDIA/Megatron-LM/blob/main/docs/user-guide/features/context_parallel.md},
+  note = {Describes context parallelism (CP) as partitioning the sequence dimension of KV across GPUs, with an all-gather of KV in the forward pass and reduce-scatter of activation gradients in the backward pass, exchanged in a ring topology between GPUs; compatible with GQA/MQA/MHA and combinable with TP, PP and DP. Framed entirely around training (forward/backward propagation, avoiding ~30% full-activation-recomputation overhead); does not mention inference, decoding or serving.}
+}
+
+@misc{nvidia-trtllm-quant,
+  author = {NVIDIA},
+  title = {{Quantization — TensorRT-LLM}},
+  howpublished = {TensorRT-LLM documentation},
+  url = {https://nvidia.github.io/TensorRT-LLM/latest/features/quantization.html},
+  note = {Hardware support matrix: NVFP4 KV cache supported on Blackwell sm100/sm103 only; FP8 KV cache supported on Ampere, Ada Lovelace, Hopper and Blackwell.}
+}
+
+@misc{nvmexpress-2016-overview,
+  author = {Dennis Martin},
+  title = {{NVMe over Fabrics Overview}},
+  howpublished = {NVM Express, Inc.},
+  year = {2016},
+  url = {https://nvmexpress.org/wp-content/uploads/NVMe%5FOver%5FFabrics.pdf},
+  note = {States the NVMe-oF design goal of no more than 10 microseconds of additional latency over a native local NVMe device, with further host-side code-path optimization expected to bring total observed latency to approximately 100 microseconds.}
+}
+
+@misc{openai-2024-promptcaching-blog,
+  author = {OpenAI},
+  title = {{Prompt Caching in the API}},
+  howpublished = {OpenAI blog},
+  year = {2024},
+  url = {https://openai.com/index/api-prompt-caching/}
+}
+
+@misc{openai-2025-cachingcookbook,
+  author = {Erika Kettleson},
+  title = {{Prompt Caching 201}},
+  howpublished = {OpenAI Cookbook},
+  year = {2026},
+  url = {https://developers.openai.com/cookbook/examples/prompt_caching_201},
+  note = {Table of cached-input discount by model generation (input/cached input/discount): gpt-4o $2.50/$1.25/50%, gpt-4.1 $2.00/$0.50/75%, gpt-5-nano $0.05/$0.005/90%, gpt-5.2 $1.75/$0.175/90%. The table's 'Caching Discount' column is 1-r (fraction saved), not r itself: r = cached/base, so gpt-4.1's r = 0.50/2.00 = 0.25, not 0.75.}
+}
+
+@misc{openai-2025-gpt41,
+  author = {OpenAI},
+  title = {{Introducing GPT-4.1 in the API}},
+  howpublished = {OpenAI Blog},
+  year = {2025},
+  url = {https://openai.com/index/gpt-4-1/}
+}
+
+@misc{openai-2025-gpt5launch,
+  author = {OpenAI},
+  title = {{Introducing GPT-5 for developers}},
+  howpublished = {OpenAI},
+  year = {2025},
+  url = {https://openai.com/index/introducing-gpt-5-for-developers/},
+  note = {States that in the API, GPT-5 models accept a maximum of 272,000 input tokens and emit up to 128,000 reasoning/output tokens, for a total context length of 400,000 tokens.}
+}
+
+@techreport{openai-2025-gptoss,
+  author = {OpenAI},
+  title = {{gpt-oss-120b & gpt-oss-20b Model Card}},
+  institution = {OpenAI technical report},
+  year = {2025},
+  url = {https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf},
+  note = {States gpt-oss-120b has 36 layers alternating banded (window 128 tokens) and fully dense attention, 64 query heads of dimension 64, and GQA with 8 KV heads (group size 8).}
+}
+
+@misc{openai-2025-gptoss-20b-cfg,
+  author = {OpenAI},
+  title = {{gpt-oss-20b config.json}},
+  howpublished = {Hugging Face Hub},
+  year = {2025},
+  url = {https://huggingface.co/openai/gpt-oss-20b/raw/main/config.json},
+  note = {Accessed 2026-09-27. Public, ungated repo, fetched directly. num_hidden_layers=24, num_key_value_heads=8, head_dim=64 (explicit field), num_attention_heads=64, sliding_window=128; layer_types explicitly alternates sliding_attention/full_attention across all 24 layers. max_position_embeddings=131072, within this tool's 128K comparison. Also carries quantization_config: {quant_method: 'mxfp4', modules_to_not_convert: ['model.layers.*.self_attn', 'model.layers.*.mlp.router', 'model.embed_tokens', 'lm_head']} -- i.e. OpenAI's own config explicitly excludes the attention path from mxfp4 weight quantization, which is the basis for this tool's native_dtype=bf16 assumption for KV cache across all models in this table (see the docstring note on DeepSeek-V3/Kimi-K2, whose configs carry no equivalent exclusion list).}
+}
+
+@misc{openai-2026-cookbook,
+  author = {OpenAI},
+  title = {{Prompt Caching 101}},
+  howpublished = {OpenAI Cookbook},
+  url = {https://developers.openai.com/cookbook/examples/prompt_caching101},
+  note = {Accessed 2026-09-27. States up to 80% TTFT latency reduction on prompts over 10,000 tokens.}
+}
+
+@misc{openai-2026-gpt54,
+  author = {OpenAI},
+  title = {{GPT-5.4 Model}},
+  howpublished = {OpenAI API documentation},
+  url = {https://developers.openai.com/api/docs/models/gpt-5.4},
+  note = {Model page lists a 1,050,000-token context window and 128,000-token max output for GPT-5.4 (snapshot gpt-5.4-2026-03-05); knowledge cutoff listed as Aug 31, 2025.}
+}
+
+@misc{openai-2026-pricing,
+  author = {OpenAI},
+  title = {{API Pricing}},
+  howpublished = {OpenAI},
+  url = {https://openai.com/api/pricing/},
+  note = {Accessed 2026-09-27.}
+}
+
+@misc{openai-2026-promptcaching,
+  author = {OpenAI},
+  title = {{Prompt caching}},
+  howpublished = {OpenAI API documentation},
+  url = {https://developers.openai.com/api/docs/guides/prompt-caching},
+  note = {Accessed 2026-09-27. Cache-write/read multipliers, minimum cacheable prefix, and TTL/retention behavior shown are current as of that date and are subject to change.}
+}
+
+@misc{openai-2026-reasoning,
+  author = {OpenAI},
+  title = {{Reasoning models}},
+  howpublished = {OpenAI API Documentation},
+  url = {https://developers.openai.com/api/docs/guides/reasoning}
+}
+
+@techreport{pcisig-2021-pciebw,
+  author = {Debendra Das Sharma},
+  title = {{PCI Express 6.0 Specification at 64.0 GT/s with PAM-4 Signaling: A Low Latency, High Bandwidth, High Reliability and Cost-Effective Interconnect}},
+  institution = {PCI-SIG technical presentation (IEEE Hot Interconnects)},
+  url = {https://pcisig.com/sites/default/files/files/HOTI_PCIe6.0.pdf},
+  note = {Contains the full PCIe Gen1-6 x16 per-direction bandwidth table used for the Gen4/Gen5/Gen6 figures cited in this section (Gen6 x16 listed as 1024 Gb/s per direction, i.e. ~128 GB/s, already 'bandwidth after encoding overhead' per the table's own footnote). The title slide credits Debendra Das Sharma (Intel Fellow, PCI-SIG Board Member) as presenter/author; a previous version of this entry used 'Robin Budd,' which does not appear anywhere in the deck's visible content and is evidently PDF uploader metadata rather than the author. The deck is a pre-ratification 2021 presentation; its own table marks the Gen6 row '2021*' with '* = Projected.' See pcisig-2022-ratified for the specification's actual January 2022 release date.}
+}
+
+@misc{pcisig-2022-ratified,
+  author = {PCI-SIG},
+  title = {{PCIe 6.0 Specification Released to Members: Double the Bandwidth for Next-Generation Applications}},
+  howpublished = {PCI-SIG Blog},
+  year = {2022},
+  url = {https://pcisig.com/blog/pcie%C2%AE-60-specification-released-members-double-bandwidth-next-generation-applications},
+  note = {PCI-SIG's own announcement of the PCIe 6.0 specification's release to members, corroborated by a contemporaneous Business Wire press release (2022-01-11). Cited for the specification's actual ratification/release date, distinct from the projected-bandwidth table in the 2021 pre-ratification presentation (pcisig-2021-pciebw).}
+}
+
+@misc{penguin-2026-memoryai,
+  author = {Penguin Solutions},
+  title = {{Penguin Solutions Introduces Industry's First Production-Ready CXL-Based KV Cache Server}},
+  howpublished = {Business Wire},
+  year = {2026},
+  url = {https://www.businesswire.com/news/home/20260316416248/en/Penguin-Solutions-Introduces-Industrys-First-Production-Ready-CXL-Based-KV-Cache-Server},
+  note = {Accessed 2026-09-27. Announces the MemoryAI KV cache server, billed as 'the industry's first production-ready KV cache server that utilizes CXL memory technology': 3 TB of DDR5 main memory plus up to eight 1 TB CXL Add-in Cards for up to 11 TB of pooled memory; states compatibility with NVIDIA Dynamo.}
+}
+
+@inproceedings{pope-2022-scaling,
+  author = {Reiner Pope and Sholto Douglas and Aakanksha Chowdhery and Jacob Devlin and James Bradbury and Anselm Levskaya and Jonathan Heek and Kefan Xiao and Shivani Agrawal and Jeff Dean},
+  title = {{Efficiently Scaling Transformer Inference}},
+  booktitle = {Proceedings of Machine Learning and Systems (MLSys) 2023},
+  year = {2023},
+  url = {https://arxiv.org/abs/2211.05102},
+  note = {Analyzes prefill (compute-bound) vs. decode (memory-bound, dominated by KV-cache loads at large batch/context) and the arithmetic-intensity motivation for multi-query attention; PaLM 540B example: KV cache of 3TB at batch 512 / context 2048, 3x the model's own parameter size.}
+}
+
+@misc{qin-2024-mooncake-arxiv,
+  author = {Ruoyu Qin and Zheming Li and Weiran He and Mingxing Zhang and Yongwei Wu and Weimin Zheng and Xinran Xu},
+  title = {{Mooncake: A KVCache-centric Disaggregated Architecture for LLM Serving}},
+  howpublished = {arXiv:2407.00079},
+  year = {2024},
+  url = {https://arxiv.org/abs/2407.00079},
+  note = {Earlier technical-report version of the Mooncake system, predating the peer-reviewed FAST'25 paper. Table 1 gives the block-capacity-vs.-hit-rate curve on the same 23,608-entry trace (LRUCache: 0.30 at 1,000 blocks, 0.40 at 10,000, 0.48 at 30,000, 0.50 at 50,000, 0.51 at 100,000 and at unbounded capacity) that does not appear in the FAST'25 paper.}
+}
+
+@inproceedings{qin-2025-mooncake,
+  author = {Ruoyu Qin and Zheming Li and Weiran He and Jialei Cui and Feng Ren and Mingxing Zhang and Yongwei Wu and Weimin Zheng and Xinran Xu},
+  title = {{Mooncake: Trading More Storage for Less Computation — A KVCache-centric Architecture for Serving LLM Chatbot}},
+  booktitle = {23rd USENIX Conference on File and Storage Technologies (FAST 25)},
+  year = {2025},
+  url = {https://www.usenix.org/system/files/fast25-qin.pdf},
+  note = {Full nine-author byline per the paper's own title page (Moonshot AI and Tsinghua University); a previous version of this entry omitted Jialei Cui and Feng Ren.}
+}
+
+@misc{qin-2026-mooncake-tos,
+  author = {Ruoyu Qin and Zheming Li and Weiran He and Jialei Cui and Heyi Tang and Feng Ren and Teng Ma and Shangming Cai and Yineng Zhang and Mingxing Zhang and Yongwei Wu and Weimin Zheng and Xinran Xu},
+  title = {{Mooncake: A KVCache-centric Disaggregated Architecture for LLM Serving}},
+  howpublished = {ACM Transactions on Storage},
+  year = {2026},
+  url = {https://doi.org/10.1145/3773772},
+  note = {Extended journal version of the FAST'25 paper (published online 2026-02-24). Adds material not in the conference paper: hierarchical VRAM/DRAM/SSD KVCache placement, a semantics-aware eviction policy, and the reported 93% increase in global cache hit rate.}
+}
+
+@misc{qwen-2024-qwen25-config,
+  author = {Qwen Team and Alibaba Cloud},
+  title = {{Qwen2.5-7B config.json}},
+  howpublished = {Hugging Face model repository},
+  year = {2024},
+  url = {https://huggingface.co/Qwen/Qwen2.5-7B},
+  note = {num_hidden_layers=28, num_attention_heads=28, num_key_value_heads=4, hidden_size=3584 (head_dim=128).}
+}
+
+@techreport{qwen-2025-1m,
+  author = {An Yang and Bowen Yu and Chengyuan Li and Dayiheng Liu and Fei Huang and Haoyan Huang and Jiandong Jiang and Jianhong Tu and Jianwei Zhang and Jingren Zhou and Junyang Lin and Kai Dang and Kexin Yang and Le Yu and Mei Li and Minmin Sun and Qin Zhu and Rui Men and Tao He and Weijia Xu and Wenbiao Yin and Wenyuan Yu and Xiafei Qiu and Xingzhang Ren and Xinlong Yang and Yong Li and Zhiying Xu and Zipeng Zhang},
+  title = {{Qwen2.5-1M Technical Report}},
+  institution = {arXiv:2501.15383},
+  year = {2025},
+  url = {https://arxiv.org/abs/2501.15383},
+  note = {Companion blog: https://qwenlm.github.io/blog/qwen2.5-1m/}
+}
+
+@misc{qwen-2025-qwen3next-config,
+  author = {Qwen Team and Alibaba Cloud},
+  title = {{Qwen3-Next-80B-A3B-Instruct config.json}},
+  howpublished = {Hugging Face model repository},
+  year = {2025},
+  url = {https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct},
+  note = {num_hidden_layers=48, full_attention_interval=4 (12 full-attention layers), num_key_value_heads=2, head_dim=256; linear_num_key_heads=16/linear_key_head_dim=128 etc. for the 36 Gated DeltaNet layers.}
+}
+
+@techreport{radford-2019-gpt2,
+  author = {Alec Radford and Jeffrey Wu and Rewon Child and David Luan and Dario Amodei and Ilya Sutskever},
+  title = {{Language Models are Unsupervised Multitask Learners}},
+  institution = {OpenAI technical report},
+  year = {2019},
+  url = {https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf},
+  note = {States that GPT-2's context size was increased from 512 to 1024 tokens relative to the original GPT model, and increased batch size to 512; the source for the ~1,024-token GPT-2-era context window figure used as this section's baseline.}
+}
+
+@misc{ray-2026-pd,
+  author = {Ray Project},
+  title = {{Prefill-decode disaggregation}},
+  howpublished = {Ray documentation (Ray Serve LLM)},
+  url = {https://docs.ray.io/en/latest/serve/llm/architecture/serving-patterns/prefill-decode.html},
+  note = {Documentation is continuously updated; accessed September 2026.}
+}
+
+@misc{redhat-2025-llmd,
+  author = {Robert Shaw and Clayton Coleman and Carlos Costa},
+  title = {{llm-d: Kubernetes-native distributed inferencing}},
+  howpublished = {Red Hat Developer},
+  year = {2025},
+  url = {https://developers.redhat.com/articles/2025/05/20/llm-d-kubernetes-native-distributed-inferencing}
+}
+
+@inproceedings{ren-2021-zerooffload,
+  author = {Jie Ren and Samyam Rajbhandari and Reza Yazdani Aminabadi and Olatunji Ruwase and Shuangyan Yang and Minjia Zhang and Dong Li and Yuxiong He},
+  title = {{ZeRO-Offload: Democratizing Billion-Scale Model Training}},
+  booktitle = {2021 USENIX Annual Technical Conference (USENIX ATC 21)},
+  year = {2021},
+  url = {https://www.usenix.org/conference/atc21/presentation/ren-jie},
+  note = {A training-time heterogeneous CPU-offload technique, distinct from the inference-time ZeRO-Inference; cited here specifically to correct the common conflation of the two.}
+}
+
+@misc{samsung-2026-cmmd,
+  author = {Samsung Semiconductor},
+  title = {{Breaking AI Memory Limits with CXL Memory Pooling}},
+  howpublished = {Samsung Semiconductor Tech Blog},
+  year = {2026},
+  url = {https://semiconductor.samsung.com/news-events/tech-blog/breaking-ai-memory-limits-with-cxl-memory-pooling/},
+  note = {Accessed 2026-09-27. Vendor evaluation: CMM-D CXL memory modules aggregated via a CXL switch into a 1 TB pool, used as an LMCache backend for vLLM on NVIDIA RTX PRO 6000 Blackwell GPUs. Single-GPU configuration matched DRAM-backend performance; 8-GPU configuration retained ~92% of DRAM performance. Separately reports that a 512 GB DRAM configuration degraded from cache re-computation overhead once KV-cache demand exceeded capacity, while the 1 TB CXL pool held stable performance at larger footprints.}
+}
+
+@misc{scality-2024-ringxp,
+  author = {Giorgio Regni},
+  title = {{RING XP: Fast Object Storage for AI with Microsecond Latency}},
+  howpublished = {Scality Solved blog},
+  year = {2024},
+  url = {https://www.solved.scality.com/ring-xp-ai-performance/},
+  note = {Vendor-reported: RING XP measures under 511 microseconds (GET) and 741 microseconds (PUT) for 4KB objects in majority-case latency, characterized as 10-20x faster than Amazon S3 Express One Zone and 50-100x faster than standard Amazon S3 (implying standard S3 latencies commonly in the tens-of-milliseconds range).}
+}
+
+@misc{scality-2026-labtest,
+  author = {Paul Speciale},
+  title = {{KV Cache Offload to Object Storage: The Full Lab Test}},
+  howpublished = {Scality Solved blog},
+  year = {2026},
+  url = {https://www.solved.scality.com/kv-cache-offload-object-storage-benchmark/},
+  note = {Vendor lab test on Scality ADI 1.0 GA via a NIXL connector (S3-over-RDMA/TCP and a native AI API), vLLM, Gemma-3 (4B/12B/27B) and Mistral-7B: TTFT of 166ms from ADI object storage vs. 102ms from host DRAM vs. 2.3-3s to recompute at 14K tokens (Gemma-3-27B), and 273ms vs. 2.8s to recompute at 128K tokens (Gemma-3-4B); object reads sustained 42.47 GB/s across a six-node cluster (87% of the lab's measured 48.8 GB/s network-fabric ceiling, with storage servers approximately 96% idle); a live 51 GiB checkpoint write moved p99 token latency by only 1ms.}
+}
+
+@misc{semianalysis-2025-inferencemax,
+  author = {SemiAnalysis},
+  title = {{InferenceMAX: Open Source Inference Benchmarking}},
+  howpublished = {SemiAnalysis InferenceX},
+  year = {2025},
+  url = {https://inferencex.semianalysis.com/blog/inferencemax-open-source-inference-benchmarking}
+}
+
+@misc{sglang-2025-bench,
+  author = {SGLang Project},
+  title = {{Benchmark and Profiling}},
+  howpublished = {SGLang documentation},
+  url = {https://docs.sglang.ai/developer_guide/benchmark_and_profiling.html},
+  note = {Documents `bench_serving`, `bench_one_batch_server`, `bench_offline_throughput`, and `bench_one_batch`.}
+}
+
+@misc{sglang-2026-hicacheblog,
+  author = {Zhiqiang Xie},
+  title = {{SGLang HiCache: Fast Hierarchical KV Caching with Your Favorite Storage Backends}},
+  howpublished = {LMSYS Org Blog},
+  year = {2025},
+  url = {https://lmsys.org/blog/2025-09-10-sglang-hicache/},
+  note = {Accessed 2026-09-27. Launch post: up to 6x throughput / up to 80% TTFT reduction in SGLang's own measurements. Quotes Novita AI (Qwen3-Coder-480B coding-agent traffic, HiCache+DeepSeek 3FS: TTFT down 56%, throughput doubled, hit rate 40%->80%) and Ant Group (DeepSeek-R1-671B, PD-disaggregated, HiCache+Mooncake: 84% TTFT reduction on cache hits vs. full recompute).}
+}
+
+@misc{sglang-2026-hicachedesign,
+  author = {SGLang Project},
+  title = {{HiCache System Design and Optimization}},
+  howpublished = {SGLang documentation},
+  year = {2026},
+  url = {https://docs.sglang.io/docs/advanced_features/hicache_design},
+  note = {Accessed 2026-09-27. Describes the L1 (GPU, per-instance)/L2 (host memory, per-instance)/L3 (pluggable distributed backend, shared across instances: Mooncake, DeepSeek 3FS/HF3FS, NIXL, AIBrix) architecture, the HiRadixTree location-metadata structure, and configuration flags including --hicache-size (per-rank host pool size) and --enable-lmcache. States explicitly that LMCache 'provides an alternative solution to HiCache' via --enable-lmcache, rather than acting as an HiCache L3 backend; confirmed against the SGLang server_arguments reference and source (ServerArgs.enable_lmcache swaps in a separate LMCRadixCache in place of the default/Hi RadixCache).}
+}
+
+@misc{sglang-2026-pd,
+  author = {SGLang Team},
+  title = {{PD Disaggregation}},
+  howpublished = {SGLang documentation},
+  url = {https://docs.sglang.ai/advanced_features/pd_disaggregation.html},
+  note = {Documentation is continuously updated; accessed September 2026.}
+}
+
+@misc{sglang-kvcache,
+  author = {SGLang Project},
+  title = {{Quantized KV Cache}},
+  howpublished = {SGLang documentation},
+  url = {https://docs.sglang.ai/advanced_features/quantized_kv_cache.html},
+  note = {Documents FP8 (e4m3/e5m2) and experimental NVFP4/MXFP4 KV-cache quantization, enabled via --kv-cache-dtype.}
+}
+
+@misc{shazeer-2019-mqa,
+  author = {Noam Shazeer},
+  title = {{Fast Transformer Decoding: One Write-Head is All You Need}},
+  howpublished = {arXiv:1911.02150},
+  year = {2019},
+  url = {https://arxiv.org/abs/1911.02150},
+  note = {Introduces multi-query attention (single shared K/V head across all query heads) and its memory-bandwidth-to-arithmetic ratio analysis for incremental decoding.}
+}
+
+@misc{shewale-2026-prefixbench,
+  author = {Omkar Shewale and Deepak Kumar and Divakar Kumar Yadav},
+  title = {{PrefixBench-H100: Characterizing Prefix Reuse and Time-to-First-Token in H100 LLM Serving}},
+  howpublished = {arXiv:2609.19657},
+  year = {2026},
+  url = {https://arxiv.org/abs/2609.19657}
+}
+
+@misc{shoeybi-2019-megatron,
+  author = {Mohammad Shoeybi and Mostofa Patwary and Raul Puri and Patrick LeGresley and Jared Casper and Bryan Catanzaro},
+  title = {{Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism}},
+  howpublished = {arXiv:1909.08053},
+  year = {2019},
+  url = {https://arxiv.org/abs/1909.08053},
+  note = {Introduces column-parallel partitioning of the query/key/value projections so that each attention head's matrix multiply, and hence its K/V state, is computed and held entirely on one GPU.}
+}
+
+@misc{song-2025-earlybird,
+  author = {Linke Song and Zixuan Pang and Wenhao Wang and Zihao Wang and Xiaofeng Wang and Hongbo Chen and Wei Song and Yier Jin and Dan Meng and Rui Hou},
+  title = {{The Early Bird Catches the Leak: Unveiling Timing Side Channels in LLM Serving Systems}},
+  howpublished = {IEEE Transactions on Information Forensics and Security, vol. 20, pp. 11431-11446},
+  year = {2025},
+  url = {https://arxiv.org/abs/2409.20002},
+  note = {Originally posted as arXiv:2409.20002 (Sept. 2024); published version in IEEE TIFS 20:11431-11446 (2025).}
+}
+
+@inproceedings{splitwise,
+  author = {Pratyush Patel and Esha Choukse and Chaojie Zhang and Aashaka Shah and Íñigo Goiri and Saeed Maleki and Ricardo Bianchini},
+  title = {{Splitwise: Efficient Generative LLM Inference Using Phase Splitting}},
+  booktitle = {51st ACM/IEEE Annual International Symposium on Computer Architecture (ISCA)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2311.18677}
+}
+
+@inproceedings{sun-2024-yoco,
+  author = {Yutao Sun and Li Dong and Yi Zhu and Shaohan Huang and Wenhui Wang and Shuming Ma and Quanlu Zhang and Jianyong Wang and Furu Wei},
+  title = {{You Only Cache Once: Decoder-Decoder Architectures for Language Models}},
+  booktitle = {Advances in Neural Information Processing Systems 37 (NeurIPS 2024)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2405.05254},
+  note = {Self-decoder produces one global KV cache reused by all cross-decoder layers; reports ~80x less KV cache memory at 65B scale and 2.87x-71.8x faster prefill from early-exit, up to 1M context.}
+}
+
+@inproceedings{syed-2024-attribution,
+  author = {Aaquib Syed and Can Rager and Arthur Conmy},
+  title = {{Attribution Patching Outperforms Automated Circuit Discovery}},
+  booktitle = {Proceedings of the 7th BlackboxNLP Workshop: Analyzing and Interpreting Neural Networks for NLP (BlackboxNLP 2024)},
+  year = {2024},
+  url = {https://aclanthology.org/2024.blackboxnlp-1.25/},
+  note = {Pages 407-416; also arXiv:2310.10348.}
+}
+
+@inproceedings{tang-2024-quest,
+  author = {Jiaming Tang and Yilong Zhao and Kan Zhu and Guangxuan Xiao and Baris Kasikci and Song Han},
+  title = {{Quest: Query-Aware Sparsity for Efficient Long-Context LLM Inference}},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning (ICML 2024)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2406.10774},
+  note = {Code: https://github.com/mit-han-lab/quest}
+}
+
+@misc{tianpan-2026-coldcache,
+  author = {Tian Pan},
+  title = {{Cold Cache, Hot Cache: Why Your LLM Latency Numbers Lie in Staging}},
+  howpublished = {tianpan.co},
+  year = {2026},
+  url = {https://tianpan.co/blog/2026-04-10-cold-cache-hot-cache-llm-latency-staging-lies}
+}
+
+@misc{touvron-2023-llama2,
+  author = {Hugo Touvron and Louis Martin and Thomas Scialom and et al.},
+  title = {{Llama 2: Open Foundation and Fine-Tuned Chat Models}},
+  howpublished = {arXiv:2307.09288},
+  year = {2023},
+  url = {https://arxiv.org/abs/2307.09288},
+  note = {Table 1 marks the 13B (and 7B) variants as not using GQA. Specific per-model hyperparameters (hidden_size=5120, num_attention_heads=40, num_hidden_layers=40, i.e. head dimension 128 for the 13B model) are from Meta's released model configuration, e.g. huggingface.co/NousResearch/Llama-2-13b-hf/blob/main/config.json, rather than a table in the paper's main text.}
+}
+
+@misc{turner-2023-actadd,
+  author = {Alexander Matt Turner and Lisa Thiergart and Gavin Leech and David Udell and Juan J. Vazquez and Ulisse Mini and Monte MacDiarmid},
+  title = {{Steering Language Models With Activation Engineering}},
+  howpublished = {arXiv:2308.10248},
+  year = {2023},
+  url = {https://arxiv.org/abs/2308.10248},
+  note = {v4 (2024-06-04) was titled 'Activation Addition: Steering Language Models Without Optimization'; retitled to the current 'Steering Language Models With Activation Engineering' in v5 (2024-10-10). The method introduced, Activation Addition (ActAdd), adds one computed steering vector at a single, hand-selected layer during the forward pass; it is not applied at every layer.}
+}
+
+@misc{vastdata-2026-amd,
+  author = {Anat Heilper and Calvin Nieh},
+  title = {{Beyond HBM Limits: Accelerating Inference with KV Cache, AMD Instinct, and VAST Data}},
+  howpublished = {VAST Data blog},
+  year = {2026},
+  url = {https://www.vastdata.com/blog/beyond-hbm-limits-accelerating-inference-with-vast-amd},
+  note = {Vendor-reported: 9x TTFT and 9.7x token throughput at 128,000-token context (VAST's own text says the collaboration targets 120K+ tokens; the reported test used a 128K context) on an AMD Instinct MI355X GPU with vLLM 0.22.1 + LMCache offloading to VAST storage over NFSv3-over-RDMA on an 800 Gbps network, serving GPT-oss-120B at tensor parallelism 1, vs. a no-offload (full recompute) baseline. States results are VAST-reported and 'reviewed, but not independently verified by AMD.' Does NOT discuss KV-cache security or multi-tenancy; that quote (see vastdata-2026-memorytier) is from a different VAST Data post and was previously miscited here.}
+}
+
+@misc{vastdata-2026-dynamounlock,
+  author = {VAST Data},
+  title = {{How NVIDIA Dynamo and VAST Unlock Context Reuse at Scale}},
+  howpublished = {VAST Data blog},
+  year = {2026},
+  url = {https://www.vastdata.com/blog/how-nvidia-dynamo-vast-unlock-context-reuse-at-scale},
+  note = {States Dynamo 1.0's KV block manager can persist KV blocks to S3- or Azure-blob-compatible object storage (the G3/G4 tiers); vendor-reported 20x TTFT reduction and approximately 90% reduction in GPU compute time from retrieving vs. recomputing KV cache blocks.}
+}
+
+@misc{vastdata-2026-memorytier,
+  author = {Nicole Hemsoth Prickett},
+  title = {{A New Memory Tier for AI at Scale}},
+  howpublished = {VAST Data blog},
+  year = {2026},
+  url = {https://www.vastdata.com/blog/a-new-memory-tier-for-ai-at-scale},
+  note = {Accessed 2026-09-27. Thought-leadership recap of a VAST Forward 2026 stage conversation. Quotes Anat Heilper, VAST Data's Director of AI Architecture: 'Once the KV cache leaves the GPU, it contains sensitive user data and is vulnerable to manipulation or reverse engineering by attackers.' Also reports an illustrative '65 seconds... we fetch it in three seconds' anecdote and a projected 60-130% more tokens per dollar at an assumed 40-60% cache hit rate -- both framed as illustrative, not a disclosed, reproducible benchmark.}
+}
+
+@inproceedings{vaswani-2017-attention,
+  author = {Ashish Vaswani and Noam Shazeer and Niki Parmar and Jakob Uszkoreit and Llion Jones and Aidan N. Gomez and Łukasz Kaiser and Illia Polosukhin},
+  title = {{Attention Is All You Need}},
+  booktitle = {Advances in Neural Information Processing Systems 30 (NeurIPS 2017)},
+  year = {2017},
+  url = {https://arxiv.org/abs/1706.03762},
+  note = {Table 1 gives self-attention's per-layer complexity as O(n^2 d), versus O(n) sequential operations for a recurrent layer.}
+}
+
+@misc{vazhkudai-2026-kvcache,
+  author = {Sudharshan Vazhkudai and Sujit Somandepalli and Ramkarthik Ganesan and Wes Vaske},
+  title = {{Unlocking the Token Economy: Micron Powers AI's KV Cache}},
+  howpublished = {Micron Technology blog},
+  year = {2026},
+  url = {https://www.micron.com/about/blog/memory/dram/unlocking-the-token-economy-micron-powers-ais-kv-cache},
+  note = {Describes a five-tier KV cache memory hierarchy (HBM, DDR5/SOCAMM main memory, disaggregated expansion memory, NVMe SSD, networked object storage) organized by data residency time; states Micron's Data Center Workload Engineering team validated NVMe-based KV cache offload with 'zero throughput penalty' across hundreds of test configurations for agentic workloads.}
+}
+
+@misc{vllm-2025-apc,
+  author = {vLLM Project},
+  title = {{Automatic Prefix Caching}},
+  howpublished = {vLLM documentation},
+  url = {https://docs.vllm.ai/en/stable/features/automatic_prefix_caching/},
+  note = {Accessed 2026-09-27. States that Automatic Prefix Caching only reduces prefill-phase (query processing) time, not decode-phase (token generation) time.}
+}
+
+@misc{vllm-2025-benchcli,
+  author = {vLLM Project},
+  title = {{Benchmark CLI}},
+  howpublished = {vLLM documentation},
+  url = {https://docs.vllm.ai/en/latest/benchmarking/cli/},
+  note = {Documents `vllm bench serve`: TTFT/TPOT/ITL/e2el percentile reporting and the --goodput SLO flag.}
+}
+
+@techreport{vllm-2025-cve,
+  author = {vLLM Project},
+  title = {{Potential Timing Side-Channel Vulnerability in vLLM's Chunk-Based Prefix Caching (CVE-2025-46570, GHSA-4qjh-9fv9-r85r)}},
+  institution = {GitHub Security Advisories, vllm-project/vllm},
+  year = {2025},
+  url = {https://github.com/vllm-project/vllm/security/advisories/GHSA-4qjh-9fv9-r85r},
+  note = {Reported by an anonymous security research group; fixed in vLLM v0.9.0 via the cache_salt mechanism from PR #17045 / RFC #16016.}
+}
+
+@misc{vllm-2025-dsa,
+  author = {vLLM Team},
+  title = {{DeepSeek-V3.2-Exp in vLLM: Fine-Grained Sparse Attention in Action}},
+  howpublished = {vLLM Blog},
+  year = {2025},
+  url = {https://vllm.ai/blog/2025-09-29-deepseek-v3-2},
+  note = {States the FP8 MLA KV cache entry is 656 bytes per token per layer, decomposing into the 512-dim latent + 64-dim decoupled RoPE key from the DeepSeek-V3 architecture.}
+}
+
+@misc{vllm-2025-hybridapc,
+  author = {vLLM Project},
+  title = {{[Tracking Issue]: Prefix Caching for Hybrid Models (vllm-project/vllm#26201)}},
+  howpublished = {GitHub},
+  year = {2025},
+  url = {https://github.com/vllm-project/vllm/issues/26201},
+  note = {Tracks follow-up work opened after PR #25752 ('[V1][Hybrid] Mamba2 Automatic Prefix Caching', merged 2025-10-04), which stores Mamba2 recurrent state at chunk-aligned block boundaries and resumes computation from a cache hit. As read (issue last updated 2026-06-30), prefix caching for Mamba1 (#26377), ShortConv, LinearAttention and Gated DeltaNet/GDN (#30877, #26807) are all checked off as done; 'Enable align-mode prefix caching by default for hybrid models' remains unchecked. The feature is opt-in via the --mamba-cache-mode flag, not yet the engine default.}
+}
+
+@misc{vllm-2025-qwen3next,
+  author = {vLLM Team},
+  title = {{vLLM Now Supports Qwen3-Next: Hybrid Architecture with Extreme Efficiency}},
+  howpublished = {vLLM Blog},
+  year = {2025},
+  url = {https://vllm.ai/blog/2025-09-11-qwen3-next},
+  note = {States vLLM integrates Triton kernels from Flash Linear Attention and adopts a hybrid KV cache manager to manage both linear-attention and full-attention layers without fragmentation.}
+}
+
+@misc{vllm-2025-rfc16016,
+  author = {vLLM Project},
+  title = {{[RFC]: Cache Salting for Secure and Flexible Prefix Caching in vLLM (Issue #16016)}},
+  howpublished = {GitHub, vllm-project/vllm},
+  year = {2025},
+  url = {https://github.com/vllm-project/vllm/issues/16016},
+  note = {Submitted by GitHub user dr75. Proposes and compares a 'single-barrier' design (one salt per request, implemented in PR #17045) and a 'multi-barrier' design (per-message salts via a cache_salt_map, isolating tenant suffixes while leaving a shared prefix unsalted). Closed May 2025 with 'Closing now and getting back to multi barrier design (part B) only if needed.' Accessed Sept. 2026, including a 2026-08-17 follow-up comment.}
+}
+
+@misc{vllm-2026-benchpitfall,
+  author = {vLLM Project},
+  title = {{vllm bench serve with a fixed --seed against a default server can end up benchmarking the prefix cache (measured: TPOT -34%, TTFT 49x, throughput 2.32x on one cell)}},
+  howpublished = {vllm-project/vllm, GitHub Issues, #54227},
+  year = {2026},
+  url = {https://github.com/vllm-project/vllm/issues/54227}
+}
+
+@misc{vllm-2026-disaggpf,
+  author = {vLLM Project},
+  title = {{Disaggregated Prefilling (experimental)}},
+  howpublished = {vLLM documentation},
+  url = {https://docs.vllm.ai/en/latest/features/disagg_prefill/},
+  note = {Documentation is continuously updated; accessed September 2026.}
+}
+
+@misc{vllm-2026-hiersalt,
+  author = {vLLM Project},
+  title = {{[Frontend][Core] Add hierarchical cache salting for shared prefixes across tenants (PR #37961)}},
+  howpublished = {GitHub, vllm-project/vllm},
+  year = {2026},
+  url = {https://github.com/vllm-project/vllm/pull/37961},
+  note = {Submitted by GitHub user vpfkfl753; references RFC #16016. Source of the '256 tenants -> 256x duplicate prefill of the same system prompt blocks' figure for flat, single-barrier cache_salt. Closed August 2026 as 'effectively unreviewable' after being open five months with an unreviewed 19-file diff; superseded by PR #52655.}
+}
+
+@misc{vllm-2026-saltregions,
+  author = {vLLM Project},
+  title = {{[Core] Support token-range cache salt regions in block hashing (PR #52655)}},
+  howpublished = {GitHub, vllm-project/vllm},
+  year = {2026},
+  url = {https://github.com/vllm-project/vllm/pull/52655},
+  note = {Submitted by GitHub user vpfkfl753; supersedes PR #37961, splitting out just the core block-hashing contract for RFC #16016's multi-barrier design. Open and unmerged as of September 2026 (last updated 2026-08-21); engine propagation and the chat-API cache_salt_map mapping are implemented separately but not yet opened as their own PRs.}
+}
+
+@misc{vllm-apc,
+  author = {vLLM Project},
+  title = {{Automatic Prefix Caching}},
+  howpublished = {vLLM documentation},
+  url = {https://docs.vllm.ai/en/latest/features/automatic_prefix_caching/},
+  note = {Accessed 2026-09-27. Describes caching the KV cache of existing queries so a new query sharing the same prefix as one already served can reuse it, i.e., block sharing across separate requests rather than only across output sequences of one request.}
+}
+
+@misc{vllm-blog,
+  author = {Woosuk Kwon and Zhuohan Li and Siyuan Zhuang and Ying Sheng and Lianmin Zheng and Cody Hao Yu and Joseph E. Gonzalez and Hao Zhang and Ion Stoica},
+  title = {{vLLM: Easy, Fast, and Cheap LLM Serving with PagedAttention}},
+  howpublished = {vLLM Blog},
+  year = {2023},
+  url = {https://blog.vllm.ai/2023/06/20/vllm.html}
+}
+
+@misc{vllm-fp8,
+  author = {vLLM Project},
+  title = {{Quantized KV Cache}},
+  howpublished = {vLLM documentation},
+  url = {https://docs.vllm.ai/en/latest/features/quantization/quantized_kvcache.html}
+}
+
+@misc{vllm-prefix-design,
+  author = {vLLM Project},
+  title = {{Automatic Prefix Caching (design)}},
+  howpublished = {vLLM documentation},
+  url = {https://docs.vllm.ai/en/stable/design/prefix_caching/},
+  note = {Accessed 2026-09-27; describes the hash-based block scheme, LRU eviction, and cache_salt isolation.}
+}
+
+@inproceedings{vllm-sosp,
+  author = {Woosuk Kwon and Zhuohan Li and Siyuan Zhuang and Ying Sheng and Lianmin Zheng and Cody Hao Yu and Joseph E. Gonzalez and Hao Zhang and Ion Stoica},
+  title = {{Efficient Memory Management for Large Language Model Serving with PagedAttention}},
+  booktitle = {Proceedings of the 29th ACM Symposium on Operating Systems Principles (SOSP)},
+  year = {2023},
+  url = {https://arxiv.org/abs/2309.06180}
+}
+
+@misc{wang-2026-viscache,
+  author = {Lyuke Wang and Zhuo Li and Guangxu Zhu},
+  title = {{VisCache: Visual KV Cache Pruning for Efficient Vision Large Language Model Inference}},
+  howpublished = {arXiv:2608.24063},
+  year = {2026},
+  url = {https://arxiv.org/abs/2608.24063}
+}
+
+@misc{weka-2025-gdsopensource,
+  author = {WEKA},
+  title = {{Open-Sourcing GDS Integration from Augmented Memory Grid: See Results for Yourself}},
+  howpublished = {WEKA blog},
+  year = {2025},
+  url = {https://www.weka.io/article/open-sourcing-gds-integration-from-augmented-memory-grid-see-results-for-yourself},
+  note = {Vendor-reported GDSIO benchmark peaks of 308 GB/s (token warehouse to GPU) and 163 GB/s (GPU to token warehouse) on an 8-way H100 system against an 8-host, 72-NVMe-drive WEKA cluster over an NDR fabric.}
+}
+
+@misc{weka-2025-scga,
+  author = {WEKA},
+  title = {{WEKA Breaks the AI Memory Barrier with Augmented Memory Grid}},
+  howpublished = {WEKA newsroom},
+  year = {2025},
+  url = {https://www.weka.io/news/weka-breaks-the-ai-memory-barrier-with-augmented-memory-grid},
+  note = {Announces general availability of Augmented Memory Grid at SC25; vendor-reported 20x TTFT reduction at 128,000 tokens vs. recompute, 1000x KV-cache capacity extension beyond DRAM, and 7.5M read / 1.0M write IOPS on an eight-node cluster, validated on Oracle Cloud Infrastructure.}
+}
+
+@inproceedings{wu-2025-promptpeek,
+  author = {Guanlong Wu and Zheng Zhang and Yao Zhang and Weili Wang and Jianyu Niu and Ye Wu and Yinqian Zhang},
+  title = {{I Know What You Asked: Prompt Leakage via KV-Cache Sharing in Multi-Tenant LLM Serving}},
+  booktitle = {Network and Distributed System Security Symposium (NDSS)},
+  year = {2025},
+  url = {https://www.ndss-symposium.org/ndss-paper/i-know-what-you-asked-prompt-leakage-via-kv-cache-sharing-in-multi-tenant-llm-serving/}
+}
+
+@inproceedings{xiao-2023-streamingllm,
+  author = {Guangxuan Xiao and Yuandong Tian and Beidi Chen and Song Han and Mike Lewis},
+  title = {{Efficient Streaming Language Models with Attention Sinks}},
+  booktitle = {Proceedings of the 12th International Conference on Learning Representations (ICLR 2024)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2309.17453},
+  note = {Code: https://github.com/mit-han-lab/streaming-llm}
+}
+
+@inproceedings{yang-2024-sweagent,
+  author = {John Yang and Carlos E. Jimenez and Alexander Wettig and Kilian Lieret and Shunyu Yao and Karthik Narasimhan and Ofir Press},
+  title = {{SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering}},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS) 37},
+  year = {2024},
+  url = {https://arxiv.org/abs/2405.15793}
+}
+
+@inproceedings{yao-2025-cacheblend,
+  author = {Jiayi Yao and Hanchen Li and Yuhan Liu and Siddhant Ray and Yihua Cheng and Qizheng Zhang and Kuntai Du and Shan Lu and Junchen Jiang},
+  title = {{CacheBlend: Fast Large Language Model Serving for RAG with Cached Knowledge Fusion}},
+  booktitle = {20th European Conference on Computer Systems (EuroSys)},
+  year = {2025},
+  url = {https://arxiv.org/abs/2405.16444}
+}
+
+@inproceedings{ye-2025-flashinfer,
+  author = {Zihao Ye and Lequn Chen and Ruihang Lai and Wuwei Lin and Yineng Zhang and Stephanie Wang and Tianqi Chen and Baris Kasikci and Vinod Grover and Arvind Krishnamurthy and Luis Ceze},
+  title = {{FlashInfer: Efficient and Customizable Attention Engine for LLM Inference Serving}},
+  booktitle = {Proceedings of the 8th MLSys Conference},
+  year = {2025},
+  url = {https://arxiv.org/abs/2501.01005},
+  note = {Integrated into vLLM, SGLang and MLC-Engine; reports 29-69% inter-token-latency reduction vs a compiler backend, 28-30% for long-context inference, 13-17% for parallel generation.}
+}
+
+@inproceedings{yu-2022-orca,
+  author = {Gyeong-In Yu and Joo Seong Jeong and Geon-Woo Kim and Soojeong Kim and Byung-Gon Chun},
+  title = {{Orca: A Distributed Serving System for Transformer-Based Generative Models}},
+  booktitle = {16th USENIX Symposium on Operating Systems Design and Implementation (OSDI 22)},
+  year = {2022},
+  url = {https://www.usenix.org/conference/osdi22/presentation/yu},
+  note = {Introduces iteration-level scheduling and selective batching (continuous batching); reports 36.9x throughput improvement over NVIDIA FasterTransformer at matched latency on GPT-3 175B.}
+}
+
+@inproceedings{yuan-2024-longctxbench,
+  author = {Jiayi Yuan and Hongyi Liu and Shaochen Zhong and Yu-Neng Chuang and Songchen Li and Guanchu Wang and Duy Le and Hongye Jin and Vipin Chaudhary and Zhaozhuo Xu and Zirui Liu and Xia Hu},
+  title = {{KV Cache Compression, But What Must We Give in Return? A Comprehensive Benchmark of Long Context Capable Approaches}},
+  booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2024},
+  year = {2024},
+  url = {https://aclanthology.org/2024.findings-emnlp.266/},
+  note = {Code: https://github.com/henryzhongsc/longctx_bench}
+}
+
+@inproceedings{yuan-2025-nsa,
+  author = {Jingyang Yuan and Huazuo Gao and Damai Dai and Junyu Luo and Liang Zhao and Zhengyan Zhang and Zhenda Xie and Y. X. Wei and Lean Wang and Zhiping Xiao and Yuqing Wang and Chong Ruan and Ming Zhang and Wenfeng Liang and Wangding Zeng},
+  title = {{Native Sparse Attention: Hardware-Aligned and Natively Trainable Sparse Attention}},
+  booktitle = {Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (ACL 2025)},
+  year = {2025},
+  url = {https://arxiv.org/abs/2502.11089}
+}
+
+@inproceedings{zeng-2026-hybridkv,
+  author = {Bowen Zeng and Feiyang Ren and Jun Zhang and Xiaoling Gu and Ke Chen and Lidan Shou and Huan Li},
+  title = {{HYBRIDKV: Hybrid KV Cache Compression for Efficient Multimodal Large Language Model Inference}},
+  booktitle = {Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (ACL 2026), Volume 1: Long Papers},
+  year = {2026},
+  url = {https://aclanthology.org/2026.acl-long.594.pdf}
+}
+
+@inproceedings{zhang-2023-h2o,
+  author = {Zhenyu Zhang and Ying Sheng and Tianyi Zhou and Tianlong Chen and Lianmin Zheng and Ruisi Cai and Zhao Song and Yuandong Tian and Christopher Re and Clark Barrett and Zhangyang Wang and Beidi Chen},
+  title = {{H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models}},
+  booktitle = {Advances in Neural Information Processing Systems 36 (NeurIPS 2023)},
+  year = {2023},
+  url = {https://arxiv.org/abs/2306.14048},
+  note = {Code: https://github.com/FMInference/H2O}
+}
+
+@inproceedings{zheng-2023-lmsys,
+  author = {Lianmin Zheng and Wei-Lin Chiang and Ying Sheng and Tianle Li and Siyuan Zhuang and Zhanghao Wu and Yonghao Zhuang and Zhuohan Li and Zi Lin and Eric P. Xing and Joseph E. Gonzalez and Ion Stoica and Hao Zhang},
+  title = {{LMSYS-Chat-1M: A Large-Scale Real-World LLM Conversation Dataset}},
+  booktitle = {Proceedings of the International Conference on Learning Representations (ICLR)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2309.11998}
+}
+
+@misc{zheng-2024-inputsnatch,
+  author = {Xinyao Zheng and Husheng Han and Shangyi Shi and Qiyan Fang and Zidong Du and Xing Hu and Qi Guo},
+  title = {{InputSnatch: Stealing Input in LLM Services via Timing Side-Channel Attacks}},
+  howpublished = {arXiv:2411.18191},
+  year = {2024},
+  url = {https://arxiv.org/abs/2411.18191}
+}
+
+@inproceedings{zheng-2024-sglang,
+  author = {Lianmin Zheng and Liangsheng Yin and Zhiqiang Xie and Chuyue Sun and Jeff Huang and Cody Hao Yu and Shiyi Cao and Christos Kozyrakis and Ion Stoica and Joseph E. Gonzalez and Clark Barrett and Ying Sheng},
+  title = {{SGLang: Efficient Execution of Structured Language Model Programs}},
+  booktitle = {Advances in Neural Information Processing Systems 37 (NeurIPS)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2312.07104},
+  note = {Introduces RadixAttention and cache-aware (longest-shared-prefix-first) scheduling.}
+}
+
+@inproceedings{zhuang-2026-myopia,
+  author = {Jiedong Zhuang and Lu Lu and Ming Dai and Jian Chen and Qiang Liu and Haoji Hu},
+  title = {{Myopia Rectification: KV Cache Pruning for MLLMs Via Dynamic Attention Subsidy and Token Reclamation}},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026)},
+  year = {2026},
+  url = {https://openaccess.thecvf.com/content/CVPR2026F/papers/Zhuang_Myopia_Rectification_KV_Cache_Pruning_for_MLLMs_Via_Dynamic_Attention_CVPRF_2026_paper.pdf}
+}
