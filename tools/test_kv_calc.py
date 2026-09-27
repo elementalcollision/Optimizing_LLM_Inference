@@ -104,9 +104,14 @@ class TestHybridSlidingWindow(unittest.TestCase):
         full = types.count("full")
         sliding = types.count("sliding")
         self.assertEqual(full + sliding, m.layers)
-        # 5 local layers for every global layer (approximately, since 62 is
-        # not a multiple of 6): sliding count is roughly 5x full count.
-        self.assertAlmostEqual(sliding / full, 5, delta=1.0)
+        # config.json's sliding_window_pattern=6 means one full (global) layer
+        # every 6th position; 62 layers is not an exact multiple of 6, so the
+        # exact split is 10 full / 52 sliding (ratio 5.2:1), not a clean 5:1.
+        # Assert the exact counts (not a loose delta) since these are fixed,
+        # known values, not an approximation.
+        self.assertEqual(full, 10)
+        self.assertEqual(sliding, 52)
+        self.assertAlmostEqual(sliding / full, 5.2, places=1)
 
     def test_gpt_oss_explicit_layer_pattern_alternates(self):
         m = kv_calc.MODELS["gpt-oss-20b"]
@@ -174,6 +179,79 @@ class TestAllBuiltinModelsAreWellFormed(unittest.TestCase):
                     r = kv_calc.kv_cache_bytes(m, tokens=tokens, batch=1)
                     self.assertGreaterEqual(r["total_bytes"], 0)
                     self.assertTrue(m.config_url.startswith("https://huggingface.co/"))
+
+    def test_every_model_declares_a_max_context(self):
+        """Every built-in model must state its own documented/configured
+        maximum context length, so 128K-token sizing that goes beyond it can
+        be flagged rather than silently presented as realizable."""
+        for key, m in kv_calc.MODELS.items():
+            with self.subTest(model=key):
+                self.assertIsInstance(m.max_context, int)
+                self.assertGreater(m.max_context, 0)
+
+
+class TestMaxContextFlagging(unittest.TestCase):
+    """Four of the eleven built-in models do not reach 131,072 (128K) tokens
+    per their own config.json (or, for Mistral 7B v0.1, its paper's Table 1):
+    Llama 3 8B and Gemma 2 9B cap at 8192, Qwen3-8B at 40960 (rope_scaling=null),
+    and Mistral 7B v0.1's documented context_len is 8192 (config.json's
+    max_position_embeddings=32768 is a separate, looser ceiling)."""
+
+    def test_llama3_8b_flagged_beyond_its_context_but_not_within_it(self):
+        m = kv_calc.MODELS["llama3-8b"]
+        self.assertEqual(m.max_context, 8192)
+        within = kv_calc.kv_cache_bytes(m, tokens=8192, dtype="bf16")
+        beyond = kv_calc.kv_cache_bytes(m, tokens=131072, dtype="bf16")
+        self.assertFalse(within["exceeds_max_context"])
+        self.assertTrue(beyond["exceeds_max_context"])
+        # Flagging must not change the arithmetic itself.
+        self.assertEqual(beyond["per_token_avg_bytes"], 131072)
+
+    def test_128k_comparison_flags_exactly_the_four_capped_models(self):
+        flagged = {
+            key for key, m in kv_calc.MODELS.items()
+            if kv_calc.kv_cache_bytes(m, tokens=131072)["exceeds_max_context"]
+        }
+        self.assertEqual(
+            flagged,
+            {"llama3-8b", "gemma2-9b", "mistral-7b-v0.1", "qwen3-8b"},
+        )
+
+    def test_models_at_or_above_128k_are_not_flagged(self):
+        not_flagged = {
+            "llama31-70b", "qwen2.5-7b", "deepseek-v2", "deepseek-v3",
+            "kimi-k2", "gemma3-27b", "gpt-oss-20b",
+        }
+        for key in not_flagged:
+            with self.subTest(model=key):
+                m = kv_calc.MODELS[key]
+                r = kv_calc.kv_cache_bytes(m, tokens=131072)
+                self.assertFalse(r["exceeds_max_context"])
+
+    def test_markdown_table_marks_and_footnotes_flagged_rows(self):
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            rc = kv_calc.main(["--tokens", "128k", "--dtype", "bf16", "--markdown"])
+        self.assertEqual(rc, 0)
+        out = buf.getvalue()
+        self.assertIn("Llama 3 8B †", out)
+        self.assertIn("Gemma 2 9B †", out)
+        self.assertIn("Mistral 7B v0.1 †", out)
+        self.assertIn("Qwen3 8B †", out)
+        # Unflagged rows must not carry the marker.
+        self.assertIn("Llama 3.1 70B |", out)
+        self.assertNotIn("Llama 3.1 70B †", out)
+        self.assertIn("exceeds this model's documented or configured maximum context", out)
+
+    def test_list_markdown_includes_max_context_column(self):
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            rc = kv_calc.main(["--list", "--markdown"])
+        self.assertEqual(rc, 0)
+        out = buf.getvalue()
+        self.assertIn("Max context", out)
+        self.assertIn("8,192", out)
+        self.assertIn("163,840", out)
 
 
 if __name__ == "__main__":
