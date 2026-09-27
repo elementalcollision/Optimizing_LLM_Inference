@@ -3816,5 +3816,500 @@
     "date": "2026-03-18",
     "url": "https://arxiv.org/abs/2603.17280",
     "note": "Verified by direct fetch 2026-09-27. Purely analytical (no new hardware experiments); calibrated to published H100 power measurements, with B200/H200 figures stated as projections at +-20% uncertainty. Abstract confirms: 'tokens per watt halves every time the context window doubles'; H100 16 sequences/64K context (1.5 tok/W) vs. 256 sequences/4K context (17.6 tok/W); two-pool context-length routing (FleetOpt) ~2.5x over a homogeneous fleet; H100->B200 ~1.7x; combined ~4.25x."
+  },
+  "jolicoeur-martineau-2026-swabeatslinear": {
+    "type": "preprint",
+    "author": [
+      "Alexia Jolicoeur-Martineau",
+      "Rhea Sanjay Sukthanker",
+      "Pashmina Cameron",
+      "Emy Gervais"
+    ],
+    "title": "Sliding-window beats linear attention",
+    "container": "arXiv:2608.28444",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2608.28444"
+  },
+  "wei-2026-hysparse2": {
+    "type": "preprint",
+    "author": [
+      "Jianyu Wei",
+      "Yizhao Gao",
+      "Qihao Zhang",
+      "Shimao Chen",
+      "Zhengju Tang",
+      "Yu Cheng",
+      "Shengjie Zhou",
+      "Zihan Jiang",
+      "Yifan Song",
+      "Hailin Zhang",
+      "et al."
+    ],
+    "title": "HySparse2: Hybrid Sparse Attention with Two-Level KV Sharing",
+    "container": "arXiv:2609.26368",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2609.26368"
+  },
+  "jiang-2026-hspec": {
+    "type": "preprint",
+    "author": [
+      "Weifan Jiang",
+      "Krishna Teja Chitty-Venkata",
+      "Megan Flynn",
+      "Reed Meyerson",
+      "Zhenting Qi",
+      "Tianyu Wu",
+      "Eldar Kurtic",
+      "Minlan Yu",
+      "Alexandre Marques"
+    ],
+    "title": "H-Spec: Parallel Speculative Decoding Without a Drafter-Side KV Cache",
+    "container": "arXiv:2609.24197",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2609.24197"
+  },
+  "kim-2026-beaconkv": {
+    "type": "preprint",
+    "author": [
+      "Janghyeon Kim",
+      "Minsoo Kim",
+      "Kyuhong Shim",
+      "Jungwook Choi"
+    ],
+    "title": "BeaconKV: Key-Value Cache Compression Guided by Beacon Queries for Efficient Large Reasoning Model Inference",
+    "container": "arXiv:2609.04971",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2609.04971"
+  },
+  "yuan-2026-strongdrafts": {
+    "type": "preprint",
+    "author": [
+      "Tong Yuan",
+      "Chengxi Liao",
+      "Zeyi Wen"
+    ],
+    "title": "Strong Drafts Need Compact Memories: Long-Context Speculative Decoding with Compressed KV Cache",
+    "container": "arXiv:2608.30252",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2608.30252"
+  },
+  "wang-2026-moebius": {
+    "type": "preprint",
+    "author": [
+      "Shaoyu Wang",
+      "Yizhuo Liang",
+      "Jaeyong Song",
+      "Chong Li",
+      "Seo Jin Park"
+    ],
+    "title": "Moebius: Serving Mixture-of-Expert Models with Seamless Runtime Parallelism Switch",
+    "container": "arXiv:2606.26607",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2606.26607"
+  },
+  "zan-2026-longcat-lsa": {
+    "type": "preprint",
+    "author": [
+      "Wen Zan",
+      "Jiaqi Zhang",
+      "Jianchao Tan",
+      "Hong Liu",
+      "Cunguang Wang",
+      "Xiang Li",
+      "Duyue Ma",
+      "Guanyu Wu",
+      "Yifan Lu",
+      "Fengcun Li",
+      "et al."
+    ],
+    "title": "LongCat Sparse Attention: Taming the Lightning via Streaming-aware Hierarchical Cross-Layer Indexing",
+    "container": "arXiv:2608.01662",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2608.01662"
+  },
+  "zhang-2026-spectra": {
+    "type": "preprint",
+    "author": [
+      "Jiamu Zhang",
+      "Liang Wu",
+      "Kelly Wan",
+      "Hanjie Chen",
+      "Liangjie Hong"
+    ],
+    "title": "SPECTRA: Pushing the KV Cache Beyond the 2-Bit Cliff via Spectral Transform Coding",
+    "container": "arXiv:2608.07915",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2608.07915"
+  },
+  "chakrabarti-2026-ultraquant": {
+    "type": "preprint",
+    "author": [
+      "Inesh Chakrabarti",
+      "David Limpus",
+      "Aditi Ghai Rana",
+      "Bowen Bao",
+      "Spandan Tiwari",
+      "Thiago Crepaldi",
+      "Ashish Sirasao"
+    ],
+    "title": "UltraQuant: 4-bit KV Caching for Context-Heavy Agents",
+    "container": "arXiv:2606.20474",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2606.20474"
+  },
+  "haris-2026-eta": {
+    "type": "preprint",
+    "author": [
+      "Themistoklis Haris",
+      "Henry Li",
+      "Maryam Karimzadehgan"
+    ],
+    "title": "Elastic Threshold Attention: Learned Contextual Sparsity for Long-Context Decoding",
+    "container": "arXiv:2609.20888",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2609.20888"
+  },
+  "agrawal-2026-kvbench": {
+    "type": "preprint",
+    "author": [
+      "Nikita Agrawal",
+      "Ruben Mayer"
+    ],
+    "title": "Benchmarking KV-Cache Optimizations across Task Quality and System Performance for Long-Context Serving",
+    "container": "arXiv:2607.05399",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2607.05399"
+  },
+  "fernandezmenduina-2026-novakv": {
+    "type": "preprint",
+    "author": [
+      "Samuel Fernández-Menduiña",
+      "Amir Ziashahabi",
+      "Eduardo Pavez",
+      "Antonio Ortega",
+      "Salman Avestimehr"
+    ],
+    "title": "Spend Bits Where Queries Look: KV Cache Vector Quantization with Attention-Preserving Transforms",
+    "container": "arXiv:2608.04074",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2608.04074"
+  },
+  "li-2026-momentkv": {
+    "type": "preprint",
+    "author": [
+      "Yu Li",
+      "Binxu Li",
+      "Tian Lan"
+    ],
+    "title": "MomentKV: Closing the Directional Gap in KV Cache Eviction for Long-Context Inference",
+    "container": "arXiv:2606.01563",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2606.01563"
+  },
+  "shi-2026-kvsharearena": {
+    "type": "preprint",
+    "author": [
+      "Xi Shi",
+      "Qian Lou"
+    ],
+    "title": "KVShareArena: KV-Cache Reuse Across Contexts and Model Checkpoints",
+    "container": "arXiv:2609.10266",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2609.10266"
+  },
+  "du-2026-c2kv": {
+    "type": "preprint",
+    "author": [
+      "Chuheng Du",
+      "Junyi Chen",
+      "Hanlin Tang",
+      "Kan Liu",
+      "Tao Lan",
+      "Lin Qu",
+      "Chaoyue Niu",
+      "Shengzhong Liu",
+      "Guihai Chen",
+      "Fan Wu"
+    ],
+    "title": "C$^2$KV: Compressed and Composable KV Cache Reuse for Efficient LLM Inference",
+    "container": "arXiv:2607.17715",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2607.17715"
+  },
+  "luo-2026-smartgen": {
+    "type": "preprint",
+    "author": [
+      "Xuchuan Luo",
+      "Jiacheng Shen",
+      "Xin Wang",
+      "Yangfan Zhou"
+    ],
+    "title": "SmartGen: Seamless Disaggregated LLM Inference with Selective KV Cache Transfer",
+    "container": "arXiv:2607.28150",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2607.28150"
+  },
+  "ojewale-2026-netkv": {
+    "type": "preprint",
+    "author": [
+      "Mubarak Adetunji Ojewale"
+    ],
+    "title": "NetKV: Network-Aware Decode Instance Selection for Disaggregated LLM Inference",
+    "container": "arXiv:2606.03910",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2606.03910"
+  },
+  "yang-2026-spectrumkv": {
+    "type": "preprint",
+    "author": [
+      "Yang Pengju"
+    ],
+    "title": "SpectrumKV: Per-Token Mixed-Precision KV Cache Transfer for Prefill-Decode Disaggregated LLM Serving",
+    "container": "arXiv:2606.08635",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2606.08635"
+  },
+  "lim-2026-lodestar": {
+    "type": "preprint",
+    "author": [
+      "Gangmuk Lim",
+      "Wanyu Zhao",
+      "Brighten Godfrey",
+      "Jiaxin Shan",
+      "Le Xu",
+      "Liguang Xie"
+    ],
+    "title": "Lodestar: An Online-Learning LLM Inference Router",
+    "container": "arXiv:2606.00946",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2606.00946"
+  },
+  "wang-2026-pdd": {
+    "type": "preprint",
+    "author": [
+      "Yida Wang",
+      "Xiuhong Li",
+      "Jianping Ma",
+      "Gan Sun",
+      "Yunshen Xu",
+      "Buhe Han",
+      "Jingxu Ng",
+      "Yuhao Luo",
+      "Ke Hong",
+      "Guohao Dai",
+      "Boxun Li",
+      "Yu Wang"
+    ],
+    "title": "PDD: Unleashing Economical and Flexible Heterogeneous LLM Inference via Cross-Datacenter Prefill-Decode Disaggregation",
+    "container": "arXiv:2609.13161",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2609.13161"
+  },
+  "he-2026-unison": {
+    "type": "preprint",
+    "author": [
+      "Fan He",
+      "Yan Li",
+      "Xiaoyang Zeng"
+    ],
+    "title": "UNISON: A Co-Designed Near-Memory Scheduler of Session KV Residency for LLM Agents",
+    "container": "arXiv:2609.09643",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2609.09643"
+  },
+  "zhang-2026-hijackkv": {
+    "type": "preprint",
+    "author": [
+      "Yichi Zhang",
+      "Zhiqi Wang",
+      "Huan Zhang",
+      "Yuchen Yang"
+    ],
+    "title": "HijackKV: New Threat in Position-Independent KV Cache Reuse",
+    "container": "arXiv:2607.19957",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2607.19957"
+  },
+  "schambach-2026-enclavex": {
+    "type": "preprint",
+    "author": [
+      "Robert Schambach",
+      "Quoc Do Le",
+      "Sergei Arnautov",
+      "Christof Fetzer"
+    ],
+    "title": "EnclaveX: End-to-End Confidential AI with CPU/GPU TEEs",
+    "container": "arXiv:2606.31408",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2606.31408"
+  },
+  "vellaisamy-2026-energytoken": {
+    "type": "preprint",
+    "author": [
+      "Prabhu Vellaisamy",
+      "Vanessa Lam",
+      "Shawn Blanton",
+      "John Paul Shen"
+    ],
+    "title": "Characterization of Request and Token Energy Costs for LLM Inference Workloads on GPU Platforms",
+    "container": "arXiv:2608.28044",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2608.28044"
+  },
+  "chandrasekar-2026-measurementbias": {
+    "type": "preprint",
+    "author": [
+      "Ashok Chandrasekar",
+      "Jason Kramberger"
+    ],
+    "title": "Identifying and Mitigating Systemic Measurement Bias in Production LLM Inference Benchmarks",
+    "container": "arXiv:2605.24217",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2605.24217"
+  },
+  "patil-2026-costmeter": {
+    "type": "preprint",
+    "author": [
+      "Chitral Patil"
+    ],
+    "title": "Beyond Per-Token Pricing: A Concurrency-Aware Methodology for LLM Infrastructure Cost Estimation",
+    "container": "arXiv:2606.11690",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2606.11690"
+  },
+  "li-2026-programmablekv": {
+    "type": "preprint",
+    "author": [
+      "Bojie Li"
+    ],
+    "title": "Models Take Notes at Prefill: KV Cache Can Be Editable and Composable",
+    "container": "arXiv:2606.17107",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2606.17107"
+  },
+  "kanichai-2026-pykvcache": {
+    "type": "preprint",
+    "author": [
+      "Joseph Kanichai",
+      "Tiziano De Matteis",
+      "Animesh Trivedi"
+    ],
+    "title": "Building py-kvcache: A Performance Characterization of External KV Caching for vLLM with NVMe SSDs",
+    "container": "arXiv:2609.11744",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2609.11744"
+  },
+  "qiu-2026-tutti": {
+    "type": "preprint",
+    "author": [
+      "Shi Qiu",
+      "Yifan Hu",
+      "Xintao Wang",
+      "Wenhao Zhu",
+      "Jianqin Yan",
+      "Hao Chen",
+      "Kaiqiang Xu",
+      "Kai Chen",
+      "Yiming Zhang"
+    ],
+    "title": "Tutti: Making SSD-Backed KV Cache Practical for Long-Context LLM Serving",
+    "container": "arXiv:2605.03375",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2605.03375"
+  },
+  "tumkur-2026-placement": {
+    "type": "preprint",
+    "author": [
+      "Srikanta Datta Tumkur",
+      "Jay Iyer",
+      "Mehar Simhadri",
+      "Sai Pavan Kumar",
+      "Sai Kapil Kumar",
+      "Ramesh Nampelly"
+    ],
+    "title": "Where Should the KV Cache Live? Placement Policies Across GPU, CPU, and SSD for Long-Lived Sessions",
+    "container": "arXiv:2609.16215",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2609.16215"
+  },
+  "fan-2026-cxlk8s": {
+    "type": "preprint",
+    "author": [
+      "Hongjian Fan",
+      "Kevin Zhang",
+      "David Habinsky",
+      "Sean Dykstra"
+    ],
+    "title": "Composable CXL Memory as a Kubernetes-Native Shared Memory for LLM Serving",
+    "container": "arXiv:2609.10790",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2609.10790"
+  },
+  "zhu-2026-objectcache": {
+    "type": "preprint",
+    "author": [
+      "Yu Zhu",
+      "Aditya Dhakal",
+      "Yunming Xiao",
+      "Dejan Milojicic",
+      "Gustavo Alonso"
+    ],
+    "title": "ObjectCache: Layerwise Object-Storage Retrieval for KV Cache Reuse",
+    "container": "arXiv:2605.22850",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2605.22850"
+  },
+  "ma-2026-sac": {
+    "type": "preprint",
+    "author": [
+      "Ruiyang Ma",
+      "Teng Ma",
+      "Junru Li",
+      "Hantian Zha",
+      "Xuchun Shang",
+      "Qingda Hu",
+      "Zheng Liu",
+      "Xinjun Yang",
+      "Tao Ma",
+      "Guojie Luo"
+    ],
+    "title": "SAC: Disaggregated KV Cache System for Sparse Attention LLMs with CXL",
+    "container": "arXiv:2606.19746",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2606.19746"
+  },
+  "lin-2026-kvdrive": {
+    "type": "preprint",
+    "author": [
+      "Jian Lin",
+      "Jiazhi Mi",
+      "Zicong Hong",
+      "Haodong Wang",
+      "Qianli Liu",
+      "Haoyue Zhang",
+      "Peng Li",
+      "Song Guo"
+    ],
+    "title": "KVDrive: A Holistic Multi-Tier KV Cache Management System for Long-Context LLM Inference",
+    "container": "arXiv:2605.18071",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2605.18071"
+  },
+  "qin-2026-prfaas": {
+    "type": "preprint",
+    "author": [
+      "Ruoyu Qin",
+      "Weiran He",
+      "Yaoyu Wang",
+      "Zheming Li",
+      "Xinran Xu",
+      "Yongwei Wu",
+      "Weimin Zheng",
+      "Mingxing Zhang"
+    ],
+    "title": "Prefill-as-a-Service: KVCache of Next-Generation Models Could Go Cross-Datacenter",
+    "container": "arXiv:2604.15039",
+    "year": 2026,
+    "url": "https://arxiv.org/abs/2604.15039"
   }
 }
