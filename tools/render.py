@@ -20,6 +20,23 @@ REFS = ROOT / "references" / "references.json"
 BIB = ROOT / "references" / "references.bib"
 
 CITE = re.compile(r"\[(@[\w.-]+(?:\s*;\s*@[\w.-]+)*)\]")
+TOC_MARKER = "<!-- toc -->"
+
+
+def slug(heading):
+    """GitHub's anchor for a heading: lowercase, drop punctuation, spaces to hyphens."""
+    text = re.sub(r"[^\w\- ]", "", heading.strip().lower())
+    return text.replace(" ", "-")
+
+
+def toc(markdown):
+    """A contents list of the level-2 headings that follow the marker."""
+    after = markdown.split(TOC_MARKER, 1)[1]
+    lines = []
+    for heading in re.findall(r"^## (.+)$", after, flags=re.M):
+        lines.append(f"- [{heading}](#{slug(heading)})")
+    lines.append("- [References](#references)")
+    return "\n".join(lines)
 
 
 def authors(names):
@@ -73,6 +90,8 @@ def main():
         return "[" + ", ".join(links) + "]"
 
     body = CITE.sub(number, text).rstrip() + "\n"
+    if TOC_MARKER in body:
+        body = body.replace(TOC_MARKER, toc(body), 1)
     listing = ["", "## References", ""]
     for n, key in enumerate(order, 1):
         listing.append(f'<a id="ref-{n}"></a>{n}. {entry(refs[key])}')
