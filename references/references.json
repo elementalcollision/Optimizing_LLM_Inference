@@ -3551,5 +3551,270 @@
     "year": 2025,
     "url": "https://huggingface.co/openai/gpt-oss-20b/raw/main/config.json",
     "note": "Accessed 2026-09-27. Public, ungated repo, fetched directly. num_hidden_layers=24, num_key_value_heads=8, head_dim=64 (explicit field), num_attention_heads=64, sliding_window=128; layer_types explicitly alternates sliding_attention/full_attention across all 24 layers. max_position_embeddings=131072, within this tool's 128K comparison. Also carries quantization_config: {quant_method: 'mxfp4', modules_to_not_convert: ['model.layers.*.self_attn', 'model.layers.*.mlp.router', 'model.embed_tokens', 'lm_head']} -- i.e. OpenAI's own config explicitly excludes the attention path from mxfp4 weight quantization, which is the basis for this tool's native_dtype=bf16 assumption for KV cache across all models in this table (see the docstring note on DeepSeek-V3/Kimi-K2, whose configs carry no equivalent exclusion list)."
+  },
+  "deepseek-2026-v4": {
+    "type": "preprint",
+    "author": [
+      "DeepSeek-AI"
+    ],
+    "title": "DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence",
+    "container": "arXiv:2606.19348",
+    "year": 2026,
+    "date": "2026-04-26",
+    "url": "https://arxiv.org/abs/2606.19348",
+    "note": "Released 24-26 April 2026 as open weights (DeepSeek-V4-Pro, 1.6T total / 49B active; DeepSeek-V4-Flash, 284B / 13B active), 1M-token context. Sec. 2.3 describes hybrid Compressed Sparse Attention (CSA, compresses every m tokens into one entry then applies DSA top-k selection) and Heavily Compressed Attention (HCA, compresses every m'>>m tokens into one entry, dense attention), each retaining a sliding-window branch for recent uncompressed tokens. Reports that at 1M-token context V4-Pro needs 10% of V3.2's KV cache (27% of its single-token FLOPs) and V4-Flash needs 7% (10% of FLOPs); separately reports ~2% of a BF16 GQA-8, head-dim-128 baseline. Figure 1's caption describes these as 'estimated' FLOPs/KV-cache figures."
+  },
+  "hf-2026-deepseekv4-docs": {
+    "type": "docs",
+    "author": [
+      "Hugging Face"
+    ],
+    "title": "DeepSeek-V4 model documentation (Transformers)",
+    "container": "huggingface/transformers documentation",
+    "year": 2026,
+    "url": "https://github.com/huggingface/transformers/blob/main/docs/source/en/model_doc/deepseek_v4.md",
+    "note": "States default compression rates compress_rate_csa (m) = 4 and compress_rate_hca (m') = 128, and describes per-layer cache state (DeepseekV4CSACache / DeepseekV4HCACache) that must be tracked alongside the sliding-window K/V."
+  },
+  "zeng-2026-hybridkv": {
+    "type": "conference",
+    "author": [
+      "Bowen Zeng",
+      "Feiyang Ren",
+      "Jun Zhang",
+      "Xiaoling Gu",
+      "Ke Chen",
+      "Lidan Shou",
+      "Huan Li"
+    ],
+    "title": "HYBRIDKV: Hybrid KV Cache Compression for Efficient Multimodal Large Language Model Inference",
+    "container": "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (ACL 2026), Volume 1: Long Papers",
+    "year": 2026,
+    "url": "https://aclanthology.org/2026.acl-long.594.pdf"
+  },
+  "wang-2026-viscache": {
+    "type": "preprint",
+    "author": [
+      "Lyuke Wang",
+      "Zhuo Li",
+      "Guangxu Zhu"
+    ],
+    "title": "VisCache: Visual KV Cache Pruning for Efficient Vision Large Language Model Inference",
+    "container": "arXiv:2608.24063",
+    "year": 2026,
+    "date": "2026-08-25",
+    "url": "https://arxiv.org/abs/2608.24063"
+  },
+  "zhuang-2026-myopia": {
+    "type": "conference",
+    "author": [
+      "Jiedong Zhuang",
+      "Lu Lu",
+      "Ming Dai",
+      "Jian Chen",
+      "Qiang Liu",
+      "Haoji Hu"
+    ],
+    "title": "Myopia Rectification: KV Cache Pruning for MLLMs Via Dynamic Attention Subsidy and Token Reclamation",
+    "container": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026)",
+    "year": 2026,
+    "url": "https://openaccess.thecvf.com/content/CVPR2026F/papers/Zhuang_Myopia_Rectification_KV_Cache_Pruning_for_MLLMs_Via_Dynamic_Attention_CVPRF_2026_paper.pdf"
+  },
+  "nebius-2026-wekab300": {
+    "type": "blog",
+    "author": [
+      "Nebius"
+    ],
+    "title": "Nebius and WEKA benchmark shared KV cache for agentic inference on NVIDIA HGX B300",
+    "container": "Nebius blog",
+    "year": 2026,
+    "url": "https://nebius.com/blog/posts/nebius-weka-shared-kv-cache-benchmark-hgx-b300",
+    "note": "Published 24 September 2026; verified by direct fetch. Vendor-reported; eight-hour replay of captured agentic coding sessions against nvidia/DeepSeek-V4-Pro-NVFP4 on one 8x B300 node (TP=8, vLLM v0.23), HBM-only vs. WEKA Augmented Memory Grid pooling local NVMe across eight nodes over GPUDirect RDMA. Reports 93% vs. 40% cache hit rate, 2.4x requests served, and 3.2x fewer prefilled tokens in total despite serving more requests."
+  },
+  "llmd-2026-prefixrouting": {
+    "type": "docs",
+    "author": [
+      "llm-d Project"
+    ],
+    "title": "Prefix-Cache Aware Routing",
+    "container": "llm-d documentation",
+    "year": null,
+    "url": "https://llm-d.ai/docs/dev/architecture/advanced/kv-management/prefix-cache-aware-routing",
+    "note": "Documentation is continuously updated; accessed September 2026. The specific tier-weighting default values (gpu = 1.0, cpu = 0.8) are documented on the companion KV-Cache Indexer page, https://llm-d.ai/docs/architecture/advanced/kv-management/kv-indexer."
+  },
+  "llmd-2026-benchmarkreadme": {
+    "type": "docs",
+    "author": [
+      "llm-d Project"
+    ],
+    "title": "Precise Prefix Cache Aware Routing (benchmark guide)",
+    "container": "llm-d GitHub repository",
+    "year": null,
+    "url": "https://github.com/llm-d/llm-d/blob/main/guides/precise-prefix-cache-aware/README.md",
+    "note": "README, accessed September 2026. Benchmark table (16xH100, 8 replicas, TP=2, Qwen3-32B): k8s Service round-robin 5,722 output tok/s / 58.10s mean TTFT vs. llm-d precise scorer 12,598 tok/s / 0.247s mean TTFT."
+  },
+  "aws-2026-cacheawarerouting": {
+    "type": "repo",
+    "author": [
+      "AWS Samples"
+    ],
+    "title": "Cache-Aware LLM Routing on Amazon EKS with Gateway API Inference Extension and llm-d",
+    "container": "AWS Samples GitHub repository",
+    "year": 2026,
+    "url": "https://github.com/aws-samples/sample-eks-cache-aware-llm-routing",
+    "note": "README, accessed September 2026 (repo created 2026-07-06). Benchmark: 150 concurrent users, 25 QPS Poisson arrival, 8x Mistral-7B pods on EC2 G5, 3-minute sustained multi-turn load; p90 TTFT improvement 44-69% across time buckets, round-robin degrading to 4.4s vs. 1.4s for cache-aware routing."
+  },
+  "google-2026-gkeinferencegw": {
+    "type": "blog",
+    "author": [
+      "Bob Tian",
+      "Susan Wu"
+    ],
+    "title": "GKE Inference Gateway prefix caching accelerates AI inference",
+    "container": "Google Cloud Blog",
+    "year": 2026,
+    "date": "2026-06-10",
+    "url": "https://cloud.google.com/blog/products/containers-kubernetes/gke-inference-gateway-prefix-caching-accelerates-ai-inference",
+    "note": "Cites an independent Principled Technologies benchmark report (commissioned by Google), https://www.principledtechnologies.com/google/GKE-Inference-Gateway-study-0526/, comparing GKE Inference Gateway to Amazon EKS's standard round-robin load balancer on 8x NVIDIA A100 40GB GPUs, Llama 3.1 8B Instruct, shared-prefix workload: 15.7% higher throughput, 92.8% lower mean TTFT, 62.6% lower mean ITL."
+  },
+  "penguin-2026-memoryai": {
+    "type": "pressrelease",
+    "author": [
+      "Penguin Solutions"
+    ],
+    "title": "Penguin Solutions Introduces Industry's First Production-Ready CXL-Based KV Cache Server",
+    "container": "Business Wire",
+    "year": 2026,
+    "date": "2026-03-16",
+    "url": "https://www.businesswire.com/news/home/20260316416248/en/Penguin-Solutions-Introduces-Industrys-First-Production-Ready-CXL-Based-KV-Cache-Server",
+    "note": "Accessed 2026-09-27. Announces the MemoryAI KV cache server, billed as 'the industry's first production-ready KV cache server that utilizes CXL memory technology': 3 TB of DDR5 main memory plus up to eight 1 TB CXL Add-in Cards for up to 11 TB of pooled memory; states compatibility with NVIDIA Dynamo."
+  },
+  "samsung-2026-cmmd": {
+    "type": "blog",
+    "author": [
+      "Samsung Semiconductor"
+    ],
+    "title": "Breaking AI Memory Limits with CXL Memory Pooling",
+    "container": "Samsung Semiconductor Tech Blog",
+    "year": 2026,
+    "date": "2026-07-08",
+    "url": "https://semiconductor.samsung.com/news-events/tech-blog/breaking-ai-memory-limits-with-cxl-memory-pooling/",
+    "note": "Accessed 2026-09-27. Vendor evaluation: CMM-D CXL memory modules aggregated via a CXL switch into a 1 TB pool, used as an LMCache backend for vLLM on NVIDIA RTX PRO 6000 Blackwell GPUs. Single-GPU configuration matched DRAM-backend performance; 8-GPU configuration retained ~92% of DRAM performance. Separately reports that a 512 GB DRAM configuration degraded from cache re-computation overhead once KV-cache demand exceeded capacity, while the 1 TB CXL pool held stable performance at larger footprints."
+  },
+  "marvell-2026-structera": {
+    "type": "blog",
+    "author": [
+      "Jianping Jiang"
+    ],
+    "title": "Structera S: Scaling the AI Memory Wall with CXL Switching",
+    "container": "Marvell Blogs",
+    "year": 2026,
+    "date": "2026-03-17",
+    "url": "https://www.marvell.com/blogs/structera-s-scaling-the-ai-memory-wall-with-cxl-switching.html",
+    "note": "Accessed 2026-09-27. Announces Structera S 30260 (PCIe 6.0/CXL 3.x): up to 48 TB shared memory and 4 TB/s cumulative bandwidth per switch, sub-460ns round-trip latency through the switch, sampling to customers in Q3 2026. Reports a 16 TB memory pool shared by eight GPUs and a two-CPU server improving inference throughput 4.8x and reducing time-to-first-token 82.7% (vendor data)."
+  },
+  "asteralabs-2026-tokenomics": {
+    "type": "blog",
+    "author": [
+      "Amit Golander"
+    ],
+    "title": "Inference Tokenomics: How CXL Memory Expansion Improves AI Economics",
+    "container": "Astera Labs Blog",
+    "year": 2026,
+    "url": "https://www.asteralabs.com/resources/blog/inference-tokenomics-how-cxl-memory-expansion-improves-ai-economics/",
+    "note": "Accessed 2026-09-27. States Leo-based CXL memory controllers deployed with Penguin Solutions demonstrate 75% higher GPU utilization and 2x inference throughput; describes intra-GPU-server (CPU-CXL) and inter-GPU-server (shared, RDMA-accessed KV-cache appliance, demonstrated at Penguin Solutions' GTC booth) deployment modes; integrates with vLLM, TensorRT-LLM and SGLang."
+  },
+  "sglang-2026-hicachedesign": {
+    "type": "docs",
+    "author": [
+      "SGLang Project"
+    ],
+    "title": "HiCache System Design and Optimization",
+    "container": "SGLang documentation",
+    "year": 2026,
+    "url": "https://docs.sglang.io/docs/advanced_features/hicache_design",
+    "note": "Accessed 2026-09-27. Describes the L1 (GPU, per-instance)/L2 (host memory, per-instance)/L3 (pluggable distributed backend, shared across instances: Mooncake, DeepSeek 3FS/HF3FS, NIXL, AIBrix) architecture, the HiRadixTree location-metadata structure, and configuration flags including --hicache-size (per-rank host pool size) and --enable-lmcache. States explicitly that LMCache 'provides an alternative solution to HiCache' via --enable-lmcache, rather than acting as an HiCache L3 backend; confirmed against the SGLang server_arguments reference and source (ServerArgs.enable_lmcache swaps in a separate LMCRadixCache in place of the default/Hi RadixCache)."
+  },
+  "sglang-2026-hicacheblog": {
+    "type": "blog",
+    "author": [
+      "Zhiqiang Xie"
+    ],
+    "title": "SGLang HiCache: Fast Hierarchical KV Caching with Your Favorite Storage Backends",
+    "container": "LMSYS Org Blog",
+    "year": 2025,
+    "date": "2025-09-10",
+    "url": "https://lmsys.org/blog/2025-09-10-sglang-hicache/",
+    "note": "Accessed 2026-09-27. Launch post: up to 6x throughput / up to 80% TTFT reduction in SGLang's own measurements. Quotes Novita AI (Qwen3-Coder-480B coding-agent traffic, HiCache+DeepSeek 3FS: TTFT down 56%, throughput doubled, hit rate 40%->80%) and Ant Group (DeepSeek-R1-671B, PD-disaggregated, HiCache+Mooncake: 84% TTFT reduction on cache hits vs. full recompute)."
+  },
+  "mlcommons-2026-storagev3": {
+    "type": "pressrelease",
+    "author": [
+      "MLCommons"
+    ],
+    "title": "MLCommons Releases New MLPerf Storage v3.0 Benchmark Results",
+    "container": "MLCommons",
+    "year": 2026,
+    "date": "2026-09-01",
+    "url": "https://mlcommons.org/2026/09/mlperf-storage-v3-0-results/",
+    "note": "Verified by direct fetch 2026-09-27. Announces v3.0's new KV Cache test ('measures storage performance for LLM inference cache read/write operations') and new Vector Database test, plus a new S3 object-storage access layer; 19 submitting organizations, 11 first-time submitters."
+  },
+  "mlcommons-2026-kvcachebench": {
+    "type": "docs",
+    "author": [
+      "MLCommons"
+    ],
+    "title": "MLPerf Storage Benchmark Suite — KV Cache Workloads",
+    "container": "MLCommons storage GitHub repository (kv_cache_benchmark/README.md, DESIGN.md)",
+    "year": 2026,
+    "url": "https://github.com/mlcommons/storage/blob/main/kv_cache_benchmark/README.md",
+    "note": "Verified by direct fetch 2026-09-27. Confirms the three fixed closed-division workloads (llama3.1-8b at 200 users/0 CPU-mem-GB, llama3.1-8b at 100 users/4 CPU-mem-GB, llama3.1-70b-instruct at 70 users/0 CPU-mem-GB) and the reported metrics (tokens/sec, per-tier read/write GiB/s, p95 read latency). The repo's own hit-rate table lists 'ShareGPT + defaults' at 85-97% and the worst-case combination ('--disable-multi-turn --disable-prefix-caching' plus '--cpu-mem-gb 0') at 5-15%."
+  },
+  "mlcommons-2026-storagev3res": {
+    "type": "report",
+    "author": [
+      "MLCommons"
+    ],
+    "title": "Final MLPerf Storage v3.0 Supplemental Discussion",
+    "container": "MLCommons",
+    "year": 2026,
+    "date": "2026-08-31",
+    "url": "https://mlcommons.org/wp-content/uploads/2026/08/Final-MLPerf-Storage-v3.0-Supplemental-UNDER-EMBARGO-UNTIL-9_1_26-8_00-AM-PT.pdf",
+    "note": "Verified by direct fetch 2026-09-27 (embargo lifted 2026-09-01). Vendor self-reported KV Cache results confirmed verbatim: Samsung PM1763 '813 tok/s throughput with 13.54 GiB/s read and 2.87 GiB/s write bandwidth concurrently for LLaMA3.1-8B'; HPE Cray K3000 'Over 8,700 tokens per second and over 151 GiB/s across 16 clients in KV caching'; Inspur AS13000G7 'single-node throughput of 14,579.22 tok/s' on the KVCache 8B scenario."
+  },
+  "mlcommons-2026-agenticinference": {
+    "type": "blog",
+    "author": [
+      "MLCommons"
+    ],
+    "title": "Agentic Inference for MLPerf Inference",
+    "container": "MLCommons",
+    "year": 2026,
+    "date": "2026-07-08",
+    "url": "https://mlcommons.org/2026/07/agentic-inference-for-mlperf-inference/",
+    "note": "Verified by direct fetch 2026-09-27. Previews a new MLPerf Endpoints multi-turn benchmark: 613 trajectories (113 agentic-coding from DataCurve's DeepSWE dataset, 500 agentic-workflow from Workato), evaluated on Kimi K2.6 and Qwen3.6-35B-A3B. Client design section states a 'stable X-Session-ID header ... so routers can preserve KV-cache locality' and 'Cache salting: deterministic salt markers around the system prompt allow valid within-trajectory reuse while blocking invalid cross-trajectory reuse.'"
+  },
+  "mao-2026-hotcarbon": {
+    "type": "paper",
+    "author": [
+      "Gilbert L. Mao",
+      "Ruiyang Zhou"
+    ],
+    "title": "Energy Characterization of KV Cache Offloading Under Agentic Workloads",
+    "container": "HotCarbon 2026 (Workshop on Sustainable Computer Systems) / ACM SIGENERGY Energy Informatics Review",
+    "year": 2026,
+    "url": "https://hotcarbon.org/assets/2026/paper-20.pdf",
+    "note": "Verified by direct fetch 2026-09-27 (Georgia Tech authors, per-endpoint production agentic trace replay from Applied Compute on NVIDIA H200s, Llama-3.1-8B, vLLM 0.11.0+). Table 1 and surrounding text confirm: below-90%-p95-KV-utilization conditions show energy deltas within noise of idle-power variance (+-2-3W, 2.0-3.9%); above-90% conditions show 14.4-31.9% GPU energy savings; host CPU/DRAM energy difference is statistically indistinguishable from zero (-0.015+-0.009 J/token, n=15); the data-movement asymmetry is ~0.2 nJ/byte (PCIe move) vs ~100 nJ/byte (GPU recompute), a >=400x gap, ~10^5 FLOPs/byte; throughput-collapse failure mode drops GPU power to 177-182W with output limited to ~27,000 tokens vs 117-158k normally."
+  },
+  "chen-2026-invwatt": {
+    "type": "preprint",
+    "author": [
+      "Huamin Chen"
+    ],
+    "title": "The 1/W Law: An Analytical Study of Context-Length Routing Topology and GPU Generation Gains for LLM Inference Energy Efficiency",
+    "container": "arXiv:2603.17280",
+    "year": 2026,
+    "date": "2026-03-18",
+    "url": "https://arxiv.org/abs/2603.17280",
+    "note": "Verified by direct fetch 2026-09-27. Purely analytical (no new hardware experiments); calibrated to published H100 power measurements, with B200/H200 figures stated as projections at +-20% uncertainty. Abstract confirms: 'tokens per watt halves every time the context window doubles'; H100 16 sequences/64K context (1.5 tok/W) vs. 256 sequences/4K context (17.6 tok/W); two-pool context-length routing (FleetOpt) ~2.5x over a homogeneous fleet; H100->B200 ~1.7x; combined ~4.25x."
   }
 }
