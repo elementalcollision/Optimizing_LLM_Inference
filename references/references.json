@@ -1,0 +1,335 @@
+{
+  "databricks": {
+    "type": "blog",
+    "author": [
+      "Megha Agarwal",
+      "Asfandyar Qureshi",
+      "Nikhil Sardana",
+      "Linden Li",
+      "Julian Quevedo",
+      "Daya Khudia"
+    ],
+    "title": "LLM Inference Performance Engineering: Best Practices",
+    "container": "Databricks Engineering Blog",
+    "year": 2023,
+    "date": "2023-10-12",
+    "url": "https://www.databricks.com/blog/llm-inference-performance-engineering-best-practices"
+  },
+  "nim-metrics": {
+    "type": "docs",
+    "author": [
+      "NVIDIA"
+    ],
+    "title": "Metrics — NVIDIA NIM LLMs Benchmarking",
+    "container": "NVIDIA NIM documentation",
+    "year": null,
+    "url": "https://docs.nvidia.com/nim/benchmarking/llm/latest/metrics.html"
+  },
+  "doubao15": {
+    "type": "blog",
+    "author": [
+      "ByteDance Doubao (Seed) Team"
+    ],
+    "title": "Doubao-1.5-pro",
+    "container": "ByteDance Seed technical blog",
+    "year": 2025,
+    "date": "2025-01-22",
+    "url": "https://seed.bytedance.com/en/special/doubao_1_5_pro"
+  },
+  "instinfer": {
+    "type": "preprint",
+    "author": [
+      "Xiurui Pan",
+      "Endian Li",
+      "Qiao Li",
+      "Shengwen Liang",
+      "Yizhou Shan",
+      "Ke Zhou",
+      "Yingwei Luo",
+      "Xiaolin Wang",
+      "Jie Zhang"
+    ],
+    "title": "InstInfer: In-Storage Attention Offloading for Cost-Effective Long-Context LLM Inference",
+    "container": "arXiv:2409.04992",
+    "year": 2024,
+    "url": "https://arxiv.org/abs/2409.04992"
+  },
+  "vllm-blog": {
+    "type": "blog",
+    "author": [
+      "Woosuk Kwon",
+      "Zhuohan Li",
+      "Siyuan Zhuang",
+      "Ying Sheng",
+      "Lianmin Zheng",
+      "Cody Hao Yu",
+      "Joseph E. Gonzalez",
+      "Hao Zhang",
+      "Ion Stoica"
+    ],
+    "title": "vLLM: Easy, Fast, and Cheap LLM Serving with PagedAttention",
+    "container": "vLLM Blog",
+    "year": 2023,
+    "date": "2023-06-20",
+    "url": "https://blog.vllm.ai/2023/06/20/vllm.html"
+  },
+  "vllm-sosp": {
+    "type": "conference",
+    "author": [
+      "Woosuk Kwon",
+      "Zhuohan Li",
+      "Siyuan Zhuang",
+      "Ying Sheng",
+      "Lianmin Zheng",
+      "Cody Hao Yu",
+      "Joseph E. Gonzalez",
+      "Hao Zhang",
+      "Ion Stoica"
+    ],
+    "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+    "container": "Proceedings of the 29th ACM Symposium on Operating Systems Principles (SOSP)",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2309.06180"
+  },
+  "kashyap": {
+    "type": "blog",
+    "author": [
+      "Tejaswi Kashyap"
+    ],
+    "title": "Memory Optimization in LLMs: Leveraging KV Cache Quantization for Efficient Inference",
+    "container": "Medium",
+    "year": 2024,
+    "date": "2024-07-05",
+    "url": "https://medium.com/@tejaswi_kashyap/memory-optimization-in-llms-leveraging-kv-cache-quantization-for-efficient-inference-94bc3df5faef"
+  },
+  "headinfer": {
+    "type": "preprint",
+    "author": [
+      "Cheng Luo",
+      "Zefan Cai",
+      "Hanshi Sun",
+      "Jinqi Xiao",
+      "Bo Yuan",
+      "Wen Xiao",
+      "Junjie Hu",
+      "Jiawei Zhao",
+      "Beidi Chen",
+      "Anima Anandkumar"
+    ],
+    "title": "HeadInfer: Memory-Efficient LLM Inference by Head-wise Offloading",
+    "container": "arXiv:2502.12574",
+    "year": 2025,
+    "url": "https://arxiv.org/abs/2502.12574"
+  },
+  "kivi": {
+    "type": "conference",
+    "author": [
+      "Zirui Liu",
+      "Jiayi Yuan",
+      "Hongye Jin",
+      "Shaochen Zhong",
+      "Zhaozhuo Xu",
+      "Vladimir Braverman",
+      "Beidi Chen",
+      "Xia Hu"
+    ],
+    "title": "KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache",
+    "container": "Proceedings of the 41st International Conference on Machine Learning (ICML)",
+    "year": 2024,
+    "url": "https://arxiv.org/abs/2402.02750",
+    "note": "Code: https://github.com/jy-yuan/KIVI"
+  },
+  "vllm-fp8": {
+    "type": "docs",
+    "author": [
+      "vLLM Project"
+    ],
+    "title": "Quantized KV Cache",
+    "container": "vLLM documentation",
+    "year": null,
+    "url": "https://docs.vllm.ai/en/latest/features/quantization/quantized_kvcache.html"
+  },
+  "logquant": {
+    "type": "preprint",
+    "author": [
+      "Han Chen",
+      "Zicong Jiang",
+      "Zining Zhang",
+      "Bingsheng He",
+      "Pingyi Luo",
+      "Mian Lu",
+      "Yuqiang Chen"
+    ],
+    "title": "LogQuant: Log-Distributed 2-Bit Quantization of KV Cache with Superior Accuracy Preservation",
+    "container": "arXiv:2503.19950",
+    "year": 2025,
+    "url": "https://arxiv.org/abs/2503.19950"
+  },
+  "micron": {
+    "type": "report",
+    "author": [
+      "Felippe Vieira Zacarias",
+      "Kiran Palli",
+      "Sudharshan Vazhkudai",
+      "Evelyn Grevelink"
+    ],
+    "title": "Analyzing LLM Performance: The Impact of High-Bandwidth Memory on Model Inference",
+    "container": "Micron Technology engineering report",
+    "year": null,
+    "url": "https://www.micron.com/content/dam/micron/global/public/documents/products/product-flyer/llm-inference-engineering-report.pdf"
+  },
+  "flexgen": {
+    "type": "conference",
+    "author": [
+      "Ying Sheng",
+      "Lianmin Zheng",
+      "Binhang Yuan",
+      "Zhuohan Li",
+      "Max Ryabinin",
+      "Daniel Y. Fu",
+      "Zhiqiang Xie",
+      "Beidi Chen",
+      "Clark Barrett",
+      "Joseph E. Gonzalez",
+      "Percy Liang",
+      "Christopher Ré",
+      "Ion Stoica",
+      "Ce Zhang"
+    ],
+    "title": "FlexGen: High-Throughput Generative Inference of Large Language Models with a Single GPU",
+    "container": "Proceedings of the 40th International Conference on Machine Learning (ICML)",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2303.06865"
+  },
+  "infinigen": {
+    "type": "conference",
+    "author": [
+      "Wonbeom Lee",
+      "Jungi Lee",
+      "Junghwan Seo",
+      "Jaewoong Sim"
+    ],
+    "title": "InfiniGen: Efficient Generative Inference of Large Language Models with Dynamic KV Cache Management",
+    "container": "18th USENIX Symposium on Operating Systems Design and Implementation (OSDI)",
+    "year": 2024,
+    "url": "https://arxiv.org/abs/2406.19707"
+  },
+  "moon-infinigen": {
+    "type": "blog",
+    "author": [
+      "Don Moon"
+    ],
+    "title": "LLM Inference: Accelerating Long Context Generation with KV Cache Offloading to CPU Memory, Using InfiniGen",
+    "container": "Byte-Sized AI (Medium)",
+    "year": 2024,
+    "date": "2024-11-06",
+    "url": "https://medium.com/byte-sized-ai/llm-inference-optimization-accelerating-long-context-generation-with-kv-cache-offloading-to-cpu-12d3bea407d8"
+  },
+  "dejavu": {
+    "type": "conference",
+    "author": [
+      "Foteini Strati",
+      "Sara McAllister",
+      "Amar Phanishayee",
+      "Jakub Tarnawski",
+      "Ana Klimovic"
+    ],
+    "title": "DéjàVu: KV-cache Streaming for Fast, Fault-tolerant Generative LLM Serving",
+    "container": "Proceedings of the 41st International Conference on Machine Learning (ICML)",
+    "year": 2024,
+    "url": "https://arxiv.org/abs/2403.01876"
+  },
+  "moon-dejavu": {
+    "type": "blog",
+    "author": [
+      "Don Moon"
+    ],
+    "title": "LLM Inference Optimization — KV-cache Streaming for Fast, Fault-tolerant Generative LLM Serving, DéjàVu",
+    "container": "Byte-Sized AI (Medium)",
+    "year": 2024,
+    "date": "2024-11-07",
+    "url": "https://medium.com/byte-sized-ai/llm-inference-kv-cache-streaming-for-fast-fault-tolerant-generative-llm-serving-dejavu-100a93be1679"
+  },
+  "gpt4": {
+    "type": "report",
+    "author": [
+      "OpenAI"
+    ],
+    "title": "GPT-4 Technical Report",
+    "container": "arXiv:2303.08774",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2303.08774",
+    "note": "The 32K-context variant (gpt-4-32k) was announced alongside the model in March 2023."
+  },
+  "claude100k": {
+    "type": "blog",
+    "author": [
+      "Anthropic"
+    ],
+    "title": "Introducing 100K Context Windows",
+    "container": "Anthropic News",
+    "year": 2023,
+    "date": "2023-05-11",
+    "url": "https://www.anthropic.com/news/100k-context-windows"
+  },
+  "leviathan": {
+    "type": "conference",
+    "author": [
+      "Yaniv Leviathan",
+      "Matan Kalman",
+      "Yossi Matias"
+    ],
+    "title": "Fast Inference from Transformers via Speculative Decoding",
+    "container": "Proceedings of the 40th International Conference on Machine Learning (ICML)",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2211.17192"
+  },
+  "chen-spec": {
+    "type": "preprint",
+    "author": [
+      "Charlie Chen",
+      "Sebastian Borgeaud",
+      "Geoffrey Irving",
+      "Jean-Baptiste Lespiau",
+      "Laurent Sifre",
+      "John Jumper"
+    ],
+    "title": "Accelerating Large Language Model Decoding with Speculative Sampling",
+    "container": "arXiv:2302.01318",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2302.01318"
+  },
+  "distserve": {
+    "type": "conference",
+    "author": [
+      "Yinmin Zhong",
+      "Shengyu Liu",
+      "Junda Chen",
+      "Jianbo Hu",
+      "Yibo Zhu",
+      "Xuanzhe Liu",
+      "Xin Jin",
+      "Hao Zhang"
+    ],
+    "title": "DistServe: Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving",
+    "container": "18th USENIX Symposium on Operating Systems Design and Implementation (OSDI)",
+    "year": 2024,
+    "url": "https://arxiv.org/abs/2401.09670"
+  },
+  "splitwise": {
+    "type": "conference",
+    "author": [
+      "Pratyush Patel",
+      "Esha Choukse",
+      "Chaojie Zhang",
+      "Aashaka Shah",
+      "Íñigo Goiri",
+      "Saeed Maleki",
+      "Ricardo Bianchini"
+    ],
+    "title": "Splitwise: Efficient Generative LLM Inference Using Phase Splitting",
+    "container": "51st ACM/IEEE Annual International Symposium on Computer Architecture (ISCA)",
+    "year": 2024,
+    "url": "https://arxiv.org/abs/2311.18677"
+  }
+}
